@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monad ABXY</title>
+    <link rel="icon" href="logo-icon.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&family=Noto+Sans+KR:wght@100..900&family=Song+Myung&display=swap"
+        rel="stylesheet">
+
+    <style>
+        :root {
+            --neon-blue: #00f3ff;
+            --neon-purple: #bc13fe;
+            --glass-bg: rgba(0, 15, 40, 0.7);
+            --border-color: rgba(100, 200, 255, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: #050510;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        .background-fixed {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: #0a0b99;
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: linear-gradient(to bottom,
+                    rgba(0, 5, 20, 0.2),
+                    rgba(0, 0, 10, 0.9));
+        }
+
+        .main-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        header {
+            text-align: center;
+            padding: 10px 0 10px;
+            margin-bottom: 40px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .logo-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 10px;
+        }
+
+        .logo-image {
+            max-width: 180px;
+            height: auto;
+            transition: transform 0.6s ease;
+        }
+
+        .logo-image:hover {
+            transform: rotate(360deg);
+        }
+
+        .site-title {
+            font-family: 'Cinzel', serif;
+            font-size: 4rem;
+            font-weight: 700;
+            letter-spacing: 0.3rem;
+            text-transform: uppercase;
+            color: #ffffff;
+            text-shadow: 0 0 20px rgba(0, 243, 255, 0.4);
+            margin-bottom: 10px;
+        }
+
+        .site-desc {
+            color: rgba(200, 230, 255, 0.7);
+            font-size: 1rem;
+            letter-spacing: 0.1rem;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 25px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: auto;
+            min-height: 220px;
+            text-decoration: none;
+            color: #fff;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: var(--neon-blue);
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.2);
+        }
+
+        .card-category {
+            font-size: 0.8rem;
+            color: var(--neon-blue);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            font-family: 'Song Myung', serif;
+        }
+
+        .card-desc {
+            font-size: 0.95rem;
+            color: #ccc;
+            line-height: 1.5;
+            flex-grow: 1;
+        }
+
+        .card-link {
+            text-decoration: none;
+            color: #fff;
+            margin-top: 15px;
+            align-self: flex-start;
+            font-size: 0.9rem;
+            border-bottom: 1px solid var(--neon-blue);
+            padding-bottom: 2px;
+            transition: color 0.3s;
+        }
+
+        .card-link:hover {
+            color: var(--neon-blue);
+        }
+
+        footer {
+            text-align: center;
+            padding: 60px 0;
+            color: rgba(255, 255, 255, 0.3);
+            font-size: 0.8rem;
+        }
+
+        @media (max-width: 768px) {
+            .site-title {
+                font-size: 2.5rem;
+            }
+
+            header {
+                padding: 60px 0 40px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="background-fixed"></div>
+    <div class="overlay"></div>
+
+    <div class="main-container">
+        <header>
+            <div class="logo-container">
+                <img src="logo-white.png" alt="Monad ABXY Logo" class="logo-image">
+            </div>
+            <h1 class="site-title">Monad ABXY</h1>
+        </header>
+
+        <div class="grid-container">
+            <a href="/limgu-font" class="card">
+                <div>
+                    <div class="card-category">Font</div>
+                    <h2 class="card-title">림굴</h2>
+                    <p class="card-desc">굴림의 비트맵 글꼴에서 모양을 가져온 픽셀 폰트</p>
+                </div>
+                <span class="card-link">View Project →</span>
+            </a>
+        </div>
+
+        <footer>
+            © 2025 Monad ABXY.
+        </footer>
+    </div>
+
+</body>
+
+</html>
