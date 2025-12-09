@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Limgul</title>
+    <meta name="description" content="굴림의 비트맵 글꼴에서 모양을 가져온 픽셀 폰트." />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="림굴 Limgul" />
+    <meta property="og:description" content="굴림의 비트맵 글꼴에서 모양을 가져온 픽셀 폰트." />
+    <link rel=" icon" href="/logo-icon.png" />
+    <link rel="stylesheet" href="/css/font-layout.css" />
+    <link rel="stylesheet" href="/css/limgul-face.css" />
+
+    <style>
+      body,
+      .btn-header,
+      .dropdown-item,
+      .switch-wrapper,
+      label {
+        font-family: "Limgul12", sans-serif;
+      }
+
+      h1 {
+        font-family: "Limgul22";
+      }
+
+      .value-display {
+        font-family: "LimgulMono12", monospace;
+      }
+    </style>
+  </head>
+
+  <body>
+    <a href="/" id="main-home-btn" aria-label="메인 페이지로 이동">
+      <img src="/logo-white.png" alt="Monad ABXY Logo" class="logo-image" />
+    </a>
+
+    <div class="container">
+      <header>
+        <h1>림굴</h1>
+        <p class="description">굴림의 비트맵 글꼴에서 모양을 가져온 픽셀 폰트.</p>
+
+        <div class="header-actions">
+          <a href="https://github.com/MonadABXY/limgul-font/archive/refs/heads/main.zip" class="btn-header btn-primary"
+            >⬇ 림굴 전체 다운로드</a
+          >
+          <a href="https://github.com/MonadABXY/limgul-font" target="_blank" class="btn-header btn-outline">GitHub 저장소</a>
+          <a href="/fonts/" class="btn-header btn-outline">다른 폰트 보기</a>
+        </div>
+      </header>
+
+      <div class="tester-wrapper">
+        <div class="panel-header-group">
+          <div class="top-info-row">
+            <div class="header-left-group">
+              <div class="title-area">
+                <div class="font-selector-wrapper" id="font-selector-wrapper">
+                  <div class="font-title-display" id="display-font-title" style="font-family: 'Limgul12'">
+                    Limgul<span id="display-size-num">12</span>
+                    <span class="dropdown-arrow">▼</span>
+                  </div>
+
+                  <ul class="dropdown-list" id="dropdown-list"></ul>
+                </div>
+              </div>
+
+              <div class="switch-wrapper">
+                <label class="switch">
+                  <input type="checkbox" id="toggle-mono" />
+                  <span class="slider-toggle"></span>
+                </label>
+                <span>MONO</span>
+              </div>
+            </div>
+
+            <div class="btn-row">
+              <a href="#" id="btn-dl-ttf" class="btn-file" target="_blank">⬇ TTF</a>
+              <a href="#" id="btn-dl-otf" class="btn-file" target="_blank">⬇ OTF</a>
+              <a href="#" id="btn-dl-woff" class="btn-file" target="_blank">⬇ WOFF2</a>
+            </div>
+          </div>
+
+          <div class="control-group">
+            <label>
+              <span class="value-display" id="val-font-variant">12px</span>
+            </label>
+            <div class="range-wrapper">
+              <input type="range" id="input-font-variant" min="11" max="25" step="1" value="12" />
+            </div>
+          </div>
+        </div>
+
+        <div class="panel-view-controls">
+          <div class="control-group">
+            <label>
+              미리보기 확대
+              <span class="value-display" id="val-view-size">24px</span>
+            </label>
+            <div class="range-wrapper">
+              <input type="range" id="input-view-size" min="11" max="100" step="1" value="24" />
+            </div>
+          </div>
+
+          <div class="control-group">
+            <label>
+              줄 간격
+              <span class="value-display" id="val-line-height">1.2</span>
+            </label>
+            <div class="range-wrapper">
+              <input type="range" id="input-line-height" min="1.0" max="2.5" step="0.05" value="1.2" />
+            </div>
+          </div>
+        </div>
+
+        <textarea id="type-tester" spellcheck="false">
+다람쥐 헌 쳇바퀴에 타고파.
+The quick brown fox jumps over the lazy dog.
+1234567890 !@#$%^&*()</textarea
+        >
+      </div>
+
+      <div class="more-fonts-section">
+        <h2>다른 폰트 구경하기</h2>
+        <div class="more-fonts-grid">
+          <a href="/fonts/umdot/" class="more-font-card">
+            <span class="font-name ff-umdot">움돋(Umdot)</span>
+          </a>
+
+          <a href="/fonts/tangba/" class="more-font-card">
+            <span class="font-name ff-tangba">탕바(Tangba)</span>
+          </a>
+
+          <a href="/fonts/suhgung/" class="more-font-card">
+            <span class="font-name ff-suhgung">서궁(Suhgung)</span>
+          </a>
+
+          <a href="/fonts/" class="more-font-card" style="background: #333">
+            <span class="font-name">더 보기...</span>
+          </a>
+        </div>
+      </div>
+
+      <footer>
+        <div class="footer-content">
+          <p>
+            This Font Software is licensed under the
+            <a href="https://scripts.sil.org/OFL" target="_blank">SIL Open Font License, Version 1.1</a>.<br />
+            This license is available at:
+            <a href="https://scripts.sil.org/OFL" target="_blank">https://scripts.sil.org/OFL</a>
+          </p>
+
+          <p>
+            Copyright © 2025 Monad ABXY.<br />
+            Reserved Font Name "Limgul".
+          </p>
+
+          <p>
+            <a href="https://github.com/googlefonts/gulim/blob/main/OFL.txt" target="_blank">Limgul is based on Gulim</a>.<br />
+            Gulim Copyright © 2024 The Gulim and Dotum Project Authors.
+          </p>
+        </div>
+      </footer>
+    </div>
+
+    <script src="/js/font-tester.js"></script>
+
+    <script>
+      initFontTester({
+        name: "Limgul",
+        nameMono: "LimgulMono",
+        repoBase: "https://github.com/MonadABXY/limgul-font/blob/main",
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>All Fonts - MONAD ABXY</title>
+    <meta name="description" content="모나드(Monad ABXY)에서 제작한 폰트 컬렉션입니다." />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Monad ABXY Fonts" />
+    <meta property="og:description" content="모나드(Monad ABXY)에서 제작한 폰트 컬렉션입니다." />
+    <meta property="og:image" content="/assets/logo-white.png" />
+
+    <link rel="icon" href="/logo-icon.png" />
+
+    <link rel="stylesheet" href="/css/font-layout.css" />
+
+    <style>
+      .gallery-header {
+        margin-top: 40px;
+        margin-bottom: 60px;
+        text-align: center;
+      }
+
+      .gallery-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 30px;
+        width: 100%;
+      }
+
+      .font-card {
+        display: flex;
+        position: relative;
+        flex-direction: column;
+        transition: transform 0.2s, border-color 0.2s;
+        box-shadow: var(--pixel-shadow);
+        border: 2px solid var(--border-color);
+        background-color: var(--panel-header-bg);
+        overflow: hidden;
+        color: #fff;
+        text-decoration: none;
+      }
+
+      .font-card:hover {
+        transform: translateY(-5px);
+        border-color: var(--accent-color);
+      }
+
+      .card-thumb {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-bottom: 2px dashed var(--border-color);
+        background-color: #222;
+        width: 100%;
+        height: 180px;
+        overflow: hidden;
+      }
+
+      .card-thumb img {
+        transition: transform 0.3s;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .font-card:hover .card-thumb img {
+        transform: scale(1.05);
+      }
+
+      .preview-text {
+        padding: 10px;
+        color: var(--accent-color);
+        font-size: 32px;
+        line-height: 1.2;
+        text-align: center;
+      }
+
+      .card-info {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        padding: 20px;
+      }
+
+      .card-header-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .card-title {
+        margin: 0;
+        color: #fff;
+        font-size: 24px;
+      }
+
+      .card-desc {
+        color: #aaa;
+        font-size: 14px;
+        line-height: 1.4;
+      }
+
+      .tags {
+        display: flex;
+        gap: 8px;
+        margin-top: 10px;
+      }
+
+      .tag {
+        border: 1px solid #444;
+        background: #000;
+        padding: 4px 8px;
+        color: var(--accent-color);
+        font-size: 12px;
+      }
+
+      .font-card:hover .tag {
+        background: var(--accent-color);
+        color: #000;
+      }
+    </style>
+  </head>
+
+  <body>
+    <a href="/" id="main-home-btn" aria-label="메인 페이지로 이동">
+      <img src="/logo-white.png" alt="Monad ABXY Logo" class="logo-image" />
+    </a>
+
+    <div class="container">
+      <div class="gallery-header">
+        <h1>FONT COLLECTION</h1>
+        <p class="description">Monad ABXY의 글꼴</p>
+      </div>
+
+      <div class="gallery-grid">
+        <a href="/fonts/limgul/" class="font-card">
+          <div class="card-thumb">
+            <span class="preview-text ff-limgul">림굴<br />Limgul</span>
+          </div>
+          <div class="card-info">
+            <div class="card-header-row">
+              <h2 class="card-title ff-limgul">림굴</h2>
+              <span class="tag">11px~25px</span>
+            </div>
+            <p class="card-desc">굴림의 비트맵 글꼴에서 모양을 가져온 픽셀 폰트.</p>
+          </div>
+        </a>
+
+        <a href="/fonts/umdot/" class="font-card">
+          <div class="card-thumb">
+            <span class="preview-text ff-umdot">움돋<br />Umdot</span>
+          </div>
+          <div class="card-info">
+            <div class="card-header-row">
+              <h2 class="card-title ff-umdot">움돋</h2>
+              <span class="tag">11px~25px</span>
+            </div>
+            <p class="card-desc">돋움의 비트맵 글꼴에서 모양을 가져온 픽셀 폰트.</p>
+          </div>
+        </a>
+
+        <a href="/fonts/tangba/" class="font-card">
+          <div class="card-thumb">
+            <span class="preview-text ff-tangba">탕바<br />Tangba</span>
+          </div>
+          <div class="card-info">
+            <div class="card-header-row">
+              <h2 class="card-title ff-tangba">탕바</h2>
+              <span class="tag">11px~25px</span>
+            </div>
+            <p class="card-desc">바탕의 비트맵 글꼴에서 모양을 가져온 픽셀 폰트.</p>
+          </div>
+        </a>
+
+        <a href="/fonts/suhgung/" class="font-card">
+          <div class="card-thumb">
+            <span class="preview-text ff-suhgung">서궁<br />Suhgung</span>
+          </div>
+          <div class="card-info">
+            <div class="card-header-row">
+              <h2 class="card-title ff-suhgung">서궁</h2>
+              <span class="tag">11px~25px</span>
+            </div>
+            <p class="card-desc">궁서의 비트맵 글꼴에서 모양을 가져온 픽셀 폰트.</p>
+          </div>
+        </a>
+      </div>
+
+      <footer>
+        <div class="footer-content">
+          <p>Copyright © 2025 Monad ABXY.</p>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>
