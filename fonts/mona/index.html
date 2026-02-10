@@ -1,0 +1,708 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Mona Font</title>
+    <meta name="description" content="다국어와 이모지를 지원하는 픽셀 폰트." />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="모나 Mona" />
+    <meta property="og:description" content="다국어와 이모지를 지원하는 픽셀 폰트." />
+    <link rel="icon" href="/logo-icon.png" />
+    <link rel="stylesheet" href="/css/font-layout.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/MonadABXY/mona-font/web/mona.css" />
+
+    <style>
+      body,
+      .btn-header,
+      .dropdown-item,
+      .switch-wrapper,
+      label {
+        font-family: "Mona12", sans-serif;
+      }
+
+      h1 {
+        font-family: "Mona12";
+      }
+
+      .value-display {
+        font-family: "Mona12", monospace;
+      }
+    </style>
+  </head>
+
+  <body>
+    <a href="/" id="main-home-btn" aria-label="메인 페이지로 이동">
+      <img src="/logo-white.png" alt="Monad ABXY Logo" class="logo-image" />
+    </a>
+
+    <div class="container">
+      <header>
+        <h1>모나 폰트</h1>
+        <p class="description">다국어와 이모지를 지원하는 픽셀 폰트.</p>
+
+        <div class="header-actions">
+          <a href="https://github.com/MonadABXY/mona-font/releases/latest" class="btn btn--primary">🚀 최신 버전 다운로드</a>
+          <a href="https://github.com/MonadABXY/mona-font" target="_blank" class="btn btn--outline">GitHub 저장소</a>
+          <a href="/fonts/" class="btn btn--outline">다른 폰트 보기</a>
+        </div>
+      </header>
+
+      <div class="tester-wrapper">
+        <div class="panel-header-group">
+          <div class="top-info-row">
+            <div class="header-left-group">
+              <div class="title-area">
+                <div class="font-selector-wrapper" id="font-selector-wrapper">
+                  <div class="font-title-display" id="display-font-title" style="font-family: Mona12">
+                    Mona<span id="display-size-num">12</span>
+                    <span class="dropdown-arrow">▼</span>
+                  </div>
+
+                  <ul class="dropdown-list" id="dropdown-list"></ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel-view-controls">
+          <div class="control-group">
+            <label>
+              미리보기 확대
+              <span class="value-display" id="val-view-size">24px</span>
+            </label>
+            <div class="range-wrapper">
+              <input type="range" id="input-view-size" min="11" max="100" step="1" value="24" />
+            </div>
+          </div>
+
+          <div class="control-group">
+            <label>
+              줄 간격
+              <span class="value-display" id="val-line-height">1.2</span>
+            </label>
+            <div class="range-wrapper">
+              <input type="range" id="input-line-height" min="1.0" max="2.5" step="0.05" value="1.2" />
+            </div>
+          </div>
+
+          <div class="control-group">
+            <label>
+              이모지 스타일
+              <span class="value-display" id="val-emoji-mode">Color</span>
+            </label>
+
+            <div class="filter-buttons" id="emoji-mode-buttons">
+              <button class="filter-btn active" data-mode="color">컬러</button>
+              <button class="filter-btn" data-mode="mono">흑백</button>
+            </div>
+          </div>
+        </div>
+
+        <textarea id="type-tester" spellcheck="false">
+다람쥐 헌 쳇바퀴에 타고파.
+The quick brown fox jumps over the lazy dog.
+1234567890 !@#$%^&*()
+🌐🌏🌟💫🌠👍🤛🫠😽😂✏✍❓❗🎉🎊✨⛏🦐🦑🥞🥠🥔🍨🍮🍃
+↑↑↓↓←→←→ⒷⒶ
+</textarea
+        >
+      </div>
+
+      <div class="browse-section">
+        <div class="browse-tabs">
+          <button class="browse-tab active" data-tab="glyphs">모든 글리프</button>
+          <button class="browse-tab" data-tab="emoji">모든 이모지</button>
+        </div>
+
+        <section id="tab-glyphs" class="browse-panel active">
+          <div class="browse-toolbar">
+            <div class="filter-buttons" id="glyph-filter-buttons">
+              <button class="filter-btn active" data-value="A">Letters & Marks</button>
+              <button class="filter-btn" data-value="B">Hangul</button>
+              <button class="filter-btn" data-value="C">CJK</button>
+              <button class="filter-btn" data-value="D">Symbols/Math/Technical</button>
+              <button class="filter-btn" data-value="E">Emoji/Pictographs</button>
+            </div>
+          </div>
+
+          <div id="glyph-content"></div>
+        </section>
+
+        <section id="tab-emoji" class="browse-panel">
+          <div class="browse-toolbar">
+            <select id="emoji-group"></select>
+          </div>
+          <div id="emoji-content"></div>
+        </section>
+      </div>
+
+      <div class="more-fonts-section">
+        <h2>다른 폰트 구경하기</h2>
+        <div class="more-fonts-grid">
+          <a href="/fonts/limgul/" class="more-font-card">
+            <span class="font-name ff-limgul">림굴(Limgul)</span>
+          </a>
+
+          <a href="/fonts/umdot/" class="more-font-card">
+            <span class="font-name ff-umdot">움돋(Umdot)</span>
+          </a>
+
+          <a href="/fonts/tangba/" class="more-font-card">
+            <span class="font-name ff-tangba">탕바(Tangba)</span>
+          </a>
+
+          <a href="/fonts/suhgung/" class="more-font-card">
+            <span class="font-name ff-suhgung">서궁(Suhgung)</span>
+          </a>
+
+          <a href="/fonts/" class="more-font-card" style="background: #333">
+            <span class="font-name">더 보기...</span>
+          </a>
+        </div>
+      </div>
+
+      <footer>
+        <div class="footer-content">
+          <p>
+            This Font Software is licensed under the
+            <a href="https://scripts.sil.org/OFL" target="_blank">SIL Open Font License, Version 1.1</a>.<br />
+            This license is available at:
+            <a href="https://scripts.sil.org/OFL" target="_blank">https://scripts.sil.org/OFL</a>
+          </p>
+
+          <p>
+            Copyright © 2025 Monad ABXY.<br />
+            Reserved Font Name "Mona".
+          </p>
+        </div>
+      </footer>
+    </div>
+
+    <script>
+      const availableFonts = ["Mona12"];
+      let currentFont = "Mona12";
+
+      const tester = document.getElementById("type-tester");
+      const sizeInput = document.getElementById("input-view-size");
+      const lineInput = document.getElementById("input-line-height");
+      const dropdownList = document.getElementById("dropdown-list");
+      const displayTitle = document.getElementById("display-font-title");
+      const selectorWrapper = document.getElementById("font-selector-wrapper");
+
+      function initDropdown() {
+        dropdownList.innerHTML = "";
+        availableFonts.forEach((font) => {
+          const li = document.createElement("li");
+          li.className = "dropdown-item" + (font === currentFont ? " active" : "");
+          li.textContent = font;
+          li.addEventListener("click", () => {
+            changeFont(font);
+            closeDropdown();
+          });
+          dropdownList.appendChild(li);
+        });
+      }
+
+      let emojiMode = "color";
+
+      function getEmojiStack() {
+        const stacks = {
+          color: `"${currentFont}", "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif`,
+          mono: `"Mona12 Emoji", "${currentFont}", "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif`,
+        };
+        return stacks[emojiMode] || stacks.color;
+      }
+
+      function applyTesterFontStack() {
+        tester.style.fontFamily = getEmojiStack();
+        document.getElementById("val-emoji-mode").textContent = emojiMode === "color" ? "Color" : "Mono";
+      }
+
+      function changeFont(fontName) {
+        currentFont = fontName;
+
+        document.getElementById("display-size-num").textContent = fontName.replace("Mona", "");
+        displayTitle.style.fontFamily = fontName;
+
+        initDropdown();
+        applyTesterFontStack();
+      }
+
+      const emojiModeButtons = document.getElementById("emoji-mode-buttons");
+      emojiModeButtons.addEventListener("click", (e) => {
+        const btn = e.target.closest(".filter-btn");
+        if (!btn) return;
+
+        emojiModeButtons.querySelectorAll(".filter-btn").forEach((b) => b.classList.remove("active"));
+        btn.classList.add("active");
+
+        emojiMode = btn.dataset.mode;
+        applyTesterFontStack();
+        renderEmoji();
+        renderGlyphGrid();
+      });
+
+      lineInput.addEventListener("input", (e) => {
+        const height = e.target.value;
+        tester.style.lineHeight = height;
+        document.getElementById("val-line-height").textContent = height;
+      });
+
+      displayTitle.addEventListener("click", (e) => {
+        e.stopPropagation();
+        selectorWrapper.classList.toggle("open");
+      });
+
+      function closeDropdown() {
+        selectorWrapper.classList.remove("open");
+      }
+
+      document.addEventListener("click", closeDropdown);
+
+      initDropdown();
+      changeFont(currentFont);
+
+      tester.style.fontSize = sizeInput.value + "px";
+      tester.style.lineHeight = lineInput.value;
+      document.getElementById("val-view-size").textContent = sizeInput.value + "px";
+      document.getElementById("val-line-height").textContent = lineInput.value;
+
+      const tabs = document.querySelectorAll(".browse-tab");
+      const tabGlyphs = document.getElementById("tab-glyphs");
+      const tabEmoji = document.getElementById("tab-emoji");
+
+      tabs.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          tabs.forEach((b) => b.classList.remove("active"));
+          btn.classList.add("active");
+          const key = btn.dataset.tab;
+          tabGlyphs.classList.toggle("active", key === "glyphs");
+          tabEmoji.classList.toggle("active", key === "emoji");
+        });
+      });
+
+      const glyphContent = document.getElementById("glyph-content");
+      let glyphFilterValue = "A";
+
+      const glyphFilterButtons = document.getElementById("glyph-filter-buttons");
+      glyphFilterButtons.addEventListener("click", (e) => {
+        const btn = e.target.closest(".filter-btn");
+        if (!btn) return;
+
+        glyphFilterButtons.querySelectorAll(".filter-btn").forEach((b) => b.classList.remove("active"));
+        btn.classList.add("active");
+
+        glyphFilterValue = btn.dataset.value;
+        renderGlyphGrid();
+      });
+
+      const emojiGroupSelect = document.getElementById("emoji-group");
+      const emojiContent = document.getElementById("emoji-content");
+
+      let glyphCodepoints = [];
+      let emojiData = null;
+
+      const GLYPH_GROUPS = {
+        A: {
+          label: "Letters & Marks",
+          blocks: [
+            ["Basic Latin", 0x0000, 0x007f],
+            ["Latin-1 Supplement", 0x0080, 0x00ff],
+            ["Latin Extended-A", 0x0100, 0x017f],
+            ["Latin Extended-B", 0x0180, 0x024f],
+            ["IPA Extensions", 0x0250, 0x02af],
+            ["Combining Diacritical Marks", 0x0300, 0x036f],
+            ["Greek and Coptic", 0x0370, 0x03ff],
+            ["Cyrillic", 0x0400, 0x04ff],
+            ["Cyrillic Supplement", 0x0500, 0x052f],
+            ["Latin Extended Additional", 0x1e00, 0x1eff],
+            ["Alphabetic Presentation Forms", 0xfb00, 0xfb4f],
+          ],
+        },
+
+        B: {
+          label: "Hangul",
+          blocks: [
+            ["Hangul Jamo", 0x1100, 0x11ff],
+            ["Hangul Compatibility Jamo", 0x3130, 0x318f],
+            ["Hangul Jamo Extended-A", 0xa960, 0xa97f],
+            ["Hangul Syllables", 0xac00, 0xd7af],
+            ["Hangul Jamo Extended-B", 0xd7b0, 0xd7ff],
+          ],
+        },
+
+        C: {
+          label: "CJK",
+          blocks: [
+            ["Ideographic Description Characters", 0x2ff0, 0x2fff],
+            ["CJK Symbols and Punctuation", 0x3000, 0x303f],
+            ["Hiragana", 0x3040, 0x309f],
+            ["Katakana", 0x30a0, 0x30ff],
+            ["CJK Strokes", 0x31c0, 0x31ef],
+            ["Enclosed CJK Letters and Months", 0x3200, 0x32ff],
+            ["CJK Compatibility", 0x3300, 0x33ff],
+            ["CJK Unified Ideographs Extension A", 0x3400, 0x4dbf],
+            ["CJK Unified Ideographs", 0x4e00, 0x9fff],
+            ["CJK Compatibility Ideographs", 0xf900, 0xfaff],
+            ["Vertical Forms", 0xfe10, 0xfe1f],
+            ["CJK Compatibility Forms", 0xfe30, 0xfe4f],
+            ["Halfwidth and Fullwidth Forms", 0xff00, 0xffef],
+            ["CJK Unified Ideographs Extension B", 0x20000, 0x2a6df],
+            ["CJK Unified Ideographs Extension C", 0x2a700, 0x2b73f],
+            ["CJK Unified Ideographs Extension D", 0x2b740, 0x2b81f],
+            ["CJK Unified Ideographs Extension E", 0x2b820, 0x2ceaf],
+            ["CJK Unified Ideographs Extension F", 0x2ceb0, 0x2ebef],
+            ["CJK Unified Ideographs Extension G", 0x30000, 0x3134f],
+          ],
+        },
+
+        D: {
+          label: "Symbols / Math / Technical",
+          blocks: [
+            ["General Punctuation", 0x2000, 0x206f],
+            ["Superscripts and Subscripts", 0x2070, 0x209f],
+            ["Currency Symbols", 0x20a0, 0x20cf],
+            ["Combining Diacritical Marks for Symbols", 0x20d0, 0x20ff],
+            ["Letterlike Symbols", 0x2100, 0x214f],
+            ["Number Forms", 0x2150, 0x218f],
+            ["Arrows", 0x2190, 0x21ff],
+            ["Mathematical Operators", 0x2200, 0x22ff],
+            ["Miscellaneous Technical", 0x2300, 0x23ff],
+            ["Enclosed Alphanumerics", 0x2460, 0x24ff],
+            ["Box Drawing", 0x2500, 0x257f],
+            ["Block Elements", 0x2580, 0x259f],
+            ["Geometric Shapes", 0x25a0, 0x25ff],
+            ["Dingbats", 0x2700, 0x27bf],
+            ["Supplemental Arrows-A", 0x27f0, 0x27ff],
+            ["Braille Patterns", 0x2800, 0x28ff],
+            ["Supplemental Arrows-B", 0x2900, 0x297f],
+            ["Miscellaneous Symbols and Arrows", 0x2b00, 0x2bff],
+            ["Yijing Hexagram Symbols", 0x4dc0, 0x4dff],
+            ["Tai Xuan Jing Symbols", 0x1d300, 0x1d35f],
+            ["Playing Cards", 0x1f0a0, 0x1f0ff],
+            ["Domino Tiles", 0x1f030, 0x1f09f],
+            ["Mahjong Tiles", 0x1f000, 0x1f02f],
+            ["Enclosed Alphanumeric Supplement", 0x1f100, 0x1f1ff],
+            ["Enclosed Ideographic Supplement", 0x1f200, 0x1f2ff],
+          ],
+        },
+
+        E: {
+          label: "Emoji / Pictographs",
+          blocks: [
+            ["Miscellaneous Symbols", 0x2600, 0x26ff],
+            ["Miscellaneous Symbols and Pictographs", 0x1f300, 0x1f5ff],
+            ["Emoticons", 0x1f600, 0x1f64f],
+            ["Transport and Map Symbols", 0x1f680, 0x1f6ff],
+            ["Geometric Shapes Extended", 0x1f780, 0x1f7ff],
+            ["Supplemental Arrows-C", 0x1f800, 0x1f8ff],
+            ["Supplemental Symbols and Pictographs", 0x1f900, 0x1f9ff],
+            ["Symbols and Pictographs Extended-A", 0x1fa70, 0x1faff],
+            ["Symbols for Legacy Computing", 0x1fb00, 0x1fbff],
+          ],
+        },
+      };
+
+      function toHex(cp) {
+        return "U+" + cp.toString(16).toUpperCase().padStart(4, "0");
+      }
+
+      async function loadGlyphsForFont(fontName) {
+        const safe = fontName.replace(/[^a-zA-Z0-9_-]/g, "");
+        const url = `data/glyphs/${safe}.json`;
+        const res = await fetch(url, { cache: "force-cache" });
+        if (!res.ok) throw new Error(`glyph json not found: ${url}`);
+        const data = await res.json();
+        if (!Array.isArray(data.codepoints)) throw new Error("Invalid glyph json format");
+        glyphCodepoints = data.codepoints;
+        glyphCodepoints.sort((a, b) => a - b);
+      }
+
+      function renderGlyphGrid() {
+        glyphContent.innerHTML = "";
+
+        const groupKey = glyphFilterValue;
+        const group = GLYPH_GROUPS[groupKey];
+        if (!group) return;
+
+        const size = 24;
+        const lineHeight = 1.25;
+
+        const PAGE = 800;
+
+        function appendGlyphCells(grid, cps) {
+          for (const cp of cps) {
+            const cell = document.createElement("div");
+            cell.className = "cell";
+
+            const glyph = document.createElement("div");
+            glyph.className = "glyph";
+            glyph.style.fontFamily = getEmojiStack();
+            glyph.style.fontSize = size + "px";
+            glyph.style.lineHeight = lineHeight;
+            glyph.textContent = String.fromCodePoint(cp);
+
+            const meta = document.createElement("div");
+            meta.className = "meta";
+            meta.textContent = toHex(cp);
+
+            cell.appendChild(glyph);
+            cell.appendChild(meta);
+            grid.appendChild(cell);
+          }
+        }
+
+        function takeBlockCps(start, end, offset, limit) {
+          const out = [];
+          let seen = 0;
+
+          for (const cp of glyphCodepoints) {
+            if (cp < start) continue;
+            if (cp > end) break;
+
+            if (seen < offset) {
+              seen++;
+              continue;
+            }
+
+            out.push(cp);
+            seen++;
+            if (out.length >= limit) break;
+          }
+
+          return out;
+        }
+
+        function countBlockTotal(start, end) {
+          let cnt = 0;
+          for (const cp of glyphCodepoints) {
+            if (cp < start) continue;
+            if (cp > end) break;
+            cnt++;
+          }
+          return cnt;
+        }
+
+        for (const [blockName, start, end] of group.blocks) {
+          const total = countBlockTotal(start, end);
+          if (total === 0) continue;
+
+          const block = document.createElement("div");
+          block.className = "glyph-block";
+
+          const title = document.createElement("div");
+          title.className = "glyph-block-title";
+          title.textContent = blockName;
+          block.appendChild(title);
+
+          const sub = document.createElement("div");
+          sub.className = "glyph-block-subtitle";
+          sub.textContent = `U+${start.toString(16).toUpperCase()}–U+${end.toString(16).toUpperCase()} · ${total.toLocaleString()} glyphs`;
+          block.appendChild(sub);
+
+          const grid = document.createElement("div");
+          grid.className = "glyph-grid";
+          block.appendChild(grid);
+
+          let offset = 0;
+          const first = takeBlockCps(start, end, offset, PAGE);
+          appendGlyphCells(grid, first);
+          offset += first.length;
+
+          if (offset < total) {
+            const more = document.createElement("button");
+            more.className = "btn btn--outline btn--small";
+
+            const updateLabel = () => {
+              const remaining = total - offset;
+              more.textContent = `더 보기 (+${remaining.toLocaleString()})`;
+            };
+            updateLabel();
+
+            more.addEventListener("click", () => {
+              const next = takeBlockCps(start, end, offset, PAGE);
+              appendGlyphCells(grid, next);
+              offset += next.length;
+
+              if (offset >= total || next.length === 0) {
+                more.remove();
+              } else {
+                updateLabel();
+              }
+            });
+
+            block.appendChild(more);
+          }
+
+          glyphContent.appendChild(block);
+        }
+      }
+
+      sizeInput.addEventListener("input", (e) => {
+        const size = e.target.value;
+        tester.style.fontSize = size + "px";
+        document.getElementById("val-view-size").textContent = size + "px";
+      });
+      lineInput.addEventListener("input", (e) => {
+        const height = e.target.value;
+        tester.style.lineHeight = height;
+        document.getElementById("val-line-height").textContent = height;
+      });
+
+      async function loadEmojiData() {
+        if (emojiData) return;
+        const res = await fetch("data/emoji-rgi.json", { cache: "force-cache" });
+        if (!res.ok) throw new Error("emoji-rgi.json not found");
+        emojiData = await res.json();
+      }
+
+      function renderEmojiGroupOptions() {
+        emojiGroupSelect.innerHTML = "";
+
+        const optAll = document.createElement("option");
+        optAll.value = "__all__";
+        optAll.textContent = "전체 그룹";
+        emojiGroupSelect.appendChild(optAll);
+
+        for (const g of emojiData.groups || []) {
+          const opt = document.createElement("option");
+          opt.value = g.name;
+          opt.textContent = g.name;
+          emojiGroupSelect.appendChild(opt);
+        }
+      }
+
+      function renderEmoji() {
+        if (!emojiData) return;
+        emojiContent.innerHTML = "";
+
+        const groupFilter = emojiGroupSelect.value;
+
+        const size = 24;
+        const lineHeight = 1;
+
+        const groups = (emojiData.groups || []).filter((g) => groupFilter === "__all__" || g.name === groupFilter);
+
+        for (const g of groups) {
+          const title = document.createElement("div");
+          title.className = "emoji-group-title";
+          title.textContent = g.name;
+          emojiContent.appendChild(title);
+
+          for (const sg of g.subgroups || []) {
+            const items = sg.items || [];
+            if (items.length === 0) continue;
+
+            const block = document.createElement("div");
+            block.className = "emoji-subgroup";
+
+            const st = document.createElement("div");
+            st.className = "emoji-subgroup-title";
+            st.textContent = sg.name;
+            block.appendChild(st);
+
+            const grid = document.createElement("div");
+            grid.className = "emoji-grid";
+
+            const initial = 200;
+            const showing = items.slice(0, initial);
+
+            for (const it of showing) {
+              const cell = document.createElement("div");
+              cell.className = "cell";
+              cell.title = it.name || "";
+
+              const glyph = document.createElement("div");
+              glyph.className = "glyph";
+              glyph.style.fontFamily = getEmojiStack();
+              glyph.style.fontSize = size + "px";
+              glyph.style.lineHeight = lineHeight;
+              const ch = emojiMode === "mono" ? toTextEmoji(it.char) : it.char;
+              glyph.textContent = ch;
+
+              cell.appendChild(glyph);
+              grid.appendChild(cell);
+            }
+
+            block.appendChild(grid);
+
+            if (items.length > initial) {
+              const more = document.createElement("button");
+              more.className = "btn btn--outline btn--small";
+              more.textContent = `더 보기 (+${items.length - initial})`;
+              more.addEventListener("click", () => {
+                more.remove();
+                for (const it of items.slice(initial)) {
+                  const cell = document.createElement("div");
+                  cell.className = "cell";
+                  cell.title = it.name || "";
+
+                  const glyph = document.createElement("div");
+                  glyph.className = "glyph";
+                  glyph.style.fontFamily = getEmojiStack();
+                  glyph.style.fontSize = size + "px";
+                  glyph.style.lineHeight = lineHeight;
+                  const ch = emojiMode === "mono" ? toTextEmoji(it.char) : it.char;
+                  glyph.textContent = ch;
+
+                  cell.appendChild(glyph);
+                  grid.appendChild(cell);
+                }
+              });
+              block.appendChild(more);
+            }
+
+            emojiContent.appendChild(block);
+          }
+        }
+      }
+
+      emojiGroupSelect.addEventListener("change", renderEmoji);
+
+      const _oldChangeFont = changeFont;
+      changeFont = async function (fontName) {
+        _oldChangeFont(fontName);
+
+        try {
+          await loadGlyphsForFont(currentFont);
+          renderGlyphGrid();
+        } catch (e) {
+          glyphContent.innerHTML = `<div style="opacity:.8">glyph 데이터가 없습니다: data/glyphs/${currentFont}.json</div>`;
+        }
+        renderEmoji();
+      };
+
+      (async function initBrowse() {
+        try {
+          await loadEmojiData();
+          renderEmojiGroupOptions();
+          renderEmoji();
+        } catch (e) {
+          emojiContent.innerHTML = `<div style="opacity:.8">emoji 데이터 로드 실패: data/emoji-rgi.json</div>`;
+        }
+
+        try {
+          await loadGlyphsForFont(currentFont);
+          renderGlyphGrid();
+        } catch (e) {
+          glyphContent.innerHTML = `<div style="opacity:.8">glyph 데이터가 없습니다: data/glyphs/${currentFont}.json</div>`;
+        }
+      })();
+
+      const VS15 = "\uFE0E";
+      const VS16 = "\uFE0F";
+
+      function toTextEmoji(str) {
+        if (!str) return str;
+        let s = str.replaceAll(VS16, VS15);
+        if (s.includes(VS15)) return s;
+        if (s.includes("\u200D")) return s + VS15;
+        return s + VS15;
+      }
+    </script>
+  </body>
+</html>
