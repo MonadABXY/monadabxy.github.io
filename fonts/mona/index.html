@@ -12,7 +12,7 @@
     <meta property="og:description" content="다국어와 이모지를 지원하는 픽셀 폰트." />
     <link rel="icon" href="/logo-icon.png" />
     <link rel="stylesheet" href="/css/font-layout.css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/MonadABXY/mona-font/web/mona.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/MonadABXY/mona-font@c5a80e9/web/mona.css" />
 
     <style>
       body,
@@ -86,6 +86,18 @@
             </label>
             <div class="range-wrapper">
               <input type="range" id="input-line-height" min="1.0" max="2.5" step="0.05" value="1.2" />
+            </div>
+          </div>
+
+          <div class="control-group">
+            <label>
+              굵기
+              <span class="value-display" id="val-font-weight">Regular</span>
+            </label>
+
+            <div class="filter-buttons" id="weight-buttons">
+              <button class="filter-btn active" data-weight="400">Regular</button>
+              <button class="filter-btn" data-weight="700">Bold</button>
             </div>
           </div>
 
@@ -185,6 +197,7 @@ The quick brown fox jumps over the lazy dog.
     <script>
       const availableFonts = ["Mona12"];
       let currentFont = "Mona12";
+      let currentWeight = 400;
 
       const tester = document.getElementById("type-tester");
       const sizeInput = document.getElementById("input-view-size");
@@ -211,14 +224,16 @@ The quick brown fox jumps over the lazy dog.
 
       function getEmojiStack() {
         const stacks = {
-          color: `"${currentFont}", "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif`,
-          mono: `"Mona12 Emoji", "${currentFont}", "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif`,
+          color: `"${currentFont}", "Mona12 Color Emoji", Mona12 Text KR ,"Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif`,
+          mono: `"Mona12 Emoji", "${currentFont}", Mona12 Text KR, "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif`,
         };
         return stacks[emojiMode] || stacks.color;
       }
 
       function applyTesterFontStack() {
         tester.style.fontFamily = getEmojiStack();
+        tester.style.fontWeight = currentWeight;
+        displayTitle.style.fontWeight = currentWeight;
         document.getElementById("val-emoji-mode").textContent = emojiMode === "color" ? "Color" : "Mono";
       }
 
@@ -231,6 +246,22 @@ The quick brown fox jumps over the lazy dog.
         initDropdown();
         applyTesterFontStack();
       }
+
+      const weightButtons = document.getElementById("weight-buttons");
+      weightButtons.addEventListener("click", (e) => {
+        const btn = e.target.closest(".filter-btn");
+        if (!btn) return;
+
+        weightButtons.querySelectorAll(".filter-btn").forEach((b) => b.classList.remove("active"));
+        btn.classList.add("active");
+
+        currentWeight = Number(btn.dataset.weight);
+        document.getElementById("val-font-weight").textContent = currentWeight === 700 ? "Bold" : "Regular";
+
+        applyTesterFontStack();
+        renderEmoji();
+        renderGlyphGrid();
+      });
 
       const emojiModeButtons = document.getElementById("emoji-mode-buttons");
       emojiModeButtons.addEventListener("click", (e) => {
@@ -442,6 +473,7 @@ The quick brown fox jumps over the lazy dog.
             const glyph = document.createElement("div");
             glyph.className = "glyph";
             glyph.style.fontFamily = getEmojiStack();
+            glyph.style.fontWeight = currentWeight;
             glyph.style.fontSize = size + "px";
             glyph.style.lineHeight = lineHeight;
             glyph.textContent = String.fromCodePoint(cp);
@@ -619,6 +651,7 @@ The quick brown fox jumps over the lazy dog.
               const glyph = document.createElement("div");
               glyph.className = "glyph";
               glyph.style.fontFamily = getEmojiStack();
+              glyph.style.fontWeight = currentWeight;
               glyph.style.fontSize = size + "px";
               glyph.style.lineHeight = lineHeight;
               const ch = emojiMode === "mono" ? toTextEmoji(it.char) : it.char;
@@ -644,6 +677,7 @@ The quick brown fox jumps over the lazy dog.
                   const glyph = document.createElement("div");
                   glyph.className = "glyph";
                   glyph.style.fontFamily = getEmojiStack();
+                  glyph.style.fontWeight = currentWeight;
                   glyph.style.fontSize = size + "px";
                   glyph.style.lineHeight = lineHeight;
                   const ch = emojiMode === "mono" ? toTextEmoji(it.char) : it.char;
