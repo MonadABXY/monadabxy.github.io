@@ -195,7 +195,7 @@ The quick brown fox jumps over the lazy dog.
     </div>
 
     <script>
-      const availableFonts = ["Mona12"];
+      const availableFonts = ["Mona8x12", "Mona12"];
       let currentFont = "Mona12";
       let currentWeight = 400;
 
@@ -223,6 +223,14 @@ The quick brown fox jumps over the lazy dog.
       let emojiMode = "color";
 
       function getEmojiStack() {
+        if (currentFont === "Mona8x12") {
+          if (emojiMode === "mono") {
+            return `"Mona8x12", "Mona12 Emoji", "Mona12 Text KR", "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif`;
+          } else {
+            return `"Mona8x12", "Mona12 Color Emoji", "Mona12 Text KR", "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif`;
+          }
+        }
+
         const stacks = {
           color: `"${currentFont}", "Mona12 Color Emoji", Mona12 Text KR ,"Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif`,
           mono: `"Mona12 Emoji", "${currentFont}", Mona12 Text KR, "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif`,
