@@ -12,7 +12,7 @@
     <meta property="og:description" content="다국어와 이모지를 지원하는 픽셀 폰트." />
     <link rel="icon" href="/logo-icon.png" />
     <link rel="stylesheet" href="/css/font-layout.css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/MonadABXY/mona-font/web/mona.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/MonadABXY/mona-font@f081346/web/mona.css" />
 
     <style>
       body,
@@ -124,7 +124,15 @@ The quick brown fox jumps over the lazy dog.
         >
       </div>
 
-      <div class="browse-section">
+      <button
+        id="toggle-browse-btn"
+        class="btn btn--outline"
+        style="width: 100%; margin: 20px 0; padding: 15px; font-family: &quot;Mona12&quot;; font-size: 16px"
+      >
+        글리프 및 이모지 목록 펼치기 ▼
+      </button>
+
+      <div id="browse-content-wrapper" class="browse-section" style="display: none">
         <div class="browse-tabs">
           <button class="browse-tab active" data-tab="glyphs">모든 글리프</button>
           <button class="browse-tab" data-tab="emoji">모든 이모지</button>
@@ -140,7 +148,6 @@ The quick brown fox jumps over the lazy dog.
               <button class="filter-btn" data-value="E">Emoji/Pictographs</button>
             </div>
           </div>
-
           <div id="glyph-content"></div>
         </section>
 
@@ -150,6 +157,109 @@ The quick brown fox jumps over the lazy dog.
           </div>
           <div id="emoji-content"></div>
         </section>
+      </div>
+
+      <div class="usage-guide-card">
+        <h2>웹폰트로 사용하기</h2>
+        <p>HTML <code>&lt;link&gt;</code> 태그 또는 CSS <code>@import</code> 방식으로 폰트를 불러온 후 사용할 수 있습니다.</p>
+
+        <div class="code-container">
+          <div class="code-group">
+            <span class="code-label">&lt;link&gt;</span>
+            <div class="code-block">
+              <code>&lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/MonadABXY/mona-font/web/mona.css"&gt;</code>
+            </div>
+          </div>
+
+          <div class="code-group">
+            <span class="code-label">@import</span>
+            <div class="code-block">
+              <code>@import url("https://cdn.jsdelivr.net/gh/MonadABXY/mona-font/web/mona.css");</code>
+            </div>
+          </div>
+
+          <div class="code-group">
+            <span class="code-label">폰트 패밀리로 사용</span>
+            <div class="code-block">
+              <code>font-family: 'Mona12', sans-serif;</code>
+            </div>
+          </div>
+
+          <div class="code-group">
+            <span class="code-label">클래스로 사용</span>
+            <div class="code-block">
+              <code>&lt;div class="mona12"&gt;모나 폰트 12px&lt;/div&gt;</code>
+              <code>&lt;div class="mona12-bold"&gt;모나 폰트 12px 굵게&lt;/div&gt;</code>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="size-guide-card">
+        <h2>권장 크기</h2>
+        <p>
+          폰트가 흐릿해지는 현상을 방지하고 픽셀을 또렷하게 출력하기 위해 <strong>지정된 기본 픽셀 크기 또는 그 정수 배수</strong>로
+          사용하는 것을 권장합니다.
+        </p>
+        <p>고해상도 환경이나 인쇄물에서는 신경 쓰지 않아도 됩니다.</p>
+
+        <table class="size-table">
+          <thead>
+            <tr>
+              <th>폰트 종류</th>
+              <th>권장 px</th>
+              <th>권장 pt</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Mona10</strong> / <strong>Bold</strong></td>
+              <td><code>10px</code>, <code>20px</code>, <code>30px</code>...</td>
+              <td><code>7.5pt</code>, <code>15pt</code>...</td>
+            </tr>
+            <tr>
+              <td><strong>Mona10x12</strong></td>
+              <td><code>12px</code>, <code>24px</code>, <code>36px</code>...</td>
+              <td><code>9pt</code>, <code>18pt</code>...</td>
+            </tr>
+            <tr>
+              <td><strong>Mona8x12</strong></td>
+              <td><code>12px</code>, <code>24px</code>, <code>36px</code>...</td>
+              <td><code>9pt</code>, <code>18pt</code>...</td>
+            </tr>
+            <tr>
+              <td><strong>Mona12</strong> / <strong>Bold</strong></td>
+              <td><code>12px</code>, <code>24px</code>, <code>36px</code>...</td>
+              <td><code>9pt</code>, <code>18pt</code>...</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="license-card">
+        <h2>라이선스</h2>
+
+        <p>
+          <strong>Mona Font</strong>는
+          <a href="https://openfontlicense.org/" target="_blank" rel="noopener noreferrer" class="license-link"
+            >SIL 오픈 폰트 라이선스 1.1</a
+          >
+          하에 배포됩니다.
+        </p>
+
+        <p>
+          개인 및 기업 사용자를 포함한 누구나 자유롭게 사용, 수정 및 재배포할 수 있습니다.<br />
+          <span class="warning-text">단, 폰트 파일 자체를 단독으로 유료 판매하는 것은 금지됩니다.</span>
+        </p>
+
+        <ul>
+          <li><a href="https://github.com/MonadABXY/mona-font/blob/main/OFL.txt" target="_blank" class="license-link">OFL 1.1 원문</a></li>
+          <li>
+            <a href="https://github.com/MonadABXY/mona-font/blob/main/OFL-KO.txt" target="_blank" class="license-link"
+              >OFL 1.1 한국어 번역</a
+            >
+          </li>
+        </ul>
       </div>
 
       <div class="more-fonts-section">
@@ -171,7 +281,7 @@ The quick brown fox jumps over the lazy dog.
             <span class="font-name ff-suhgung">서궁(Suhgung)</span>
           </a>
 
-          <a href="/fonts/" class="more-font-card" style="background: #333">
+          <a href="/fonts/" class="more-font-card">
             <span class="font-name">더 보기...</span>
           </a>
         </div>
@@ -195,7 +305,7 @@ The quick brown fox jumps over the lazy dog.
     </div>
 
     <script>
-      const availableFonts = ["Mona8x12", "Mona12"];
+      const availableFonts = ["Mona8x12", "Mona10x12", "Mona12"];
       let currentFont = "Mona12";
       let currentWeight = 400;
 
@@ -228,6 +338,14 @@ The quick brown fox jumps over the lazy dog.
             return `"Mona8x12", "Mona12 Emoji", "Mona12 Text KR", "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif`;
           } else {
             return `"Mona8x12", "Mona12 Color Emoji", "Mona12 Text KR", "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif`;
+          }
+        }
+
+        if (currentFont === "Mona10x12") {
+          if (emojiMode === "mono") {
+            return `"Mona10x12", "Mona12 Emoji", "Mona12 Text KR", "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif`;
+          } else {
+            return `"Mona10x12", "Mona12 Color Emoji", "Mona12 Text KR", "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif`;
           }
         }
 
@@ -453,7 +571,7 @@ The quick brown fox jumps over the lazy dog.
       async function loadGlyphsForFont(fontName) {
         const safe = fontName.replace(/[^a-zA-Z0-9_-]/g, "");
         const url = `data/glyphs/${safe}.json`;
-        const res = await fetch(url, { cache: "force-cache" });
+        const res = await fetch(url, { cache: "no-cache" });
         if (!res.ok) throw new Error(`glyph json not found: ${url}`);
         const data = await res.json();
         if (!Array.isArray(data.codepoints)) throw new Error("Invalid glyph json format");
@@ -595,7 +713,7 @@ The quick brown fox jumps over the lazy dog.
 
       async function loadEmojiData() {
         if (emojiData) return;
-        const res = await fetch("data/emoji-rgi.json", { cache: "force-cache" });
+        const res = await fetch("data/emoji-rgi.json", { cache: "no-cache" });
         if (!res.ok) throw new Error("emoji-rgi.json not found");
         emojiData = await res.json();
       }
@@ -705,35 +823,58 @@ The quick brown fox jumps over the lazy dog.
 
       emojiGroupSelect.addEventListener("change", renderEmoji);
 
+      // 👇 기존의 _oldChangeFont 덮어쓰기 로직 교체
       const _oldChangeFont = changeFont;
       changeFont = async function (fontName) {
         _oldChangeFont(fontName);
 
-        try {
-          await loadGlyphsForFont(currentFont);
-          renderGlyphGrid();
-        } catch (e) {
-          glyphContent.innerHTML = `<div style="opacity:.8">glyph 데이터가 없습니다: data/glyphs/${currentFont}.json</div>`;
+        // 목록이 펼쳐진 상태(로드된 상태)일 때만 폰트 변경 시 다시 렌더링합니다.
+        if (isBrowseLoaded) {
+          try {
+            await loadGlyphsForFont(currentFont);
+            renderGlyphGrid();
+          } catch (e) {
+            glyphContent.innerHTML = `<div style="opacity:.8">glyph 데이터가 없습니다: data/glyphs/${currentFont}.json</div>`;
+          }
+          renderEmoji();
         }
-        renderEmoji();
       };
 
-      (async function initBrowse() {
-        try {
-          await loadEmojiData();
-          renderEmojiGroupOptions();
-          renderEmoji();
-        } catch (e) {
-          emojiContent.innerHTML = `<div style="opacity:.8">emoji 데이터 로드 실패: data/emoji-rgi.json</div>`;
-        }
+      let isBrowseLoaded = false;
+      const toggleBtn = document.getElementById("toggle-browse-btn");
+      const browseWrapper = document.getElementById("browse-content-wrapper");
 
-        try {
-          await loadGlyphsForFont(currentFont);
-          renderGlyphGrid();
-        } catch (e) {
-          glyphContent.innerHTML = `<div style="opacity:.8">glyph 데이터가 없습니다: data/glyphs/${currentFont}.json</div>`;
+      toggleBtn.addEventListener("click", async () => {
+        if (browseWrapper.style.display === "none") {
+          browseWrapper.style.display = "block";
+
+          if (!isBrowseLoaded) {
+            toggleBtn.textContent = "데이터 불러오는 중... ⏳";
+
+            try {
+              await loadEmojiData();
+              renderEmojiGroupOptions();
+              renderEmoji();
+            } catch (e) {
+              emojiContent.innerHTML = `<div style="opacity:.8">emoji 데이터 로드 실패: data/emoji-rgi.json</div>`;
+            }
+
+            try {
+              await loadGlyphsForFont(currentFont);
+              renderGlyphGrid();
+            } catch (e) {
+              glyphContent.innerHTML = `<div style="opacity:.8">glyph 데이터가 없습니다: data/glyphs/${currentFont}.json</div>`;
+            }
+
+            isBrowseLoaded = true;
+          }
+
+          toggleBtn.textContent = "글리프 및 이모지 목록 접기 ▲";
+        } else {
+          browseWrapper.style.display = "none";
+          toggleBtn.textContent = "글리프 및 이모지 목록 펼치기 ▼";
         }
-      })();
+      });
 
       const VS15 = "\uFE0E";
       const VS16 = "\uFE0F";
