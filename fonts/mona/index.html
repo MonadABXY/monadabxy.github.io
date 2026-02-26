@@ -12,9 +12,27 @@
     <meta property="og:description" content="다국어와 이모지를 지원하는 픽셀 폰트." />
     <link rel="icon" href="/logo-icon.png" />
     <link rel="stylesheet" href="/css/font-layout.css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/MonadABXY/mona-font@f081346/web/mona.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/MonadABXY/mona-font/web/mona.css" />
 
     <style>
+      @font-face {
+        font-family: "Num8";
+        src: url("https://cdn.jsdelivr.net/gh/MonadABXY/mona-font/web/Mona8x12.woff2") format("woff2");
+        unicode-range: U+0020, U+0023, U+002A, U+0030-0039;
+      }
+
+      @font-face {
+        font-family: "Num10";
+        src: url("https://cdn.jsdelivr.net/gh/MonadABXY/mona-font/web/Mona10x12.woff2") format("woff2");
+        unicode-range: U+0020, U+0023, U+002A, U+0030-0039;
+      }
+
+      @font-face {
+        font-family: "Num12";
+        src: url("https://cdn.jsdelivr.net/gh/MonadABXY/mona-font/web/Mona12.woff2") format("woff2");
+        unicode-range: U+0020, U+0023, U+002A, U+0030-0039;
+      }
+
       body,
       .btn-header,
       .dropdown-item,
@@ -159,7 +177,7 @@ The quick brown fox jumps over the lazy dog.
         </section>
       </div>
 
-      <div class="usage-guide-card">
+      <div class="card usage-guide-card">
         <h2>웹폰트로 사용하기</h2>
         <p>HTML <code>&lt;link&gt;</code> 태그 또는 CSS <code>@import</code> 방식으로 폰트를 불러온 후 사용할 수 있습니다.</p>
 
@@ -195,7 +213,7 @@ The quick brown fox jumps over the lazy dog.
         </div>
       </div>
 
-      <div class="size-guide-card">
+      <div class="card size-guide-card">
         <h2>권장 크기</h2>
         <p>
           폰트가 흐릿해지는 현상을 방지하고 픽셀을 또렷하게 출력하기 위해 <strong>지정된 기본 픽셀 크기 또는 그 정수 배수</strong>로
@@ -236,7 +254,7 @@ The quick brown fox jumps over the lazy dog.
         </table>
       </div>
 
-      <div class="license-card">
+      <div class="card license-card">
         <h2>라이선스</h2>
 
         <p>
@@ -333,27 +351,17 @@ The quick brown fox jumps over the lazy dog.
       let emojiMode = "color";
 
       function getEmojiStack() {
-        if (currentFont === "Mona8x12") {
-          if (emojiMode === "mono") {
-            return `"Mona8x12", "Mona12 Emoji", "Mona12 Text KR", "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif`;
-          } else {
-            return `"Mona8x12", "Mona12 Color Emoji", "Mona12 Text KR", "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif`;
-          }
-        }
+        // 1. 현재 폰트에 맞는 숫자용 가상 폰트 결정 (따옴표 없이 변수로 관리)
+        let numberFont = '"Num12"'; // CSS에서 선언한 이름과 맞춤
+        if (currentFont === "Mona8x12") numberFont = '"Num8"';
+        if (currentFont === "Mona10x12") numberFont = '"Num10"';
 
-        if (currentFont === "Mona10x12") {
-          if (emojiMode === "mono") {
-            return `"Mona10x12", "Mona12 Emoji", "Mona12 Text KR", "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif`;
-          } else {
-            return `"Mona10x12", "Mona12 Color Emoji", "Mona12 Text KR", "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif`;
-          }
-        }
+        // 2. 이모지 모드에 따른 폰트 이름 결정
+        const emojiFont = emojiMode === "mono" ? '"Mona12 Emoji"' : '"Mona12 Color Emoji"';
 
-        const stacks = {
-          color: `"${currentFont}", "Mona12 Color Emoji", Mona12 Text KR ,"Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif`,
-          mono: `"Mona12 Emoji", "${currentFont}", Mona12 Text KR, "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif`,
-        };
-        return stacks[emojiMode] || stacks.color;
+        // 3. 폰트 스택 반환 (백틱 안의 따옴표 위치를 주의하세요)
+        // 숫자 폰트가 가장 앞에 오고, 그다음 이모지, 그다음 메인 폰트 순서입니다.
+        return `${numberFont}, ${emojiFont}, "${currentFont}", "Mona12 Text KR", sans-serif`;
       }
 
       function applyTesterFontStack() {

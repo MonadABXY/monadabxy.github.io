@@ -12,7 +12,7 @@
     <meta property="og:description" content="움돋의 비트맵 글꼴에서 모양을 가져온 픽셀 폰트." />
     <link rel=" icon" href="/logo-icon.png" />
     <link rel="stylesheet" href="/css/font-layout.css" />
-    <link rel="stylesheet" href="/css/umdot-face.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/MonadABXY/umdot-font@main/umdot.css" />
 
     <style>
       body,
@@ -44,7 +44,9 @@
         <p class="description">돋움의 비트맵 글꼴에서 모양을 가져온 픽셀 폰트.</p>
 
         <div class="header-actions">
-          <a href="https://github.com/MonadABXY/umdot-font/archive/refs/heads/main.zip" class="btn btn--primary">⬇ 움돋 전체 다운로드</a>
+          <a href="https://github.com/MonadABXY/umdot-font/releases/latest/download/umdot-font.zip" class="btn btn--primary"
+            >⬇ 움돋 전체 다운로드</a
+          >
           <a href="https://github.com/MonadABXY/umdot-font" target="_blank" class="btn btn--outline">GitHub 저장소</a>
           <a href="/fonts/" class="btn btn--outline">다른 폰트 보기</a>
         </div>
@@ -120,13 +122,165 @@ The quick brown fox jumps over the lazy dog.
         >
       </div>
 
+      <div class="card usage-guide-card">
+        <h2>웹폰트로 사용하기</h2>
+        <p>HTML <code>&lt;link&gt;</code> 태그 또는 CSS <code>@import</code> 방식으로 폰트를 불러온 후 사용할 수 있습니다.</p>
+
+        <div class="code-container">
+          <div class="code-group">
+            <span class="code-label">&lt;link&gt;</span>
+            <div class="code-block">
+              <code>&lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/MonadABXY/umdot-font/umdot.css"&gt;</code>
+            </div>
+          </div>
+
+          <div class="code-group">
+            <span class="code-label">@import</span>
+            <div class="code-block">
+              <code>@import url("https://cdn.jsdelivr.net/gh/MonadABXY/umdot-font/umdot.css");</code>
+            </div>
+          </div>
+
+          <div class="code-group">
+            <span class="code-label">폰트 패밀리로 사용</span>
+            <div class="code-block">
+              <code>font-family: 'Umdot12', sans-serif;</code>
+            </div>
+          </div>
+
+          <div class="code-group">
+            <span class="code-label">클래스로 사용</span>
+            <div class="code-block">
+              <code>&lt;div class="umdot12"&gt;움돋 12px&lt;/div&gt;</code>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card size-guide-card">
+        <h2>권장 크기</h2>
+        <p>
+          폰트가 흐릿해지는 현상을 방지하고 픽셀을 또렷하게 출력하기 위해 <strong>지정된 기본 픽셀 크기 또는 그 정수 배수</strong>로
+          사용하는 것을 권장합니다.
+        </p>
+        <p>고해상도 환경이나 인쇄물에서는 신경 쓰지 않아도 됩니다.</p>
+
+        <table class="size-table">
+          <thead>
+            <tr>
+              <th>폰트 종류</th>
+              <th>권장 px</th>
+              <th>권장 pt</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Umdot11</strong> / <strong>Mono</strong></td>
+              <td><code>11px</code>, <code>22px</code>, <code>33px</code>...</td>
+              <td><code>8.25pt</code>, <code>16.5pt</code>...</td>
+            </tr>
+            <tr>
+              <td><strong>Umdot12</strong> / <strong>Mono</strong></td>
+              <td><code>12px</code>, <code>24px</code>, <code>36px</code>...</td>
+              <td><code>9pt</code>, <code>18pt</code>...</td>
+            </tr>
+            <tr>
+              <td><strong>Umdot13</strong> / <strong>Mono</strong></td>
+              <td><code>13px</code>, <code>26px</code>, <code>39px</code>...</td>
+              <td><code>9.75pt</code>, <code>19.5pt</code>...</td>
+            </tr>
+            <tr>
+              <td><strong>Umdot14</strong> / <strong>Mono</strong></td>
+              <td><code>14px</code>, <code>28px</code>, <code>42px</code>...</td>
+              <td><code>10.5pt</code>, <code>21pt</code>...</td>
+            </tr>
+            <tr>
+              <td><strong>Umdot15</strong> / <strong>Mono</strong></td>
+              <td><code>15px</code>, <code>30px</code>, <code>45px</code>...</td>
+              <td><code>11.25pt</code>, <code>22.5pt</code>...</td>
+            </tr>
+            <tr>
+              <td><strong>Umdot16</strong> / <strong>Mono</strong></td>
+              <td><code>16px</code>, <code>32px</code>, <code>48px</code>...</td>
+              <td><code>12pt</code>, <code>24pt</code>...</td>
+            </tr>
+            <tr>
+              <td><strong>Umdot17</strong> / <strong>Mono</strong></td>
+              <td><code>17px</code>, <code>34px</code>, <code>51px</code>...</td>
+              <td><code>12.75pt</code>, <code>25.5pt</code>...</td>
+            </tr>
+            <tr>
+              <td><strong>Umdot18</strong> / <strong>Mono</strong></td>
+              <td><code>18px</code>, <code>36px</code>, <code>54px</code>...</td>
+              <td><code>13.5pt</code>, <code>27pt</code>...</td>
+            </tr>
+            <tr>
+              <td><strong>Umdot19</strong> / <strong>Mono</strong></td>
+              <td><code>19px</code>, <code>38px</code>, <code>57px</code>...</td>
+              <td><code>14.25pt</code>, <code>28.5pt</code>...</td>
+            </tr>
+            <tr>
+              <td><strong>Umdot20</strong> / <strong>Mono</strong></td>
+              <td><code>20px</code>, <code>40px</code>, <code>60px</code>...</td>
+              <td><code>15pt</code>, <code>30pt</code>...</td>
+            </tr>
+            <tr>
+              <td><strong>Umdot21</strong> / <strong>Mono</strong></td>
+              <td><code>21px</code>, <code>42px</code>, <code>63px</code>...</td>
+              <td><code>15.75pt</code>, <code>31.5pt</code>...</td>
+            </tr>
+            <tr>
+              <td><strong>Umdot22</strong> / <strong>Mono</strong></td>
+              <td><code>22px</code>, <code>44px</code>, <code>66px</code>...</td>
+              <td><code>16.5pt</code>, <code>33pt</code>...</td>
+            </tr>
+            <tr>
+              <td><strong>Umdot23</strong> / <strong>Mono</strong></td>
+              <td><code>23px</code>, <code>46px</code>, <code>69px</code>...</td>
+              <td><code>17.25pt</code>, <code>34.5pt</code>...</td>
+            </tr>
+            <tr>
+              <td><strong>Umdot24</strong> / <strong>Mono</strong></td>
+              <td><code>24px</code>, <code>48px</code>, <code>72px</code>...</td>
+              <td><code>18pt</code>, <code>36pt</code>...</td>
+            </tr>
+            <tr>
+              <td><strong>Umdot25</strong> / <strong>Mono</strong></td>
+              <td><code>25px</code>, <code>50px</code>, <code>75px</code>...</td>
+              <td><code>18.75pt</code>, <code>37.5pt</code>...</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="card license-card">
+        <h2>라이선스</h2>
+
+        <p>
+          <strong>Umdot</strong>는
+          <a href="https://openfontlicense.org/" target="_blank" rel="noopener noreferrer" class="license-link"
+            >SIL 오픈 폰트 라이선스 1.1</a
+          >
+          하에 배포됩니다.
+        </p>
+
+        <p>
+          개인 및 기업 사용자를 포함한 누구나 자유롭게 사용, 수정 및 재배포할 수 있습니다.<br />
+          <span class="warning-text">단, 폰트 파일 자체를 단독으로 유료 판매하는 것은 금지됩니다.</span>
+        </p>
+
+        <ul>
+          <li><a href="https://github.com/MonadABXY/umdot-font/blob/main/OFL.txt" target="_blank" class="license-link">OFL 1.1</a></li>
+        </ul>
+      </div>
+
       <div class="more-fonts-section">
         <h2>다른 폰트 구경하기</h2>
         <div class="more-fonts-grid">
           <a href="/fonts/mona/" class="more-font-card">
             <span class="font-name ff-mona">모나(Mona)</span>
           </a>
-          
+
           <a href="/fonts/limgul/" class="more-font-card">
             <span class="font-name ff-limgul">림굴(Limgul)</span>
           </a>

@@ -602,50 +602,56 @@ footer a:hover {
   align-items: center;
   justify-content: center;
   gap: 8px;
-  cursor: pointer;
-  text-decoration: none;
-  user-select: none;
-  border: 2px solid transparent;
+
   padding: 12px 24px;
   font-size: 16px;
+  cursor: pointer;
+  user-select: none;
+  text-decoration: none;
+
+  border: 2px solid transparent;
   box-shadow: var(--shadow);
-  transition:
-    transform 0.1s,
-    box-shadow 0.1s,
-    background 0.15s,
-    border-color 0.15s,
-    color 0.15s;
+
+  transition: all 0.15s ease;
 }
+
 .btn:active {
   transform: translate(2px, 2px);
   box-shadow: 2px 2px 0 #000;
 }
+
 .btn--primary {
   background: var(--accent);
   color: #000;
-  border: none;
+  border: 0;
+
   box-shadow:
     0 6px 0 #007d8a,
     0 0 15px rgba(0, 242, 255, 0.4);
 }
+
 .btn--primary:hover {
   transform: translateY(-2px);
   box-shadow:
     0 8px 0 #007d8a,
     0 0 25px rgba(0, 242, 255, 0.6);
 }
+
 .btn--outline {
   background: transparent;
-  border-color: var(--accent);
   color: var(--accent);
+  border-color: var(--accent);
 }
+
 .btn--outline:hover {
   background: rgba(255, 255, 255, 0.1);
 }
+
 .btn--small {
   padding: 10px 14px;
   font-size: 12px;
 }
+
 .browse-section {
   width: 100%;
   margin-top: 16px;
@@ -803,11 +809,10 @@ footer a:hover {
   margin-bottom: 0;
 }
 
-/* 라이선스 카드 */
-.license-card {
-  width: 100%; /* 💡 추가: 위의 안내 카드와 가로폭 똑같이 맞추기 */
-  box-sizing: border-box; /* 💡 추가: 패딩을 폭에 포함시키기 */
-  margin: 40px 0 0 0; /* 💡 수정: 100px이던 위 여백을 40px로 통일 */
+.card {
+  width: 100%;
+  box-sizing: border-box;
+  margin: 40px 0 0 0;
   padding: 32px;
   background: rgba(0, 0, 0, 0.3);
   border: 1px solid rgba(255, 255, 255, 0.05);
@@ -816,16 +821,16 @@ footer a:hover {
   backdrop-filter: blur(4px);
 }
 
-.license-card h2 {
+.card h2 {
   margin-top: 0;
-  margin-bottom: 24px;
+  margin-bottom: 16px;
   font-size: 20px;
   color: #fff;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   padding-bottom: 16px;
 }
 
-.license-card p {
+.card p {
   margin-bottom: 16px;
   line-height: 1.7;
 }
@@ -837,7 +842,6 @@ footer a:hover {
   display: flex;
   gap: 16px;
 }
-
 .license-card ul li::before {
   content: "📄";
   margin-right: 6px;
@@ -850,7 +854,6 @@ footer a:hover {
     color 0.2s,
     text-shadow 0.2s;
 }
-
 .license-link:hover {
   color: #fff;
   text-shadow: 0 0 8px rgba(0, 210, 255, 0.6);
@@ -861,52 +864,23 @@ footer a:hover {
   font-weight: bold;
 }
 
-/* 웹폰트 사용 안내 섹션 */
-/* 웹폰트 사용 안내 섹션 */
-.usage-guide-card {
-  width: 100%;
-  box-sizing: border-box;
-  margin: 40px 0 0 0; /* 💡 수정: 아래 여백을 없애고 위쪽 40px만 줍니다 */
-  padding: 32px;
-  background: rgba(0, 0, 0, 0.3);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
-  color: rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(4px);
-}
-
-.usage-guide-card h2 {
-  margin-top: 0;
-  margin-bottom: 16px;
-  font-size: 20px;
-  color: #fff;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  padding-bottom: 16px;
-}
-
-.usage-guide-card p {
-  margin-bottom: 24px;
-  line-height: 1.5;
-}
-
 .code-container {
   display: flex;
   flex-direction: column;
   gap: 16px;
 }
-
 .code-group {
   display: flex;
   flex-direction: column;
-  gap: 8px; /* 타이틀과 박스 사이 간격 */
+  gap: 8px;
 }
 
 .code-label {
-  align-self: flex-start; /* 글씨 폭만큼만 배경색 차지 */
-  background: rgba(255, 255, 255, 0.1); /* 은은한 흰색 배경 */
+  align-self: flex-start;
+  background: rgba(255, 255, 255, 0.1);
   border: 1px solid rgba(255, 255, 255, 0.15);
   padding: 4px 10px;
-  border-radius: 6px; /* 둥근 뱃지 모양 */
+  border-radius: 6px;
   color: #eee;
   font-size: 14px;
   font-weight: bold;
@@ -919,84 +893,50 @@ footer a:hover {
   border-radius: 6px;
   padding: 16px 20px;
 }
-
 .code-block code {
   display: block;
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
   color: var(--accent);
   font-size: 14px;
   word-break: break-all;
   white-space: pre-wrap;
   line-height: 1.6;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 }
 
-.size-guide-card {
-  width: 100%;
-  box-sizing: border-box;
-  margin: 40px 0 0 0;
-  padding: 32px;
-  background: rgba(0, 0, 0, 0.3);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
-  color: rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(4px);
-}
-
-.size-guide-card h2 {
-  margin-top: 0;
-  margin-bottom: 16px;
-  font-size: 20px;
-  color: #fff;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  padding-bottom: 16px;
-}
-
-.size-guide-card p {
-  margin-bottom: 24px;
-  line-height: 1.5;
-}
-
-/* 표(Table) 디자인 */
 .size-table {
   width: 100%;
   border-collapse: collapse;
   text-align: left;
-  background: rgba(0, 0, 0, 0.4); /* 표 배경은 조금 더 진하게 */
+  background: rgba(0, 0, 0, 0.4);
   border: 1px solid #444;
 }
-
 .size-table th,
 .size-table td {
   padding: 14px 16px;
   border-bottom: 1px solid #444;
 }
-
 .size-table th {
   background: rgba(255, 255, 255, 0.1);
   color: #fff;
   font-weight: bold;
   font-size: 14px;
 }
-
 .size-table td {
   font-size: 14px;
   color: #ccc;
 }
-
 .size-table td strong {
   color: #fff;
 }
-
 .size-table tr:last-child td {
   border-bottom: none;
 }
 
-/* 픽셀/포인트 수치 강조 (터미널 코드 느낌) */
 .size-table td code {
   background: rgba(0, 0, 0, 0.6);
   padding: 4px 8px;
   border-radius: 4px;
-  color: var(--accent); /* 포인트 컬러(네온 블루) 적용 */
+  color: var(--accent);
   font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
   font-size: 13px;
   margin-right: 4px;
