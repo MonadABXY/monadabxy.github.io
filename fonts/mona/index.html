@@ -76,7 +76,7 @@
               <div class="title-area">
                 <div class="font-selector-wrapper" id="font-selector-wrapper">
                   <div class="font-title-display" id="display-font-title" style="font-family: Mona12">
-                    Mona<span id="display-size-num">12</span>
+                    <span>Mona<span id="display-size-num">12</span></span>
                     <span class="dropdown-arrow">▼</span>
                   </div>
 
@@ -478,7 +478,7 @@
         currentFont = fontName;
         const displayNum = fontName.replace("Mona", "").replace("S", "");
         const sizeSpan = document.getElementById("display-size-num");
-        if (sizeSpan) sizeSpan.textContent = displayNum + (currentStyle === "straight" ? "S" : "");
+        if (sizeSpan) sizeSpan.textContent = (currentStyle === "straight" ? "S" : "") + displayNum;
         if (displayTitle) displayTitle.style.fontFamily = fontName;
 
         initDropdown();
