@@ -12,8 +12,8 @@
     <meta property="og:description" content="이모지를 지원하는 픽셀 폰트." />
     <link rel="icon" href="/logo-icon.png" />
     <link rel="stylesheet" href="/css/font-layout.css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/MonadABXY/mona-font@9601f3c/web/mona.css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/MonadABXY/mona-font@9601f3c/web/monas.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/MonadABXY/mona-font@546165a/web/mona.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/MonadABXY/mona-font@546165a/web/monas.css" />
 
     <style>
       @font-face {
@@ -24,6 +24,12 @@
 
       @font-face {
         font-family: "Num10";
+        src: url("https://cdn.jsdelivr.net/gh/MonadABXY/mona-font/web/Mona10.woff2") format("woff2");
+        unicode-range: U+0020, U+0023, U+002A, U+0030-0039;
+      }
+
+      @font-face {
+        font-family: "Num10x12";
         src: url("https://cdn.jsdelivr.net/gh/MonadABXY/mona-font/web/Mona10x12.woff2") format("woff2");
         unicode-range: U+0020, U+0023, U+002A, U+0030-0039;
       }
@@ -94,7 +100,7 @@
               <span class="value-display" id="val-view-size">24px</span>
             </label>
             <div class="range-wrapper">
-              <input type="range" id="input-view-size" min="11" max="100" step="1" value="24" />
+              <input type="range" id="input-view-size" min="10" max="100" step="1" value="24" />
             </div>
           </div>
 
@@ -265,7 +271,7 @@
         <h2>라이선스</h2>
 
         <p>
-          <strong>Mona Font</strong>는
+          <strong>모나 폰트</strong>는
           <a href="https://openfontlicense.org/" target="_blank" rel="noopener noreferrer" class="license-link"
             >SIL 오픈 폰트 라이선스 1.1</a
           >
@@ -330,7 +336,7 @@
     </div>
 
     <script>
-      const availableFonts = ["8x12", "10x12", "12"];
+      const availableFonts = ["10", "8x12", "10x12", "12"];
       let currentBaseSize = "12";
       let currentStyle = "standard";
       let currentFont = "Mona12";
@@ -459,7 +465,8 @@
       function getEmojiStack() {
         let numberFont = '"Num12"';
         if (currentBaseSize === "8x12") numberFont = '"Num8"';
-        if (currentBaseSize === "10x12") numberFont = '"Num10"';
+        if (currentBaseSize === "10x12") numberFont = '"Num10x12"';
+        if (currentBaseSize === "10") numberFont = '"Num10"';
 
         const emojiFont = emojiMode === "mono" ? '"Mona12 Emoji"' : '"Mona12 Color Emoji"';
         return `${numberFont}, ${emojiFont}, "${currentFont}", "Mona12 Text KR", sans-serif`;
