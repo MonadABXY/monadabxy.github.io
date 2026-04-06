@@ -12,8 +12,8 @@
     <meta property="og:description" content="이모지를 지원하는 픽셀 폰트." />
     <link rel="icon" href="/logo-icon.png" />
     <link rel="stylesheet" href="/css/font-layout.css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/MonadABXY/mona-font@546165a/web/mona.css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/MonadABXY/mona-font@546165a/web/monas.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/MonadABXY/mona-font@1d473d7/web/mona.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/MonadABXY/mona-font@1d473d7/web/monas.css" />
 
     <style>
       @font-face {
@@ -27,6 +27,12 @@
         src: url("https://cdn.jsdelivr.net/gh/MonadABXY/mona-font/web/Mona10.woff2") format("woff2");
         unicode-range: U+0020, U+0023, U+002A, U+0030-0039;
       }
+      @font-face {
+        font-family: "Num10";
+        src: url("https://cdn.jsdelivr.net/gh/MonadABXY/mona-font/web/Mona10-Bold.woff2") format("woff2");
+        font-weight: 700;
+        unicode-range: U+0020, U+0023, U+002A, U+0030-0039;
+      }
 
       @font-face {
         font-family: "Num10x12";
@@ -37,6 +43,12 @@
       @font-face {
         font-family: "Num12";
         src: url("https://cdn.jsdelivr.net/gh/MonadABXY/mona-font/web/Mona12.woff2") format("woff2");
+        unicode-range: U+0020, U+0023, U+002A, U+0030-0039;
+      }
+      @font-face {
+        font-family: "Num12";
+        src: url("https://cdn.jsdelivr.net/gh/MonadABXY/mona-font/web/Mona12-Bold.woff2") format("woff2");
+        font-weight: 700;
         unicode-range: U+0020, U+0023, U+002A, U+0030-0039;
       }
 
@@ -141,11 +153,11 @@
         </div>
 
         <textarea id="type-tester" spellcheck="false">
-  다람쥐 헌 쳇바퀴에 타고파.
-  The quick brown fox jumps over the lazy dog.
-  1234567890 !@#$%^&*()
-  🌐🌏🌟💫🌠👍🤛🫠😽😂✏✍❓❗🎉🎊✨⛏🦐🦑🥞🥠🥔🍨🍮🍃
-  ↑↑↓↓←→←→ⒷⒶ
+다람쥐 헌 쳇바퀴에 타고파.
+The quick brown fox jumps over the lazy dog.
+1234567890 !@#$%^&*()
+🌐🌏🌟💫🌠👍🤛🫠😽😂✏✍❓❗🎉🎊✨⛏🦐🦑🥞🥠🥔🍨🍮🍃
+↑↑↓↓←→←→ⒷⒶ다람쥐 헌 쳇바퀴에 타고파.
   </textarea
         >
       </div>
@@ -189,36 +201,61 @@
         <h2>웹폰트로 사용하기</h2>
         <p>HTML <code>&lt;link&gt;</code> 태그 또는 CSS <code>@import</code> 방식으로 폰트를 불러온 후 사용할 수 있습니다.</p>
 
-        <div class="code-container">
+        <div class="filter-buttons" id="usage-tab-buttons" style="margin-bottom: 25px">
+          <button class="filter-btn active" onclick="toggleUsage(this, 'standard')">모나</button>
+          <button class="filter-btn" onclick="toggleUsage(this, 'straight')">모나S</button>
+        </div>
+
+        <div id="usage-content-standard" class="code-container">
           <div class="code-group">
             <span class="code-label">&lt;link&gt;</span>
             <div class="code-block">
               <code>&lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/MonadABXY/mona-font/web/mona.css"&gt;</code>
-              <code>&lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/MonadABXY/mona-font/web/monas.css"&gt;</code>
             </div>
           </div>
-
           <div class="code-group">
             <span class="code-label">@import</span>
             <div class="code-block">
               <code>@import url("https://cdn.jsdelivr.net/gh/MonadABXY/mona-font/web/mona.css");</code>
-              <code>@import url("https://cdn.jsdelivr.net/gh/MonadABXY/mona-font/web/monas.css");</code>
             </div>
           </div>
-
           <div class="code-group">
             <span class="code-label">폰트 패밀리로 사용</span>
             <div class="code-block">
               <code>font-family: 'Mona12', sans-serif;</code>
-              <code>font-family: 'MonaS12', sans-serif;</code>
             </div>
           </div>
-
           <div class="code-group">
             <span class="code-label">클래스로 사용</span>
             <div class="code-block">
               <code>&lt;div class="mona12"&gt;모나 폰트 12px&lt;/div&gt;</code>
               <code>&lt;div class="mona12-bold"&gt;모나 폰트 12px 굵게&lt;/div&gt;</code>
+            </div>
+          </div>
+        </div>
+
+        <div id="usage-content-straight" class="code-container" style="display: none">
+          <div class="code-group">
+            <span class="code-label">&lt;link&gt;</span>
+            <div class="code-block">
+              <code>&lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/MonadABXY/mona-font/web/monas.css"&gt;</code>
+            </div>
+          </div>
+          <div class="code-group">
+            <span class="code-label">@import</span>
+            <div class="code-block">
+              <code>@import url("https://cdn.jsdelivr.net/gh/MonadABXY/mona-font/web/monas.css");</code>
+            </div>
+          </div>
+          <div class="code-group">
+            <span class="code-label">폰트 패밀리로 사용</span>
+            <div class="code-block">
+              <code>font-family: 'MonaS12', sans-serif;</code>
+            </div>
+          </div>
+          <div class="code-group">
+            <span class="code-label">클래스로 사용</span>
+            <div class="code-block">
               <code>&lt;div class="monas12"&gt;모나 폰트 S12px&lt;/div&gt;</code>
               <code>&lt;div class="monas12-bold"&gt;모나 폰트 S12px 굵게&lt;/div&gt;</code>
             </div>
@@ -817,6 +854,15 @@
       initDropdown();
       updateFullFontName();
       if (tester) tester.style.fontSize = sizeInput.value + "px";
+
+      function toggleUsage(btn, style) {
+        document.querySelectorAll("#usage-tab-buttons .filter-btn").forEach((b) => b.classList.remove("active"));
+        btn.classList.add("active");
+
+        const isStandard = style === "standard";
+        document.getElementById("usage-content-standard").style.display = isStandard ? "block" : "none";
+        document.getElementById("usage-content-straight").style.display = isStandard ? "none" : "block";
+      }
     </script>
   </body>
 </html>
