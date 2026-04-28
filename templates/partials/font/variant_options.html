@@ -1,0 +1,12 @@
+{% set current_font = page.extra.font_family | default(value="sans-serif") %}
+{% set current_weight = page.extra.font_weight | default(value="400") %}
+{% for variant in page.extra.variants %}
+{% set variant_weight = variant.weight | default(value="400") %}
+{% if variant.family == current_font and variant_weight == current_weight %}
+<option value="{{ variant.family }}" data-weight="{{ variant_weight }}" data-font-family="{{ variant.family }}" selected>
+  {{ variant.name }}
+</option>
+{% else %}
+<option value="{{ variant.family }}" data-weight="{{ variant_weight }}" data-font-family="{{ variant.family }}">{{ variant.name }}</option>
+{% endif %}
+{% endfor %}

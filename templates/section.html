@@ -1,0 +1,21 @@
+{% extends "base.html" %} {% block nav_class %}bottom-nav--content{% endblock %} {% block content %}
+<div class="container">
+  <h1 style="margin-bottom: 30px">{{ section.title }}</h1>
+  <div class="post-grid">
+    {% for page in section.pages %}
+    <div class="post-card" onclick="location.href='{{ page.permalink | safe }}';">
+      {% if page.extra.thumbnail %}
+      <div class="post-card__img" style="background-image: url('{{ page.extra.thumbnail }}');"></div>
+      {% else %}
+      <div class="post-card__img" style="background-color: #2a2a2a"></div>
+      {% endif %}
+
+      <div class="post-card__info">
+        <h3 class="post-card__title">{{ page.title }}</h3>
+        <p class="post-card__desc">{{ page.description | default(value="설명이 없습니다.") }}</p>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock content %}

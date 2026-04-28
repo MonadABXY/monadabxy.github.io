@@ -1,0 +1,43 @@
+<div class="font-tester-card">
+  <div class="font-tester-card__controls">
+    <div class="tester-ui">
+      {% if page.extra.variants is defined %}
+      <div class="control-item">
+        <select id="input-font-family" class="zola-select">
+          {% include "partials/font/variant_options.html" %}
+        </select>
+      </div>
+      {% endif %}
+
+      <div class="control-item">
+        <label>미리보기 크기 <span id="val-size">24px</span></label>
+        <input type="range" id="input-size" min="10" max="100" value="24" />
+      </div>
+
+      {% if page.extra.is_mona is defined and page.extra.is_mona %}
+      <div class="control-item">
+        <label>폰트 스타일</label>
+        <div class="toggle-buttons" id="font-style-buttons">
+          <button class="toggle-btn active" data-style="standard">Mona</button>
+          <button class="toggle-btn" data-style="straight">MonaS</button>
+        </div>
+      </div>
+
+      <div class="control-item">
+        <label>이모지 스타일</label>
+        <div class="toggle-buttons" id="emoji-mode-buttons">
+          <button class="toggle-btn active" data-mode="color">컬러</button>
+          <button class="toggle-btn" data-mode="mono">흑백</button>
+        </div>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="font-tester-card__preview">
+    <textarea id="font-textarea" spellcheck="false" style="font-family: '{{ page.extra.font_family | default(value='sans-serif') }}';">
+{{ page.extra.sample_text | default(value="다람쥐 헌 쳇바퀴에 타고파.
+The quick brown fox jumps over the lazy dog.
+1234567890 !@#$%^&*()") | safe }}</textarea>
+  </div>
+</div>

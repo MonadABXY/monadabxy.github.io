@@ -1,0 +1,40 @@
+@font-face {
+  font-family: "Mona12";
+  src: url("https://cdn.jsdelivr.net/gh/MonadABXY/mona-font/web/Mona12.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Limgul12";
+  src: url("https://cdn.jsdelivr.net/gh/MonadABXY/limgul-font@main/woff/Limgul12.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Umdot12";
+  src: url("https://cdn.jsdelivr.net/gh/MonadABXY/umdot-font/woff/Umdot12.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Tangba12";
+  src: url("https://cdn.jsdelivr.net/gh/MonadABXY/tangba-font/woff/Tangba12.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Suhgung12";
+  src: url("https://cdn.jsdelivr.net/gh/MonadABXY/suhgung-font/woff/Suhgung12.woff2") format("woff2");
+}
+
+.font-preview-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+
+  span {
+    font-size: 2.2rem;
+    color: #ffffff;
+    text-align: center;
+    word-break: break-all;
+    padding: 0 15px;
+    transition: transform 0.3s ease;
+
+    .mona-mode & {
+      color: #00f2ff;
+    }
+  }
+}

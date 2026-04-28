@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block nav_class %}bottom-nav--content bottom-nav--hidden{% endblock %}
+
+{% block content %}
+  {% include "partials/font/assets.html" %}
+
+  <div class="container container--font" style="font-family: '{{ page.extra.font_family | default(value='sans-serif') }}';">
+    {% include "partials/font/header.html" %}
+    {% include "partials/font/tester.html" %}
+    {% include "partials/font/glyph_browser.html" %}
+    {% include "partials/font/info_cards.html" %}
+    {% include "partials/font/related_fonts.html" %}
+  </div>
+
+  {% include "partials/font/scripts.html" %}
+{% endblock content %}

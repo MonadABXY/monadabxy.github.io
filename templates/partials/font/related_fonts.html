@@ -1,0 +1,23 @@
+{% if page.extra.related_fonts is defined %}
+<section class="font-more">
+  <h2 class="font-more__title">다른 폰트 구경하기</h2>
+
+  <div class="font-more__grid">
+    {% for font in page.extra.related_fonts %}
+      {% if font.family is defined %}
+      <a class="font-more__card" href="{{ font.url }}" style="font-family: '{{ font.family }}', sans-serif;">
+        {{ font.name }}
+        {% if font.en is defined %}<span>({{ font.en }})</span>{% endif %}
+      </a>
+      {% else %}
+      <a class="font-more__card" href="{{ font.url }}">
+        {{ font.name }}
+        {% if font.en is defined %}<span>({{ font.en }})</span>{% endif %}
+      </a>
+      {% endif %}
+    {% endfor %}
+
+    <a class="font-more__card font-more__card--more" href="{{ get_url(path='fonts/') }}"> 더 보기... </a>
+  </div>
+</section>
+{% endif %}

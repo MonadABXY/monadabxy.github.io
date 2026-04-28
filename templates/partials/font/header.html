@@ -1,0 +1,20 @@
+<header class="font-header">
+  <h1 id="main-font-title">{{ page.title }}</h1>
+  <p>{{ page.description }}</p>
+
+  <div class="font-actions">
+    {% if page.extra.dl_url is defined %}
+    <a href="{{ page.extra.dl_url }}" class="btn-main" target="_blank">⬇ 폰트 다운로드</a>
+    {% endif %}
+    
+    {% if page.extra.github_url is defined %}
+    <a href="{{ page.extra.github_url }}" class="btn-sub" target="_blank">GitHub</a>
+    {% endif %}
+    
+    {% if page.extra.feedback_url is defined %}
+    <a href="{{ page.extra.feedback_url }}" class="btn-sub" target="_blank">피드백 남기기</a>
+    {% endif %}
+
+    <a href="{{ get_url(path='fonts/') }}" class="btn-sub">다른 폰트 보기</a>
+  </div>
+</header>

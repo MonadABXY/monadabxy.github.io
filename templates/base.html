@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}{{ config.title }}{% endblock %}</title>
+
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-icon-180x180.png" />
+    <meta name="theme-color" content="#ffffff" />
+
+    <link rel="stylesheet" href="{{ get_url(path='main.css') }}" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" />
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+      onload="
+        renderMathInElement(document.body, {
+          delimiters: [
+            { left: '$$', right: '$$', display: true },
+            { left: '$', right: '$', display: false },
+          ],
+        })
+      "
+    ></script>
+    <script src="https://cdn.jsdelivr.net/npm/medium-zoom@1.1.0/dist/medium-zoom.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/elasticlunr/0.9.6/elasticlunr.min.js"></script>
+
+    <script>
+      (function () {
+        const theme = localStorage.getItem("theme") || "{{ config.extra.theme_mode | default(value='light') }}";
+        const font = localStorage.getItem("font") || "{{ config.extra.font_mode | default(value='normal') }}";
+        const classes = [];
+        if (theme !== "light") classes.push(theme + "-mode");
+        if (font === "pixel") classes.push("pixel-mode");
+        document.documentElement.className = classes.join(" ");
+      })();
+    </script>
+  </head>
+
+  <body
+    class="{% if config.extra.theme_mode != 'light' %}{{ config.extra.theme_mode }}-mode{% endif %} {% if config.extra.font_mode == 'pixel' %}pixel-mode{% endif %}"
+  >
+    <nav class="topbar">
+      <div class="topbar__user">
+        {% set profile_url = get_url(path=config.extra.profile_pic_path | default(value="images/default-profile.png")) %}
+        <a href="/" class="topbar__profile" style="background-image: url('{{ profile_url }}');"></a>
+        <div class="topbar__titles">
+          <strong class="topbar__title">Monad ABXY</strong>
+          <span class="topbar__subtitle">{{ config.extra.user_name | default(value="USER") }}</span>
+        </div>
+      </div>
+
+      <div class="topbar__status">
+        <div class="settings">
+          <button class="settings__toggle" onclick="toggleSettingsMenu(event)">
+            <i data-lucide="settings"></i>
+          </button>
+          <div id="settings-dropdown" class="settings__menu">
+            <div class="settings__row">
+              <span class="settings__label">테마</span>
+              <div class="settings__toggles">
+                <button id="btn-light" class="settings__btn" onclick="setTheme('light')">
+                  <i data-lucide="sun"></i>
+                </button>
+                <button id="btn-dark" class="settings__btn" onclick="setTheme('dark')">
+                  <i data-lucide="moon"></i>
+                </button>
+                <button id="btn-mona" class="settings__btn" onclick="setTheme('mona')">
+                  <i data-lucide="sparkles"></i>
+                </button>
+              </div>
+            </div>
+            <div class="settings__row">
+              <span class="settings__label">폰트</span>
+              <div class="settings__toggles">
+                <button id="btn-normal" class="settings__btn" onclick="setFont('normal')">Aa</button>
+                <button id="btn-pixel" class="settings__btn" onclick="setFont('pixel')">Px</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <main class="view">{% block content %}{% endblock content %}</main>
+
+    <nav id="global-nav" class="bottom-nav {% block nav_class %}bottom-nav--home{% endblock %}">
+      <div class="bottom-nav__btn" onclick="openSearch()">
+        <i data-lucide="search"></i>
+        검색
+      </div>
+      <div class="bottom-nav__btn" onclick="location.href = '/'">
+        <i data-lucide="home"></i>
+        홈
+      </div>
+      <div class="bottom-nav__btn" onclick="history.back()">
+        <i data-lucide="corner-down-left"></i>
+        뒤로
+      </div>
+    </nav>
+
+    <div id="search-modal" class="search-modal">
+      <div class="search-modal__content">
+        <input type="text" id="search-input" class="search-modal__input" placeholder="검색어를 입력하세요..." />
+        <div id="search-results" class="search-modal__results"></div>
+        <button class="search-modal__close" onclick="closeSearch()">닫기 (Esc)</button>
+      </div>
+    </div>
+
+    <script>
+      let searchIndex;
+
+      function updateSettingsUI() {
+        const defaultTheme = "{{ config.extra.theme_mode | default(value='light') }}";
+        const defaultFont = "{{ config.extra.font_mode | default(value='normal') }}";
+
+        const theme = localStorage.getItem("theme") || defaultTheme;
+        const font = localStorage.getItem("font") || defaultFont;
+
+        const root = document.documentElement;
+        const body = document.body;
+
+        root.classList.remove("dark-mode", "mona-mode", "pixel-mode");
+        body.classList.remove("dark-mode", "mona-mode", "pixel-mode");
+
+        if (theme !== "light") {
+          root.classList.add(theme + "-mode");
+          body.classList.add(theme + "-mode");
+        }
+
+        if (font === "pixel") {
+          root.classList.add("pixel-mode");
+          body.classList.add("pixel-mode");
+        }
+
+        document.querySelectorAll(".settings__btn").forEach((btn) => {
+          btn.classList.remove("active");
+        });
+
+        document.getElementById("btn-" + theme)?.classList.add("active");
+        document.getElementById("btn-" + font)?.classList.add("active");
+      }
+
+      function setTheme(mode) {
+        localStorage.setItem("theme", mode);
+        updateSettingsUI();
+      }
+      function setFont(style) {
+        localStorage.setItem("font", style);
+        updateSettingsUI();
+      }
+      function toggleSettingsMenu(e) {
+        e.stopPropagation();
+        document.getElementById("settings-dropdown").classList.toggle("show");
+      }
+
+      function executeSearch() {
+        const input = document.getElementById("search-input");
+        const query = input.value.trim();
+        const resultsContainer = document.getElementById("search-results");
+
+        resultsContainer.innerHTML = "";
+
+        if (!searchIndex || query.length < 1) return;
+
+        const results = searchIndex.search(query, {
+          fields: { title: { boost: 3 }, body: { boost: 1 } },
+          bool: "OR",
+          expand: true,
+        });
+
+        results.forEach((result) => {
+          const doc = searchIndex.documentStore.getDoc(result.ref);
+          const div = document.createElement("div");
+          div.className = "search-result-item";
+          div.innerHTML = `
+      <div class="search-result-item__title">${doc.title}</div>
+      <div class="search-result-item__excerpt">${doc.description || ""}</div>
+    `;
+          div.onclick = () => {
+            location.href = doc.id || result.ref;
+          };
+          resultsContainer.appendChild(div);
+        });
+      }
+
+      async function openSearch() {
+        const modal = document.getElementById("search-modal");
+        modal.classList.add("show");
+        const input = document.getElementById("search-input");
+        input.focus();
+
+        if (!searchIndex) {
+          try {
+            const indexPath = "{{ get_url(path='search_index.ko.json') | safe }}";
+            const response = await fetch(indexPath);
+            const data = await response.json();
+
+            ["trimmer-ko", "stopWordFilter-ko", "stemmer-ko"].forEach((fn) => {
+              elasticlunr.Pipeline.registerFunction((args) => args, fn);
+            });
+
+            searchIndex = elasticlunr.Index.load(data);
+
+            if (input.value.trim().length >= 1) {
+              executeSearch();
+            }
+          } catch (err) {
+            console.error("검색 로드 실패:", err);
+          }
+        } else {
+          if (input.value.trim().length >= 1) {
+            executeSearch();
+          }
+        }
+      }
+
+      document.getElementById("search-input").addEventListener("input", executeSearch);
+
+      function closeSearch() {
+        document.getElementById("search-modal").classList.remove("show");
+      }
+
+      window.addEventListener("DOMContentLoaded", () => {
+        updateSettingsUI();
+
+        lucide.createIcons();
+
+        const isDark = document.body.classList.contains("dark-mode") || document.body.classList.contains("mona-mode");
+        mediumZoom(".post-content img", {
+          margin: 20,
+          background: isDark ? "rgba(0,0,0,0.9)" : "rgba(255,255,255,0.95)",
+        });
+
+        setTimeout(() => document.body.classList.add("theme-transition"), 50);
+      });
+
+      document.addEventListener("click", (e) => {
+        const menu = document.getElementById("settings-dropdown");
+        if (!e.target.closest(".settings")) menu.classList.remove("show");
+      });
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") closeSearch();
+      });
+    </script>
+  </body>
+</html>

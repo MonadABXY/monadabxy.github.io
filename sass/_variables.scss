@@ -1,0 +1,40 @@
+:root {
+  --z-base: 1;
+  --z-header: 1000;
+  --z-nav: 1001;
+  --z-dropdown: 2000;
+
+  --bg-main: #eff1f5;
+  --header-bg: rgba(255, 255, 255, 0.78);
+  --card-bg: #ffffff;
+  --text-main: #4c4f69;
+  --accent: #209fb5;
+  --accent-red: #d20f39;
+  --nav-bg: rgba(76, 79, 105, 0.8);
+  --body-background: var(--bg-main);
+  --code-bg: #1e1e2e;
+}
+
+body.dark-mode {
+  --bg-main: #1e1e2e;
+  --header-bg: rgba(24, 24, 37, 0.82);
+  --card-bg: rgba(49, 50, 68, 0.82);
+  --text-main: #cdd6f4;
+  --accent: #74c7ec;
+  --accent-red: #f38ba8;
+  --nav-bg: rgba(17, 17, 27, 0.86);;
+  --body-background: var(--bg-main);
+  --code-bg: #11111b;
+}
+
+body.mona-mode {
+  --bg-main: #0a0b99;
+  --header-bg: rgba(0, 15, 40, 0.7);
+  --card-bg: rgba(0, 15, 40, 0.7);
+  --text-main: #ffffff;
+  --accent: #00f3ff;
+  --accent-red: #ff6b6b;
+  --nav-bg: rgba(0, 15, 40, 0.8);
+
+  --body-background: linear-gradient(to bottom, rgba(0, 5, 20, 0.2), rgba(0, 0, 10, 0.9)), var(--bg-main);
+}

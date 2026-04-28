@@ -1,0 +1,43 @@
+{% if page.extra.glyph_data_path is defined or page.extra.emoji_data_path is defined %}
+<section class="glyph-browser">
+  <button id="glyph-browser-toggle" class="glyph-browser__toggle" type="button">글리프 및 이모지 목록 펼치기 ▼</button>
+
+  <div id="glyph-browser-content" class="glyph-browser__content" hidden>
+    <div class="glyph-browser__tabs">
+      {% if page.extra.glyph_data_path is defined %}
+      <button class="glyph-browser__tab active" type="button" data-tab="glyphs">모든 글리프</button>
+      {% endif %}
+      
+      {% if page.extra.emoji_data_path is defined %}
+      <button class="glyph-browser__tab {% if page.extra.glyph_data_path is not defined %}active{% endif %}" type="button" data-tab="emoji">
+        모든 이모지
+      </button>
+      {% endif %}
+    </div>
+
+    {% if page.extra.glyph_data_path is defined %}
+    <section id="glyph-panel" class="glyph-browser__panel active">
+      <div class="glyph-browser__filters" id="glyph-filter-buttons">
+        <button class="glyph-browser__filter active" type="button" data-value="A">Letters</button>
+        <button class="glyph-browser__filter" type="button" data-value="B">Hangul</button>
+        <button class="glyph-browser__filter" type="button" data-value="C">CJK</button>
+        <button class="glyph-browser__filter" type="button" data-value="D">Symbols/Math/Technical</button>
+        <button class="glyph-browser__filter" type="button" data-value="E">Emoji/Pictographs</button>
+      </div>
+
+      <div id="glyph-content" class="glyph-browser__result"></div>
+    </section>
+    {% endif %}
+    
+    {% if page.extra.emoji_data_path is defined %}
+    <section id="emoji-panel" class="glyph-browser__panel {% if page.extra.glyph_data_path is not defined %}active{% endif %}">
+      <div class="glyph-browser__toolbar">
+        <select id="emoji-group" class="zola-select"></select>
+      </div>
+
+      <div id="emoji-content" class="glyph-browser__result"></div>
+    </section>
+    {% endif %}
+  </div>
+</section>
+{% endif %}

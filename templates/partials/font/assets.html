@@ -1,0 +1,56 @@
+{% if page.extra.css_url is defined %}
+<link rel="stylesheet" href="{{ page.extra.css_url }}" />
+{% endif %}
+
+{% if page.extra.css_url_2 is defined %}
+<link rel="stylesheet" href="{{ page.extra.css_url_2 }}" />
+{% endif %}
+
+{% if page.extra.is_mona is defined and page.extra.is_mona %}
+<style>
+  @font-face {
+    font-family: "Num8";
+    src: url("https://cdn.jsdelivr.net/gh/MonadABXY/mona-font/web/Mona8x12.woff2") format("woff2");
+    unicode-range: U+0020, U+0023, U+002A, U+0030-0039;
+  }
+
+  @font-face {
+    font-family: "Num10";
+    src: url("https://cdn.jsdelivr.net/gh/MonadABXY/mona-font/web/Mona10.woff2") format("woff2");
+    unicode-range: U+0020, U+0023, U+002A, U+0030-0039;
+  }
+
+  @font-face {
+    font-family: "Num10";
+    src: url("https://cdn.jsdelivr.net/gh/MonadABXY/mona-font/web/Mona10-Bold.woff2") format("woff2");
+    font-weight: 700;
+    unicode-range: U+0020, U+0023, U+002A, U+0030-0039;
+  }
+
+  @font-face {
+    font-family: "Num10x12";
+    src: url("https://cdn.jsdelivr.net/gh/MonadABXY/mona-font/web/Mona10x12.woff2") format("woff2");
+    unicode-range: U+0020, U+0023, U+002A, U+0030-0039;
+  }
+
+  @font-face {
+    font-family: "Num10x12";
+    src: url("https://cdn.jsdelivr.net/gh/MonadABXY/mona-font/web/Mona10x12-Bold.woff2") format("woff2");
+    font-weight: 700;
+    unicode-range: U+0020, U+0023, U+002A, U+0030-0039;
+  }
+
+  @font-face {
+    font-family: "Num12";
+    src: url("https://cdn.jsdelivr.net/gh/MonadABXY/mona-font/web/Mona12.woff2") format("woff2");
+    unicode-range: U+0020, U+0023, U+002A, U+0030-0039;
+  }
+
+  @font-face {
+    font-family: "Num12";
+    src: url("https://cdn.jsdelivr.net/gh/MonadABXY/mona-font/web/Mona12-Bold.woff2") format("woff2");
+    font-weight: 700;
+    unicode-range: U+0020, U+0023, U+002A, U+0030-0039;
+  }
+</style>
+{% endif %}

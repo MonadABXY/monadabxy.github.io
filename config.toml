@@ -1,0 +1,28 @@
+# The URL the site will be built for
+base_url = "https://monadabxy.com"
+
+default_language = "ko"
+
+# Whether to automatically compile all Sass files in the sass directory
+compile_sass = true
+
+# Whether to build a search index to be used later on by a JavaScript library
+build_search_index = true
+
+[markdown]
+
+[markdown.highlighting]
+theme = "catppuccin-mocha"
+
+[search]
+include_title = true
+include_description = true
+include_content = true
+index_format = "elasticlunr_json"
+
+[extra]
+# Put all your custom variables here
+user_name = "JEHYUNG"
+profile_pic_path = "images/logo.svg"
+theme_mode = "dark"
+font_mode = "normal"
