@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block nav_class %}bottom-nav--content bottom-nav--hidden{% endblock %}
+
+{% block content %}
+<iframe
+  src="{{ page.extra.wasm_src }}"
+  style="position: fixed; top: 60px; left: 0; width: 100%; height: calc(100vh - 60px); border: none; z-index: 1;"
+  title="{{ page.title }}"
+></iframe>
+{% endblock %}

@@ -1,0 +1,48 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>eguitest</title>
+
+    <style>
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+      }
+
+      canvas {
+        width: 100%;
+        height: 100%;
+        display: block;
+      }
+
+      .centered {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-family: sans-serif;
+      }
+    </style>
+  <link rel="modulepreload" href="/apps/eguicjkfont/eguicjkfont-628eab2d5c1e62ad.js" crossorigin="anonymous" integrity="sha384-NhmhOB85TVxMLIUqf9X9jyO187lpclUDfv+zzsFMXPwhlVjC0Go0sydoRnLcUc5j"><link rel="preload" href="/apps/eguicjkfont/eguicjkfont-628eab2d5c1e62ad_bg.wasm" crossorigin="anonymous" integrity="sha384-76D76XNDqj+rDo1MCFPeKrfzlpOuzfG8PTKo2caXmgMebGap+ybwY4a4cmpMkFr8" as="fetch" type="application/wasm"></head>
+
+  <body>
+    <canvas id="the_canvas_id"></canvas>
+    <p id="loading_text" class="centered">Loading…</p>
+  
+<script type="module">
+import init, * as bindings from '/apps/eguicjkfont/eguicjkfont-628eab2d5c1e62ad.js';
+const wasm = await init({ module_or_path: '/apps/eguicjkfont/eguicjkfont-628eab2d5c1e62ad_bg.wasm' });
+
+
+window.wasmBindings = bindings;
+
+
+dispatchEvent(new CustomEvent("TrunkApplicationStarted", {detail: {wasm}}));
+
+</script></body>
+</html>
