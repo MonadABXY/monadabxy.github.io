@@ -47,7 +47,7 @@
   }
 }
 
-@media (max-width: 640px) {
+@media (max-width: $bp-mobile) {
   .font-header {
     margin-bottom: 36px;
 
@@ -93,7 +93,7 @@
     gap: 40px;
     margin-bottom: 0;
 
-    @media (max-width: 768px) {
+    @media (max-width: $bp-tablet) {
       flex-direction: column;
       gap: 20px;
     }
@@ -198,7 +198,7 @@
   border: 1px solid rgba(255, 255, 255, 0.05);
   box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
 
-  @media (max-width: 768px) {
+  @media (max-width: $bp-tablet) {
     padding: 25px;
   }
 
@@ -305,7 +305,7 @@
     }
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: $bp-tablet) {
     flex-direction: column;
     gap: 10px;
   }
@@ -369,7 +369,7 @@
   font-family: inherit;
 }
 
-@media (max-width: 760px) {
+@media (max-width: $bp-tablet) {
   .font-more__grid {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -560,7 +560,7 @@
   text-align: center;
 }
 
-@media (max-width: 640px) {
+@media (max-width: $bp-mobile) {
   .glyph-browser__content {
     padding: 18px;
   }

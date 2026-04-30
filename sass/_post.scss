@@ -18,6 +18,14 @@
   margin-top: 30px;
 }
 
+.section-title {
+  margin-bottom: 30px;
+
+  &--center {
+    text-align: center;
+  }
+}
+
 .post-card {
   overflow: hidden;
 
@@ -41,6 +49,21 @@
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
+
+    &--empty {
+      background-color: #2a2a2a;
+    }
+  }
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+
+    .post-card__title {
+      margin: 0;
+    }
   }
 
   &__info {
@@ -213,7 +236,7 @@
 
 /* Responsive */
 
-@media (max-width: 768px) {
+@media (max-width: $bp-tablet) {
   .post-content {
     h1 {
       margin: 0 0 20px;

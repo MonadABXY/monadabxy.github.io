@@ -1,4 +1,9 @@
+$bp-mobile: 640px;
+$bp-tablet: 768px;
+
 :root {
+  --topbar-height: 60px;
+
   --z-base: 1;
   --z-header: 1000;
   --z-nav: 1001;

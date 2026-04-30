@@ -1,6 +1,6 @@
 {% extends "base.html" %} {% block nav_class %}bottom-nav--content{% endblock %} {% block content %}
 <div class="container">
-  <h1 style="margin-bottom: 30px; text-align: center">{{ section.title }}</h1>
+  <h1 class="section-title section-title--center">{{ section.title }}</h1>
   <div class="post-grid">
     {% for page in section.pages %}
     <div
@@ -8,12 +8,12 @@
       style="font-family: '{{ page.extra.font_family | default(value='sans-serif') }}';"
       onclick="location.href='{{ page.permalink | safe }}';"
     >
-      <div class="post-card__img font-preview-box" style="background-color: #2a2a2a">
+      <div class="post-card__img font-preview-box post-card__img--empty">
         <span>{{ page.extra.preview_text | default(value=page.title) }}</span>
       </div>
       <div class="post-card__info">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px">
-          <h3 class="post-card__title" style="margin: 0">{{ page.title }}</h3>
+        <div class="post-card__header">
+          <h3 class="post-card__title">{{ page.title }}</h3>
         </div>
         <p class="post-card__desc">{{ page.description | default(value="설명이 없습니다.") }}</p>
       </div>
