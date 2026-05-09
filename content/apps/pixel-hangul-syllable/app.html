@@ -1,0 +1,50 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Pixel Hangul Syllable Maker</title>
+    
+    <link rel="icon" href="icon.ico" />
+
+    <style>
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+      }
+
+      canvas {
+        width: 100%;
+        height: 100%;
+        display: block;
+      }
+
+      .centered {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-family: sans-serif;
+      }
+    </style>
+  <link rel="modulepreload" href="/apps/pixel-hangul-syllable/app-44299628504a51f2.js" crossorigin="anonymous" integrity="sha384-+wBpfy3mUaf5B7Bhh6Q1k1dPpT6ndYrtVEhmjzBrPAbqjAYT458xz3M8/0NGvE+u"><link rel="preload" href="/apps/pixel-hangul-syllable/app-44299628504a51f2_bg.wasm" crossorigin="anonymous" integrity="sha384-tzqTMorj6PDDgvvg7+hVZvS1aXErmBH3qri2f33vHS1J2oBPd2VY8hNDJjapXnV8" as="fetch" type="application/wasm"></head>
+
+  <body>
+    <canvas id="the_canvas_id"></canvas>
+    <p id="loading_text" class="centered">Loading…</p>
+  
+<script type="module">
+import init, * as bindings from '/apps/pixel-hangul-syllable/app-44299628504a51f2.js';
+const wasm = await init({ module_or_path: '/apps/pixel-hangul-syllable/app-44299628504a51f2_bg.wasm' });
+
+
+window.wasmBindings = bindings;
+
+
+dispatchEvent(new CustomEvent("TrunkApplicationStarted", {detail: {wasm}}));
+
+</script></body>
+</html>
