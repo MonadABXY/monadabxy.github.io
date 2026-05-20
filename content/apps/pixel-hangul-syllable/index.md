@@ -6,4 +6,5 @@ template = "wasm_app.html"
 
 [extra]
 wasm_src = "/apps/pixel-hangul-syllable/app.html"
+hidden = true
 +++

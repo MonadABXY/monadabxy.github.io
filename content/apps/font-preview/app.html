@@ -1,0 +1,1391 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Font Preview</title>
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css"
+    />
+    <style>
+      :root {
+        --bg-main: #eff1f5;
+        --card-bg: #ffffff;
+        --text-main: #4c4f69;
+        --accent: #209fb5;
+        --accent-red: #d20f39;
+        --border: rgba(255, 255, 255, 0.08);
+        --text-dim: color-mix(in srgb, var(--text-main) 50%, transparent);
+        --accent-glow: color-mix(in srgb, var(--accent) 20%, transparent);
+        --sidebar-w: 256px;
+      }
+      body.dark-mode {
+        --bg-main: #1e1e2e;
+        --card-bg: rgba(49, 50, 68, 0.82);
+        --text-main: #cdd6f4;
+        --accent: #74c7ec;
+        --accent-red: #f38ba8;
+      }
+      body.mona-mode {
+        --bg-main: #0a0b99;
+        --card-bg: rgba(0, 15, 40, 0.7);
+        --text-main: #ffffff;
+        --accent: #00f3ff;
+        --accent-red: #ff6b6b;
+      }
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      html,
+      body {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        font-family:
+          "Pretendard Variable",
+          "Pretendard",
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          sans-serif;
+        font-size: 14px;
+        color: var(--text-main);
+        background: var(--bg-main);
+        transition:
+          background 0.3s,
+          color 0.3s;
+      }
+
+      button,
+      input,
+      select {
+        font: inherit;
+        color: inherit;
+      }
+
+      #app {
+        display: flex;
+        height: 100%;
+      }
+
+      #sidebar {
+        width: var(--sidebar-w);
+        min-width: var(--sidebar-w);
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        background: var(--card-bg);
+        border-right: 1px solid var(--border);
+        box-shadow: 4px 0 20px rgba(0, 0, 0, 0.08);
+      }
+
+      .sidebar-top {
+        padding: 12px;
+        border-bottom: 1px solid var(--border);
+        flex-shrink: 0;
+      }
+
+      .open-btn {
+        width: 100%;
+        padding: 9px 14px;
+        background: var(--accent);
+        border: none;
+        border-radius: 10px;
+        color: #fff;
+        font-weight: 600;
+        font-size: 13px;
+        cursor: pointer;
+        transition:
+          opacity 0.2s,
+          transform 0.2s cubic-bezier(0.19, 1, 0.22, 1),
+          box-shadow 0.2s;
+      }
+      .open-btn:hover {
+        opacity: 0.88;
+        transform: translateY(-1px);
+        box-shadow: 0 6px 18px var(--accent-glow);
+      }
+      .open-btn:active {
+        transform: translateY(0);
+      }
+
+      #sidebar-body {
+        flex: 1;
+        overflow-y: auto;
+        scrollbar-width: thin;
+        scrollbar-color: rgba(150, 150, 150, 0.3) transparent;
+      }
+      #sidebar-body::-webkit-scrollbar {
+        width: 5px;
+      }
+      #sidebar-body::-webkit-scrollbar-thumb {
+        background: rgba(150, 150, 150, 0.3);
+        border-radius: 8px;
+      }
+
+      .section {
+        padding: 14px 14px 12px;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .section-label {
+        font-size: 10px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        opacity: 0.45;
+        margin-bottom: 10px;
+      }
+
+      .info-row {
+        display: flex;
+        flex-direction: column;
+        gap: 1px;
+        margin-bottom: 8px;
+      }
+      .info-key {
+        font-size: 10px;
+        opacity: 0.5;
+      }
+      .info-val {
+        font-size: 12px;
+        word-break: break-all;
+        line-height: 1.4;
+      }
+
+      .axis {
+        margin-bottom: 12px;
+      }
+      .axis-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        margin-bottom: 5px;
+      }
+      .axis-name {
+        font-size: 12px;
+        font-weight: 600;
+      }
+      .axis-right {
+        display: flex;
+        gap: 5px;
+        align-items: center;
+      }
+      .axis-tag {
+        font-family: "Fira Code", "SF Mono", monospace;
+        font-size: 10px;
+        padding: 1px 6px;
+        border-radius: 5px;
+        background: color-mix(in srgb, var(--text-main) 8%, transparent);
+        border: 1px solid var(--border);
+        opacity: 0.7;
+      }
+      .axis-val {
+        font-family: "Fira Code", "SF Mono", monospace;
+        font-size: 11px;
+        color: var(--accent);
+        min-width: 38px;
+        text-align: right;
+        font-variant-numeric: tabular-nums;
+      }
+      input[type="range"] {
+        width: 100%;
+        height: 3px;
+        cursor: pointer;
+        accent-color: var(--accent);
+      }
+      .axis-limits {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 3px;
+      }
+      .axis-limit {
+        font-size: 9px;
+        opacity: 0.4;
+      }
+
+      .axis-reset {
+        width: 16px;
+        height: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: none;
+        border: none;
+        padding: 0;
+        flex-shrink: 0;
+        cursor: pointer;
+        border-radius: 4px;
+        color: var(--text-dim);
+        opacity: 0;
+        transition:
+          opacity 0.15s,
+          color 0.15s,
+          background 0.15s;
+      }
+      .axis:hover .axis-reset {
+        opacity: 1;
+      }
+      .axis-reset:hover {
+        color: var(--accent);
+        background: var(--accent-glow);
+      }
+
+      .feat-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+        padding: 5px 0;
+        border-bottom: 1px solid var(--border);
+      }
+      .feat-row:last-child {
+        border-bottom: none;
+      }
+      .feat-info {
+        display: flex;
+        flex-direction: column;
+        gap: 1px;
+        min-width: 0;
+      }
+      .feat-name {
+        font-size: 11px;
+        font-weight: 500;
+      }
+      .feat-tag {
+        font-family: "Fira Code", "SF Mono", monospace;
+        font-size: 9px;
+        opacity: 0.45;
+      }
+
+      .feat-toggle {
+        position: relative;
+        width: 30px;
+        height: 17px;
+        flex-shrink: 0;
+        cursor: pointer;
+      }
+      .feat-toggle input {
+        position: absolute;
+        opacity: 0;
+        width: 0;
+        height: 0;
+      }
+      .feat-knob {
+        position: absolute;
+        inset: 0;
+        border-radius: 9px;
+        background: color-mix(in srgb, var(--text-main) 18%, transparent);
+        transition: background 0.2s;
+      }
+      .feat-knob::after {
+        content: "";
+        position: absolute;
+        left: 2px;
+        top: 2px;
+        width: 13px;
+        height: 13px;
+        border-radius: 50%;
+        background: #fff;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+        transition: transform 0.2s cubic-bezier(0.19, 1, 0.22, 1);
+      }
+      .feat-toggle input:checked + .feat-knob {
+        background: var(--accent);
+      }
+      .feat-toggle input:checked + .feat-knob::after {
+        transform: translateX(13px);
+      }
+
+      .feat-lang-row {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding-bottom: 10px;
+        margin-bottom: 4px;
+        border-bottom: 1px solid var(--border);
+      }
+      .feat-lang-label {
+        font-size: 11px;
+        opacity: 0.55;
+        flex-shrink: 0;
+        width: 58px;
+      }
+
+      #instances-select,
+      #lang-select {
+        width: 100%;
+        padding: 7px 28px 7px 10px;
+        background: color-mix(in srgb, var(--text-main) 6%, transparent);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        font-size: 12px;
+        cursor: pointer;
+        outline: none;
+        appearance: none;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23888' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 10px center;
+        transition:
+          border-color 0.15s,
+          box-shadow 0.15s;
+      }
+      #lang-select {
+        border-radius: 8px;
+        font-size: 11px;
+      }
+      #instances-select:focus,
+      #lang-select:focus {
+        border-color: var(--accent);
+        box-shadow: 0 0 0 3px var(--accent-glow);
+      }
+      #instances-select option,
+      #lang-select option {
+        background: var(--bg-main);
+        color: var(--text-main);
+      }
+
+      .align-group {
+        display: flex;
+        flex: 1;
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        overflow: hidden;
+      }
+      .align-btn {
+        flex: 1;
+        padding: 5px 0;
+        border: none;
+        background: transparent;
+        opacity: 0.4;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition:
+          background 0.15s,
+          opacity 0.15s,
+          color 0.15s;
+      }
+      .align-btn + .align-btn {
+        border-left: 1px solid var(--border);
+      }
+      .align-btn svg {
+        pointer-events: none;
+      }
+      .align-btn.active {
+        background: color-mix(in srgb, var(--accent) 15%, transparent);
+        color: var(--accent);
+        opacity: 1;
+      }
+
+      .ctrl-row {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 9px;
+      }
+      .ctrl-key {
+        font-size: 11px;
+        opacity: 0.55;
+        width: 62px;
+        flex-shrink: 0;
+      }
+      .ctrl-row input[type="range"] {
+        flex: 1;
+      }
+      .ctrl-val {
+        font-family: "Fira Code", "SF Mono", monospace;
+        font-size: 11px;
+        color: var(--accent);
+        min-width: 38px;
+        text-align: right;
+        font-variant-numeric: tabular-nums;
+      }
+
+      #main {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        min-width: 0;
+      }
+
+      #drop-zone {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: default;
+        transition: background 0.2s;
+      }
+      #drop-zone.drag-over {
+        background: var(--accent-glow);
+      }
+      .drop-hint {
+        font-size: 13px;
+        font-weight: 500;
+        opacity: 0.25;
+        user-select: none;
+        pointer-events: none;
+        transition: opacity 0.2s;
+      }
+      #drop-zone.drag-over .drop-hint {
+        opacity: 0.6;
+      }
+      .drop-label {
+        display: none;
+      }
+
+      #preview-area {
+        display: none;
+        flex-direction: column;
+        height: 100%;
+        overflow: hidden;
+      }
+
+      #toolbar {
+        display: flex;
+        justify-content: flex-end;
+        padding: 8px 14px;
+        border-bottom: 1px solid var(--border);
+        background: var(--card-bg);
+        flex-shrink: 0;
+      }
+
+      #text-input {
+        width: 100%;
+        min-height: 36px;
+        max-height: 160px;
+        padding: 7px 10px;
+        background: color-mix(in srgb, var(--text-main) 6%, transparent);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        font-size: 12px;
+        outline: none;
+        resize: none;
+        overflow-y: auto;
+        line-height: 1.5;
+        transition:
+          border-color 0.15s,
+          box-shadow 0.15s;
+      }
+      #text-input:focus {
+        border-color: var(--accent);
+        box-shadow: 0 0 0 3px var(--accent-glow);
+      }
+
+      .view-toggle {
+        display: flex;
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        overflow: hidden;
+        flex-shrink: 0;
+      }
+      .view-btn {
+        padding: 7px 12px;
+        font-size: 12px;
+        font-weight: 500;
+        border: none;
+        background: transparent;
+        opacity: 0.55;
+        cursor: pointer;
+        transition:
+          background 0.15s,
+          opacity 0.15s,
+          box-shadow 0.15s;
+      }
+      .view-btn.active {
+        background: var(--accent);
+        color: #fff;
+        opacity: 1;
+        box-shadow: 0 2px 10px var(--accent-glow);
+      }
+
+      #preview-scroll {
+        flex: 1;
+        overflow: auto;
+        scrollbar-width: thin;
+        scrollbar-color: rgba(150, 150, 150, 0.3) transparent;
+      }
+      #preview-scroll::-webkit-scrollbar {
+        width: 6px;
+      }
+      #preview-scroll::-webkit-scrollbar-thumb {
+        background: rgba(150, 150, 150, 0.3);
+        border-radius: 8px;
+      }
+
+      #preview-content {
+        padding: 48px;
+      }
+      #preview-text {
+        width: 100%;
+        text-align: left;
+        outline: none;
+        cursor: text;
+        line-height: 1.25;
+        word-break: break-all;
+        white-space: pre-wrap;
+      }
+
+      #waterfall-content {
+        display: none;
+        flex-direction: column;
+        padding: 20px 40px;
+      }
+      .wf-row {
+        display: flex;
+        align-items: baseline;
+        gap: 16px;
+        padding: 10px 0;
+        border-bottom: 1px solid var(--border);
+      }
+      .wf-size {
+        font-family: "Fira Code", monospace;
+        font-size: 9px;
+        opacity: 0.4;
+        font-variant-numeric: tabular-nums;
+        min-width: 28px;
+        text-align: right;
+        flex-shrink: 0;
+      }
+      .wf-text {
+        flex: 1;
+        word-break: break-all;
+        line-height: 1.2;
+      }
+
+      #file-input {
+        display: none;
+      }
+
+      #backdrop {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.4);
+        z-index: 99;
+      }
+      #settings-btn {
+        display: none;
+      }
+
+      @media (max-width: 680px) {
+        #sidebar {
+          position: fixed;
+          bottom: 0;
+          left: 0;
+          right: 0;
+          width: 100%;
+          max-height: 72vh;
+          border-right: none;
+          border-top: 1px solid var(--border);
+          border-radius: 18px 18px 0 0;
+          box-shadow: 0 -8px 48px rgba(0, 0, 0, 0.2);
+          transform: translateY(100%);
+          transition: transform 0.35s cubic-bezier(0.19, 1, 0.22, 1);
+          z-index: 100;
+        }
+        #sidebar.mobile-open {
+          transform: translateY(0);
+        }
+
+        #settings-btn {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 32px;
+          height: 32px;
+          border: 1px solid var(--border);
+          border-radius: 9px;
+          background: transparent;
+          cursor: pointer;
+          flex-shrink: 0;
+          transition: background 0.15s;
+        }
+        #settings-btn:hover {
+          background: color-mix(in srgb, var(--text-main) 8%, transparent);
+        }
+
+        #toolbar {
+          justify-content: space-between;
+        }
+        #drop-zone {
+          flex-direction: column;
+          gap: 10px;
+        }
+        .drop-hint {
+          display: none;
+        }
+        .drop-label {
+          display: block;
+          padding: 10px 28px;
+          background: var(--accent);
+          border-radius: 10px;
+          color: #fff;
+          font-weight: 600;
+          font-size: 13px;
+          cursor: pointer;
+        }
+        #preview-content {
+          padding: 24px 20px;
+        }
+        #waterfall-content {
+          padding: 16px 20px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <aside id="sidebar">
+        <div class="sidebar-top">
+          <button class="open-btn" id="open-btn">Open Font File</button>
+          <input type="file" id="file-input" accept=".ttf,.otf,.woff,.woff2" />
+        </div>
+
+        <div id="sidebar-body">
+          <div class="section" id="info-section" style="display: none">
+            <div class="section-label">Font Info</div>
+            <div id="font-info"></div>
+          </div>
+
+          <div class="section">
+            <div class="section-label">Text</div>
+            <textarea id="text-input" rows="1" placeholder="Type something…">The quick brown fox jumps over the lazy dog</textarea>
+          </div>
+
+          <div class="section">
+            <div class="section-label">Display</div>
+            <div class="ctrl-row">
+              <span class="ctrl-key">Size</span>
+              <input type="range" id="size-slider" min="8" max="300" value="48" step="1" />
+              <span class="ctrl-val" id="size-val">48px</span>
+            </div>
+            <div class="ctrl-row">
+              <span class="ctrl-key">Line Height</span>
+              <input type="range" id="lh-slider" min="0.7" max="3" value="1.25" step="0.05" />
+              <span class="ctrl-val" id="lh-val">1.25</span>
+            </div>
+            <div class="ctrl-row" style="margin-bottom: 0">
+              <span class="ctrl-key">Align</span>
+              <div class="align-group">
+                <button class="align-btn active" data-align="left" title="Left">
+                  <svg
+                    width="14"
+                    height="14"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2.5"
+                    stroke-linecap="round"
+                  >
+                    <line x1="3" y1="6" x2="21" y2="6" />
+                    <line x1="3" y1="12" x2="15" y2="12" />
+                    <line x1="3" y1="18" x2="18" y2="18" />
+                  </svg>
+                </button>
+                <button class="align-btn" data-align="center" title="Center">
+                  <svg
+                    width="14"
+                    height="14"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2.5"
+                    stroke-linecap="round"
+                  >
+                    <line x1="3" y1="6" x2="21" y2="6" />
+                    <line x1="6" y1="12" x2="18" y2="12" />
+                    <line x1="4" y1="18" x2="20" y2="18" />
+                  </svg>
+                </button>
+                <button class="align-btn" data-align="right" title="Right">
+                  <svg
+                    width="14"
+                    height="14"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2.5"
+                    stroke-linecap="round"
+                  >
+                    <line x1="3" y1="6" x2="21" y2="6" />
+                    <line x1="9" y1="12" x2="21" y2="12" />
+                    <line x1="6" y1="18" x2="21" y2="18" />
+                  </svg>
+                </button>
+                <button class="align-btn" data-align="justify" title="Justify">
+                  <svg
+                    width="14"
+                    height="14"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2.5"
+                    stroke-linecap="round"
+                  >
+                    <line x1="3" y1="6" x2="21" y2="6" />
+                    <line x1="3" y1="12" x2="21" y2="12" />
+                    <line x1="3" y1="18" x2="21" y2="18" />
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="section" id="instances-section" style="display: none">
+            <div class="section-label">Instances</div>
+            <select id="instances-select">
+              <option value="-1">Custom</option>
+            </select>
+          </div>
+
+          <div class="section" id="axes-section" style="display: none">
+            <div class="section-label">Variable Axes</div>
+            <div id="axes-controls"></div>
+          </div>
+
+          <div class="section" id="feat-section" style="display: none">
+            <div class="section-label">OpenType Features</div>
+            <div class="feat-lang-row" id="lang-row" style="display: none">
+              <span class="feat-lang-label">Language</span>
+              <select id="lang-select">
+                <option value="">Default</option>
+              </select>
+            </div>
+            <div id="feat-controls"></div>
+          </div>
+        </div>
+      </aside>
+
+      <main id="main">
+        <div id="drop-zone">
+          <label for="file-input" class="drop-label">Open Font File</label>
+          <span class="drop-hint">Drop a font file</span>
+        </div>
+
+        <div id="preview-area">
+          <div id="toolbar">
+            <button id="settings-btn" title="Settings">
+              <svg
+                width="15"
+                height="15"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <line x1="4" y1="21" x2="4" y2="14" />
+                <line x1="4" y1="10" x2="4" y2="3" />
+                <line x1="12" y1="21" x2="12" y2="12" />
+                <line x1="12" y1="8" x2="12" y2="3" />
+                <line x1="20" y1="21" x2="20" y2="16" />
+                <line x1="20" y1="12" x2="20" y2="3" />
+                <line x1="1" y1="14" x2="7" y2="14" />
+                <line x1="9" y1="8" x2="15" y2="8" />
+                <line x1="17" y1="16" x2="23" y2="16" />
+              </svg>
+            </button>
+            <div class="view-toggle">
+              <button class="view-btn active" id="btn-preview">Preview</button>
+              <button class="view-btn" id="btn-waterfall">Waterfall</button>
+            </div>
+          </div>
+
+          <div id="preview-scroll">
+            <div id="preview-content">
+              <div id="preview-text" contenteditable="plaintext-only"></div>
+            </div>
+            <div id="waterfall-content"></div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/opentype.js@1.3.4/dist/opentype.min.js"></script>
+    <script>
+      function applyTheme(theme) {
+        document.body.classList.remove("dark-mode", "mona-mode");
+        if (theme === "dark") document.body.classList.add("dark-mode");
+        else if (theme === "mona") document.body.classList.add("mona-mode");
+      }
+      applyTheme(localStorage.getItem("theme") || "light");
+      window.addEventListener("storage", (e) => {
+        if (e.key === "theme") applyTheme(e.newValue || "light");
+      });
+
+      let fontFaceName = "";
+      let variationSettings = {};
+      let axisDefaults = {};
+      let featureSettings = {};
+      let currentView = "preview";
+      let currentAlign = "left";
+      let currentLang = "";
+
+      const dropZone = document.getElementById("drop-zone");
+      const previewArea = document.getElementById("preview-area");
+      const previewText = document.getElementById("preview-text");
+      const wfContent = document.getElementById("waterfall-content");
+      const previewCont = document.getElementById("preview-content");
+      const textInput = document.getElementById("text-input");
+      const infoSection = document.getElementById("info-section");
+      const featSection = document.getElementById("feat-section");
+      const featControls = document.getElementById("feat-controls");
+      const instancesSection = document.getElementById("instances-section");
+      const instancesSelect = document.getElementById("instances-select");
+      const axesSection = document.getElementById("axes-section");
+      const axesControls = document.getElementById("axes-controls");
+      const fontInfo = document.getElementById("font-info");
+      const fileInput = document.getElementById("file-input");
+      const sizeSlider = document.getElementById("size-slider");
+      const sizeVal = document.getElementById("size-val");
+      const lhSlider = document.getElementById("lh-slider");
+      const lhVal = document.getElementById("lh-val");
+      const langSelect = document.getElementById("lang-select");
+      const langRow = document.getElementById("lang-row");
+      const sidebar = document.getElementById("sidebar");
+      const backdrop = document.getElementById("backdrop");
+
+      ["dragover", "dragenter"].forEach((ev) => {
+        dropZone.addEventListener(ev, (e) => {
+          e.preventDefault();
+          dropZone.classList.add("drag-over");
+        });
+        document.body.addEventListener(ev, (e) => e.preventDefault());
+      });
+      ["dragleave", "dragend"].forEach((ev) => dropZone.addEventListener(ev, () => dropZone.classList.remove("drag-over")));
+      dropZone.addEventListener("drop", (e) => {
+        e.preventDefault();
+        dropZone.classList.remove("drag-over");
+        const f = e.dataTransfer.files[0];
+        if (f) loadFont(f);
+      });
+      document.body.addEventListener("drop", (e) => {
+        e.preventDefault();
+        const f = e.dataTransfer.files[0];
+        if (f) loadFont(f);
+      });
+
+      document.getElementById("open-btn").onclick = () => fileInput.click();
+      fileInput.onchange = (e) => {
+        if (e.target.files[0]) loadFont(e.target.files[0]);
+      };
+
+      function autoResize() {
+        textInput.style.height = "auto";
+        textInput.style.height = Math.min(textInput.scrollHeight, 160) + "px";
+      }
+      autoResize();
+      textInput.addEventListener("input", () => {
+        autoResize();
+        syncPreview();
+        syncWaterfall();
+      });
+
+      sizeSlider.addEventListener("input", () => {
+        sizeVal.textContent = sizeSlider.value + "px";
+        previewText.style.fontSize = sizeSlider.value + "px";
+        syncWaterfall();
+      });
+      lhSlider.addEventListener("input", () => {
+        const v = parseFloat(lhSlider.value).toFixed(2);
+        lhVal.textContent = v;
+        previewText.style.lineHeight = v;
+        syncWaterfall();
+      });
+
+      previewText.style.textAlign = currentAlign;
+      document.querySelectorAll(".align-btn").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          document.querySelectorAll(".align-btn").forEach((b) => b.classList.remove("active"));
+          btn.classList.add("active");
+          currentAlign = btn.dataset.align;
+          previewText.style.textAlign = currentAlign;
+          document.querySelectorAll(".wf-text").forEach((el) => (el.style.textAlign = currentAlign));
+        });
+      });
+
+      document.getElementById("btn-preview").onclick = () => setView("preview");
+      document.getElementById("btn-waterfall").onclick = () => setView("waterfall");
+
+      function setView(mode) {
+        currentView = mode;
+        document.getElementById("btn-preview").classList.toggle("active", mode === "preview");
+        document.getElementById("btn-waterfall").classList.toggle("active", mode === "waterfall");
+        previewCont.style.display = mode === "preview" ? "" : "none";
+        wfContent.style.display = mode === "waterfall" ? "flex" : "none";
+        if (mode === "waterfall") syncWaterfall();
+      }
+
+      async function loadFont(file) {
+        const buf = await file.arrayBuffer();
+        let otFont;
+        try {
+          otFont = opentype.parse(buf);
+        } catch (err) {
+          alert("Failed to parse font: " + err.message);
+          return;
+        }
+
+        fontFaceName = "PF_" + Date.now();
+        const url = URL.createObjectURL(new Blob([buf], { type: "font/opentype" }));
+        let styleEl = document.getElementById("ff-style");
+        if (!styleEl) {
+          styleEl = document.createElement("style");
+          styleEl.id = "ff-style";
+          document.head.appendChild(styleEl);
+        }
+        styleEl.textContent = `@font-face { font-family: "${fontFaceName}"; src: url("${url}"); }`;
+
+        previewText.style.fontFamily = `"${fontFaceName}", sans-serif`;
+        dropZone.style.display = "none";
+        previewArea.style.display = "flex";
+
+        variationSettings = {};
+        previewText.style.fontVariationSettings = "";
+        previewText.style.fontSize = sizeSlider.value + "px";
+        previewText.style.lineHeight = lhSlider.value;
+        featureSettings = {};
+        previewText.style.fontFeatureSettings = "";
+        currentLang = "";
+        previewText.removeAttribute("lang");
+        langSelect.value = "";
+
+        renderInfo(otFont, file.name);
+        renderAxes(otFont);
+        renderInstances(otFont);
+        detectInstance();
+        renderLanguages(otFont);
+        renderFeatures(otFont);
+        syncPreview();
+        syncWaterfall();
+      }
+
+      function syncPreview() {
+        if (document.activeElement === previewText) return;
+        previewText.textContent = textInput.value;
+      }
+
+      previewText.addEventListener("input", () => {
+        textInput.value = previewText.textContent;
+        autoResize();
+        syncWaterfall();
+      });
+
+      function syncWaterfall() {
+        const vs = buildVS();
+        wfContent.innerHTML = "";
+        [8, 10, 12, 14, 18, 24, 32, 48, 64, 96, 128].forEach((sz) => {
+          const row = document.createElement("div");
+          row.className = "wf-row";
+          const lbl = document.createElement("span");
+          lbl.className = "wf-size";
+          lbl.textContent = sz + "px";
+          const span = document.createElement("span");
+          span.className = "wf-text";
+          span.textContent = textInput.value;
+          span.style.fontSize = sz + "px";
+          span.style.lineHeight = lhSlider.value;
+          if (fontFaceName) {
+            span.style.fontFamily = `"${fontFaceName}", sans-serif`;
+            if (vs) span.style.fontVariationSettings = vs;
+            const fs = buildFeatureString();
+            if (fs) span.style.fontFeatureSettings = fs;
+            if (currentLang) span.setAttribute("lang", currentLang);
+            span.style.textAlign = currentAlign;
+          }
+          row.appendChild(lbl);
+          row.appendChild(span);
+          wfContent.appendChild(row);
+        });
+      }
+
+      function buildVS() {
+        const e = Object.entries(variationSettings);
+        return e.length ? e.map(([t, v]) => `"${t}" ${v}`).join(", ") : "";
+      }
+
+      function renderInfo(font, filename) {
+        const get = (id) => {
+          const n = font.names[id];
+          return n ? n.en || n.ko || Object.values(n)[0] || null : null;
+        };
+        const rows = [
+          ["Filename", filename],
+          ["Family", get("fontFamily") || get(1)],
+          ["Style", get("fontSubfamily") || get(2)],
+          ["Version", get("version") || get(5)],
+          ["Designer", get("designer") || get(9)],
+          ["Copyright", get("copyright") || get(0)],
+          ["License", get("license") || get(13)],
+          ["Glyphs", font.glyphs.length.toLocaleString()],
+        ];
+        fontInfo.innerHTML = rows
+          .filter(([, v]) => v)
+          .map(([k, v]) => `<div class="info-row"><span class="info-key">${k}</span><span class="info-val">${v}</span></div>`)
+          .join("");
+        infoSection.style.display = "block";
+      }
+
+      // opentype.js v1.3.4: instance.name is the resolved locale object {en:"Regular"}, not a nameID integer
+      const resolveName = (o) => {
+        if (!o || typeof o !== "object") return null;
+        return o.en || o.ko || o.ja || o.zh || Object.values(o).find((v) => typeof v === "string" && v.trim()) || null;
+      };
+
+      let instanceCoords = [];
+
+      function renderInstances(font) {
+        instanceCoords = [];
+        instancesSelect.innerHTML = '<option value="-1">Custom</option>';
+        const fvar = font.tables.fvar;
+        if (!fvar || !fvar.instances?.length) {
+          instancesSection.style.display = "none";
+          return;
+        }
+        fvar.instances.forEach((inst, i) => {
+          const opt = document.createElement("option");
+          opt.value = i;
+          opt.textContent = resolveName(inst.name) || `Instance ${i + 1}`;
+          instancesSelect.appendChild(opt);
+          instanceCoords.push(inst.coordinates);
+        });
+        instancesSection.style.display = "block";
+      }
+
+      instancesSelect.addEventListener("change", () => {
+        const idx = parseInt(instancesSelect.value, 10);
+        if (idx >= 0 && instanceCoords[idx]) applyInstance(instanceCoords[idx], false);
+      });
+
+      function applyInstance(coordinates, updateSelect = true) {
+        Object.entries(coordinates).forEach(([tag, val]) => {
+          variationSettings[tag] = val;
+          const slider = document.getElementById("as-" + tag);
+          const valEl = document.getElementById("av-" + tag);
+          if (slider) {
+            slider.value = val;
+            if (valEl) valEl.textContent = Number.isInteger(val) ? val : val.toFixed(2);
+          }
+        });
+        const vs = buildVS();
+        previewText.style.fontVariationSettings = vs;
+        if (currentView === "waterfall") document.querySelectorAll(".wf-text").forEach((el) => (el.style.fontVariationSettings = vs));
+        if (updateSelect) detectInstance();
+      }
+
+      function detectInstance() {
+        if (!instanceCoords.length) return;
+        const r = (v) => Math.round(v * 100) / 100;
+        const idx = instanceCoords.findIndex((coords) =>
+          Object.entries(coords).every(([tag, val]) => r(variationSettings[tag] ?? axisDefaults[tag] ?? 0) === r(val)),
+        );
+        instancesSelect.value = idx >= 0 ? String(idx) : "-1";
+      }
+
+      const AXIS_LABELS = {
+        wght: "Weight",
+        wdth: "Width",
+        ital: "Italic",
+        slnt: "Slant",
+        opsz: "Optical Size",
+        GRAD: "Grade",
+        XTRA: "Contrast",
+        YOPQ: "Stroke Opacity",
+        YTLC: "LC Height",
+        YTUC: "UC Height",
+      };
+      const RESET_ICON = `<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>`;
+
+      function renderAxes(font) {
+        axesControls.innerHTML = "";
+        axisDefaults = {};
+        const fvar = font.tables.fvar;
+        if (!fvar || !fvar.axes?.length) {
+          axesSection.style.display = "none";
+          return;
+        }
+        axesSection.style.display = "block";
+        fvar.axes.forEach(({ tag, minValue, maxValue, defaultValue }) => {
+          variationSettings[tag] = defaultValue;
+          axisDefaults[tag] = defaultValue;
+          const step = maxValue - minValue > 10 ? 1 : 0.01;
+          const div = document.createElement("div");
+          div.className = "axis";
+          div.innerHTML = `
+        <div class="axis-header">
+          <span class="axis-name">${AXIS_LABELS[tag] || tag}</span>
+          <span class="axis-right">
+            <span class="axis-tag">${tag}</span>
+            <span class="axis-val" id="av-${tag}">${defaultValue}</span>
+            <button class="axis-reset" id="ar-${tag}" title="Reset">${RESET_ICON}</button>
+          </span>
+        </div>
+        <input type="range" min="${minValue}" max="${maxValue}" value="${defaultValue}" step="${step}" id="as-${tag}">
+        <div class="axis-limits"><span class="axis-limit">${minValue}</span><span class="axis-limit">${maxValue}</span></div>`;
+          axesControls.appendChild(div);
+
+          document.getElementById("as-" + tag).addEventListener("input", (e) => {
+            const val = parseFloat(e.target.value);
+            variationSettings[tag] = val;
+            document.getElementById("av-" + tag).textContent = Number.isInteger(val) ? val : val.toFixed(2);
+            const vs = buildVS();
+            previewText.style.fontVariationSettings = vs;
+            if (currentView === "waterfall") document.querySelectorAll(".wf-text").forEach((el) => (el.style.fontVariationSettings = vs));
+            detectInstance();
+          });
+          document.getElementById("ar-" + tag).addEventListener("click", () => {
+            const def = axisDefaults[tag];
+            variationSettings[tag] = def;
+            document.getElementById("as-" + tag).value = def;
+            document.getElementById("av-" + tag).textContent = Number.isInteger(def) ? def : def.toFixed(2);
+            const vs = buildVS();
+            previewText.style.fontVariationSettings = vs;
+            if (currentView === "waterfall") document.querySelectorAll(".wf-text").forEach((el) => (el.style.fontVariationSettings = vs));
+            detectInstance();
+          });
+        });
+      }
+      // prettier-ignore
+      const OT_LANG = {
+        'ABA ': 'ab',      'ABK ': 'ab',      'ACH ': 'ach',     'ACR ': 'acr',     'ADY ': 'ady',
+        'AFK ': 'af',      'AFR ': 'af',      'AGW ': 'awn',     'AIO ': 'aio',     'AKA ': 'ak',
+        'ALS ': 'gsw',     'ALT ': 'alt',     'AMH ': 'am',      'ANG ': 'ang',     'ARA ': 'ar',
+        'ARG ': 'an',      'ARI ': 'aiw',     'ARK ': 'my',      'ASM ': 'as',      'AVR ': 'av',
+        'AWA ': 'awa',     'AYM ': 'ay',      'AZB ': 'azb',     'AZE ': 'az',      'BAD ': 'bfq',
+        'BAD0': 'bad',     'BAL ': 'krc',     'BAN ': 'ban',     'BAR ': 'bar',     'BAU ': 'bci',
+        'BBC ': 'bbc',     'BBR ': 'ber',     'BCH ': 'bcq',     'BEL ': 'be',      'BEM ': 'bem',
+        'BEN ': 'bn',      'BGR ': 'bg',      'BHI ': 'bhb',     'BHO ': 'bho',     'BIK ': 'bik',
+        'BIL ': 'byn',     'BIS ': 'bi',      'BJJ ': 'bjj',     'BKF ': 'bla',     'BLI ': 'bal',
+        'BLK ': 'blk',     'BLN ': 'bjt',     'BLT ': 'bft',     'BMB ': 'bam',     'BRE ': 'br',
+        'BRH ': 'brh',     'BRI ': 'bra',     'BRM ': 'my',      'BRX ': 'brx',     'BSH ': 'ba',
+        'BSK ': 'bsk',     'BTS ': 'bts',     'BUG ': 'bug',     'BYV ': 'byv',     'CAT ': 'ca',
+        'CBK ': 'cbk',     'CCH ': 'cch',     'CEB ': 'ceb',     'CHA ': 'ch',      'CHE ': 'ce',
+        'CHG ': 'ny',      'CHI ': 'cgg',     'CHK ': 'chk',     'CHK0': 'ckt',     'CHO ': 'cho',
+        'CHR ': 'chr',     'CHU ': 'cv',      'CHY ': 'chy',     'CJK ': 'sjo',     'CKB ': 'ckb',
+        'CLH ': 'clc',     'CMR ': 'swb',     'COP ': 'cop',     'COR ': 'kw',      'COS ': 'co',
+        'CRE ': 'cr',      'CRR ': 'crr',     'CRT ': 'crh',     'CSL ': 'cu',      'CSY ': 'cs',
+        'CTG ': 'ctg',     'CUK ': 'cuk',     'DAN ': 'da',      'DAR ': 'dar',     'DCR ': 'cwd',
+        'DEU ': 'de',      'DGO ': 'dgo',     'DGR ': 'dgr',     'DHG ': 'dhg',     'DHV ': 'dv',
+        'DIQ ': 'kiu',     'DIV ': 'dv',      'DJR ': 'dje',     'DNG ': 'ada',     'DNJ ': 'dnj',
+        'DNK ': 'din',     'DRI ': 'prs',     'DUN ': 'dng',     'DZN ': 'dz',      'EBI ': 'igb',
+        'ECR ': 'crl',     'EDO ': 'bin',     'EFI ': 'efi',     'ELL ': 'el',      'EMK ': 'emk',
+        'ENG ': 'en',      'ERZ ': 'myv',     'ESP ': 'es',      'EST ': 'et',      'ETI ': 'et',
+        'EUQ ': 'eu',      'EUS ': 'eu',      'EVK ': 'evn',     'EVN ': 'eve',     'EWE ': 'ee',
+        'FAR ': 'fa',      'FIN ': 'fi',      'FJI ': 'fj',      'FLE ': 'nl-BE',   'FNE ': 'enf',
+        'FON ': 'fon',     'FOS ': 'fo',      'FRA ': 'fr',      'FRC ': 'frc',     'FRI ': 'fy',
+        'FRL ': 'fur',     'FRP ': 'frp',     'FTA ': 'fuf',     'FUL ': 'ff',      'GAD ': 'gaa',
+        'GAE ': 'gd',      'GAG ': 'gag',     'GAL ': 'gl',      'GAW ': 'gbm',     'GEZ ': 'gez',
+        'GIL ': 'gil',     'GKP ': 'gkp',     'GLE ': 'ga',      'GLK ': 'glk',     'GMZ ': 'guk',
+        'GON ': 'gon',     'GRN ': 'kl',      'GRO ': 'grt',     'GUA ': 'gn',      'GUJ ': 'gu',
+        'GUZ ': 'guz',     'HAI ': 'ht',      'HAR ': 'hoj',     'HAU ': 'ha',      'HAW ': 'haw',
+        'HAY ': 'hay',     'HIL ': 'hil',     'HIN ': 'hi',      'HMA ': 'mrj',     'HMN ': 'hmn',
+        'HMO ': 'ho',      'HND ': 'hno',     'HO  ': 'hoc',     'HRI ': 'har',     'HRV ': 'hr',
+        'HUN ': 'hu',      'HYE ': 'hy',      'HYE0': 'hy',      'IBA ': 'iba',     'IBB ': 'ibb',
+        'IBO ': 'ig',      'ILE ': 'ie',      'ILO ': 'ilo',     'INA ': 'ia',      'IND ': 'id',
+        'ING ': 'inh',     'INU ': 'iu',      'ISL ': 'is',      'ISM ': 'smn',     'ITA ': 'it',
+        'IWR ': 'he',      'JAM ': 'jam',     'JAN ': 'ja',      'JII ': 'yi',      'JPN ': 'ja',
+        'KAB ': 'kab',     'KAL ': 'kln',     'KAN ': 'kn',      'KAR ': 'krc',     'KAT ': 'ka',
+        'KAW ': 'dtp',     'KAZ ': 'kk',      'KDE ': 'kde',     'KEA ': 'kea',     'KEK ': 'kek',
+        'KHK ': 'mn',      'KHM ': 'km',      'KHT ': 'kht',     'KHW ': 'khw',     'KIK ': 'ki',
+        'KIR ': 'ky',      'KKN ': 'kex',     'KLM ': 'xal',     'KMB ': 'kam',     'KMN ': 'kfy',
+        'KNR ': 'kr',      'KOD ': 'kfa',     'KOK ': 'kok',     'KOM ': 'kv',      'KON ': 'kg',
+        'KOP ': 'koi',     'KOR ': 'ko',      'KOS ': 'kos',     'KPL ': 'kpe',     'KRI ': 'kri',
+        'KRK ': 'kaa',     'KRL ': 'krl',     'KRM ': 'kdr',     'KRN ': 'kar',     'KSH ': 'ks',
+        'KSI ': 'kha',     'KSM ': 'sjd',     'KUI ': 'uki',     'KUL ': 'kfx',     'KUM ': 'kum',
+        'KUR ': 'ku',      'KUU ': 'kru',     'KUY ': 'kdt',     'LAD ': 'lld',     'LAH ': 'lbj',
+        'LAK ': 'lbe',     'LAM ': 'lmn',     'LAO ': 'lo',      'LAT ': 'la',      'LAV ': 'lv',
+        'LAZ ': 'lzz',     'LDK ': 'lbj',     'LEZ ': 'lez',     'LIJ ': 'lij',     'LIM ': 'li',
+        'LIN ': 'ln',      'LIS ': 'lis',     'LMA ': 'chm',     'LMB ': 'lif',     'LMO ': 'lmo',
+        'LMW ': 'ngl',     'LRC ': 'lrc',     'LSB ': 'dsb',     'LSM ': 'smj',     'LTH ': 'lt',
+        'LUB ': 'lu',      'LUG ': 'lg',      'LUO ': 'luo',     'LVI ': 'lv',      'MAD ': 'mad',
+        'MAG ': 'mag',     'MAH ': 'mh',      'MAJ ': 'mpe',     'MAK ': 'vmw',     'MAL ': 'ml',
+        'MAN ': 'mns',     'MAR ': 'mr',      'MAW ': 'mwr',     'MBN ': 'kmb',     'MCH ': 'mnc',
+        'MDE ': 'men',     'MDR ': 'mdr',     'MEN ': 'mym',     'MER ': 'mer',     'MFE ': 'mfe',
+        'MIN ': 'min',     'MIZ ': 'lus',     'MKD ': 'mk',      'MKR ': 'mak',     'MKW ': 'mkw',
+        'MLG ': 'mg',      'MLN ': 'mlq',     'MLR ': 'ml',      'MLY ': 'ms',      'MND ': 'mnk',
+        'MNG ': 'mn',      'MNI ': 'mni',     'MNK ': 'man',     'MNX ': 'gv',      'MOH ': 'moh',
+        'MOK ': 'mdf',     'MOL ': 'ro',      'MON ': 'mnw',     'MOS ': 'mos',     'MRI ': 'mi',
+        'MTH ': 'mai',     'MTS ': 'mt',      'MUN ': 'unr',     'MUS ': 'mus',     'MWL ': 'mwl',
+        'MWW ': 'mww',     'MYN ': 'myn',     'MZN ': 'mzn',     'NAP ': 'nap',     'NAS ': 'nsk',
+        'NAU ': 'na',      'NAV ': 'nv',      'NDB ': 'nd',      'NDG ': 'ng',      'NEP ': 'ne',
+        'NEW ': 'new',     'NGA ': 'nga',     'NIS ': 'dap',     'NIU ': 'niu',     'NKL ': 'nyy',
+        'NKO ': 'nqo',     'NLD ': 'nl',      'NOG ': 'nog',     'NOR ': 'nb',      'NSM ': 'se',
+        'NTO ': 'eo',      'NYM ': 'nym',     'NYN ': 'nn',      'OCI ': 'oc',      'OJB ': 'oj',
+        'ORI ': 'or',      'ORO ': 'om',      'OSS ': 'os',      'PAA ': 'pap',     'PAG ': 'pag',
+        'PAL ': 'pi',      'PAM ': 'pam',     'PAN ': 'pa',      'PAP ': 'pap',     'PAS ': 'ps',
+        'PAU ': 'pau',     'PCC ': 'pcc',     'PCD ': 'pcd',     'PDC ': 'pdc',     'PHK ': 'phk',
+        'PIL ': 'fil',     'PLG ': 'pi',      'PLK ': 'pl',      'POH ': 'poh',     'PON ': 'pon',
+        'PRO ': 'pro',     'PTG ': 'pt',      'QIN ': 'ctd',     'QUC ': 'quc',     'QUH ': 'qwh',
+        'QVI ': 'qvi',     'QWH ': 'qwh',     'RAJ ': 'raj',     'RAR ': 'rar',     'RBU ': 'bxr',
+        'REJ ': 'rej',     'RIF ': 'rif',     'RMS ': 'rm',      'RMY ': 'rmy',     'ROM ': 'ro',
+        'ROY ': 'rom',     'RSY ': 'rue',     'RUA ': 'rw',      'RUN ': 'rn',      'RUP ': 'rup',
+        'RUS ': 'ru',      'SAD ': 'sck',     'SAN ': 'sa',      'SAS ': 'sas',     'SAT ': 'sat',
+        'SCN ': 'scn',     'SCO ': 'sco',     'SEL ': 'sel',     'SGA ': 'sga',     'SGO ': 'sg',
+        'SGS ': 'sgs',     'SHI ': 'shi',     'SHN ': 'shn',     'SIB ': 'sjo',     'SID ': 'sid',
+        'SKS ': 'sms',     'SKY ': 'sk',      'SLV ': 'sl',      'SMA ': 'sma',     'SMJ ': 'smj',
+        'SMN ': 'smn',     'SMS ': 'sms',     'SNH ': 'si',      'SNK ': 'snk',     'SOG ': 'sog',
+        'SOT ': 'st',      'SQI ': 'sq',      'SRB ': 'sr',      'SRD ': 'sc',      'SRK ': 'srr',
+        'SRR ': 'srr',     'STQ ': 'stq',     'SUK ': 'suk',     'SUN ': 'su',      'SVE ': 'sv',
+        'SWK ': 'sw',      'SWZ ': 'ss',      'SYL ': 'syl',     'SYR ': 'syr',     'SZL ': 'szl',
+        'TAB ': 'tab',     'TAJ ': 'tg',      'TAM ': 'ta',      'TAT ': 'tt',      'TEL ': 'te',
+        'TGN ': 'to',      'TGR ': 'tig',     'TGY ': 'ti',      'THA ': 'th',      'THT ': 'ty',
+        'TIB ': 'bo',      'TIV ': 'tiv',     'TKM ': 'tk',      'TLI ': 'tli',     'TMH ': 'taq',
+        'TNA ': 'tn',      'TNE ': 'yrk',     'TOD ': 'xal',     'TOD0': 'xal',     'TPI ': 'tpi',
+        'TRK ': 'tr',      'TSG ': 'ts',      'TUM ': 'tum',     'TUR ': 'tr',      'TUV ': 'tyv',
+        'TVL ': 'tvl',     'TWI ': 'tw',      'TYZ ': 'tyz',     'TZM ': 'tzm',     'TZO ': 'tzo',
+        'UDM ': 'udm',     'UKR ': 'uk',      'UMB ': 'umb',     'URD ': 'ur',      'USB ': 'hsb',
+        'UYG ': 'ug',      'UZB ': 'uz',      'VEC ': 'vec',     'VEN ': 've',      'VIT ': 'vi',
+        'VOL ': 'vo',      'VRO ': 'vro',     'WAG ': 'wbr',     'WAR ': 'war',     'WCR ': 'crk',
+        'WEL ': 'cy',      'WLF ': 'wo',      'XBD ': 'khb',     'XHS ': 'xh',      'YAK ': 'sah',
+        'YBA ': 'yo',      'YIM ': 'ii',      'ZEA ': 'zea',     'ZGH ': 'zgh',     'ZHA ': 'za',
+        'ZHS ': 'zh-Hans', 'ZHT ': 'zh-Hant', 'ZHH ': 'zh-HK',  'ZND ': 'zne',     'ZUL ': 'zu',
+      };
+
+      function renderLanguages(font) {
+        const tags = new Set();
+        const collect = (table) => {
+          if (!table?.scripts) return;
+          table.scripts.forEach(({ script }) =>
+            script?.langSysRecords?.forEach((rec) => {
+              if (rec.tag?.trim()) tags.add(rec.tag);
+            }),
+          );
+        };
+        collect(font.tables.gsub);
+        collect(font.tables.gpos);
+        langSelect.innerHTML = '<option value="">Default</option>';
+        const seen = new Set();
+        [...tags].sort().forEach((tag) => {
+          const bcp = OT_LANG[tag] || tag.trim().toLowerCase();
+          if (seen.has(bcp)) return;
+          seen.add(bcp);
+          const opt = document.createElement("option");
+          opt.value = opt.textContent = bcp;
+          langSelect.appendChild(opt);
+        });
+        langRow.style.display = tags.size ? "flex" : "none";
+      }
+
+      function applyLang(code) {
+        currentLang = code;
+        if (code) previewText.setAttribute("lang", code);
+        else previewText.removeAttribute("lang");
+        document.querySelectorAll(".wf-text").forEach((el) => {
+          if (code) el.setAttribute("lang", code);
+          else el.removeAttribute("lang");
+        });
+      }
+      langSelect.addEventListener("change", () => applyLang(langSelect.value));
+
+      // prettier-ignore
+      const FEATURE_LABELS = {
+        'liga': 'Standard Ligatures',      'clig': 'Contextual Ligatures',
+        'dlig': 'Discretionary Ligatures', 'hlig': 'Historical Ligatures',
+        'calt': 'Contextual Alternates',   'salt': 'Stylistic Alternates',
+        'aalt': 'Access All Alternates',   'swsh': 'Swash',
+        'hist': 'Historical Forms',        'locl': 'Localized Forms',
+        'case': 'Case-Sensitive Forms',    'cpsp': 'Capital Spacing',
+        'smcp': 'Small Capitals',          'c2sc': 'Capitals to Small Caps',
+        'pcap': 'Petite Capitals',         'unic': 'Unicase',
+        'titl': 'Titling',
+        'sups': 'Superscript',             'subs': 'Subscript',
+        'sinf': 'Scientific Inferiors',    'ordn': 'Ordinals',
+        'numr': 'Numerators',              'dnom': 'Denominators',
+        'frac': 'Fractions',               'afrc': 'Alternative Fractions',
+        'lnum': 'Lining Figures',          'onum': 'Oldstyle Figures',
+        'pnum': 'Proportional Figures',    'tnum': 'Tabular Figures',
+        'zero': 'Slashed Zero',            'nalt': 'Numerical Alternates',
+        'kern': 'Kerning',                 'mark': 'Mark Positioning',
+        'mkmk': 'Mark to Mark',            'dist': 'Distances',
+      };
+
+      for (let i = 1; i <= 20; i++) FEATURE_LABELS["ss" + String(i).padStart(2, "0")] = "Stylistic Set " + i;
+      for (let i = 1; i <= 99; i++) FEATURE_LABELS["cv" + String(i).padStart(2, "0")] = "Character Variant " + i;
+
+      const DEFAULT_ON = new Set(["liga", "clig", "calt", "kern", "locl", "mark", "mkmk"]);
+
+      function buildFeatureString() {
+        const e = Object.entries(featureSettings);
+        return e.length ? e.map(([t, on]) => `"${t}" ${on ? 1 : 0}`).join(", ") : "";
+      }
+
+      function applyFeatures() {
+        const fs = buildFeatureString();
+        previewText.style.fontFeatureSettings = fs || "";
+        if (currentView === "waterfall") document.querySelectorAll(".wf-text").forEach((el) => (el.style.fontFeatureSettings = fs || ""));
+      }
+
+      function renderFeatures(font) {
+        featControls.innerHTML = "";
+        featureSettings = {};
+        const tags = new Set();
+        const collect = (table) => {
+          if (!table) return;
+          const list = table.features || table.featureList?.featureRecords;
+          list?.forEach((f) => {
+            if (f.tag) tags.add(f.tag);
+          });
+        };
+        collect(font.tables.gsub);
+        collect(font.tables.gpos);
+        const SKIP = new Set(["DFLT", "dflt"]);
+        [...tags]
+          .filter((t) => !SKIP.has(t))
+          .sort()
+          .forEach((tag) => {
+            const on = DEFAULT_ON.has(tag);
+            featureSettings[tag] = on;
+            const row = document.createElement("div");
+            row.className = "feat-row";
+            row.innerHTML = `
+        <div class="feat-info">
+          <span class="feat-name">${FEATURE_LABELS[tag] || tag}</span>
+          <span class="feat-tag">${tag}</span>
+        </div>
+        <label class="feat-toggle">
+          <input type="checkbox" id="ft-${tag}"${on ? " checked" : ""}>
+          <span class="feat-knob"></span>
+        </label>`;
+            featControls.appendChild(row);
+            document.getElementById("ft-" + tag).addEventListener("change", (e) => {
+              featureSettings[tag] = e.target.checked;
+              applyFeatures();
+            });
+          });
+        featSection.style.display = tags.size ? "block" : "none";
+      }
+
+      function isMobile() {
+        return window.innerWidth <= 680;
+      }
+      function openSidebar() {
+        sidebar.classList.add("mobile-open");
+        backdrop.style.display = "block";
+      }
+      function closeSidebar() {
+        sidebar.classList.remove("mobile-open");
+        backdrop.style.display = "none";
+      }
+
+      document.getElementById("settings-btn").addEventListener("click", () => {
+        if (!isMobile()) return;
+        sidebar.classList.contains("mobile-open") ? closeSidebar() : openSidebar();
+      });
+      backdrop.addEventListener("click", closeSidebar);
+    </script>
+    <div id="backdrop"></div>
+  </body>
+</html>

@@ -2,7 +2,7 @@
 <div class="container">
   <h1 class="section-title">{{ section.title }}</h1>
   <div class="post-grid">
-    {% for page in section.pages %}
+    {% for page in section.pages %}{% if page.extra.hidden %}{% continue %}{% endif %}
     <div class="post-card" onclick="location.href='{{ page.permalink | safe }}';">
       {% if page.extra.thumbnail %}
       <div class="post-card__img" style="background-image: url('{{ page.extra.thumbnail }}');"></div>
