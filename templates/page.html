@@ -1,4 +1,27 @@
-{% extends "base.html" %} {% block title %}{{ page.title }}{% endblock %} {% block nav_class %}bottom-nav--content{% endblock %} {% block content %}
+{% extends "base.html" %}
+
+{% block title %}{{ page.title }}{% endblock %}
+
+{% block nav_class %}bottom-nav--content{% endblock %}
+
+{% block extra_head %}
+{% if page.extra.has_math %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" />
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script
+  defer
+  src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body, {
+    delimiters: [
+      { left: '$$', right: '$$', display: true },
+      { left: '$', right: '$', display: false },
+    ],
+  })"
+></script>
+{% endif %}
+{% endblock %}
+
+{% block content %}
 <div class="container">
   <article>
     <h1 style="font-size: 2.8rem; letter-spacing: -1px; margin-bottom: 10px">{{ page.title }}</h1>
