@@ -34,7 +34,7 @@
     transition: transform 0.3s ease;
 
     .mona-mode & {
-      color: #00f2ff;
+      color: var(--accent);
     }
   }
 }

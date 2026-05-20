@@ -25,8 +25,8 @@
     .mona-mode & {
       color: #fff;
       text-shadow:
-        0 0 12px rgba(0, 243, 255, 0.35),
-        0 0 32px rgba(0, 243, 255, 0.18);
+        0 0 12px rgba(var(--accent-rgb), 0.35),
+        0 0 32px rgba(var(--accent-rgb), 0.18);
     }
 
     .pixel-mode & {
@@ -47,7 +47,7 @@
   max-width: 32vw;
   height: auto;
 
-  filter: drop-shadow(0 0 10px rgba(0, 195, 227, 0.22)) drop-shadow(0 12px 24px rgba(0, 0, 0, 0.18));
+  filter: drop-shadow(0 0 10px rgba(var(--accent-rgb), 0.22)) drop-shadow(0 12px 24px rgba(0, 0, 0, 0.18));
 
   transition:
     transform 0.6s ease,
@@ -55,7 +55,7 @@
 
   &:hover {
     transform: rotate(360deg);
-    filter: drop-shadow(0 0 16px rgba(0, 243, 255, 0.42)) drop-shadow(0 16px 30px rgba(0, 0, 0, 0.24));
+    filter: drop-shadow(0 0 16px rgba(var(--accent-rgb), 0.42)) drop-shadow(0 16px 30px rgba(0, 0, 0, 0.24));
   }
 }
 
@@ -87,14 +87,14 @@
   color: var(--text-main);
   background: var(--card-bg);
   border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 22px;
+  border-radius: $radius-xl;
   box-shadow:
     0 24px 60px rgba(0, 0, 0, 0.18),
     inset 0 1px 0 rgba(255, 255, 255, 0.08);
 
   cursor: pointer;
   transition:
-    transform 0.28s cubic-bezier(0.19, 1, 0.22, 1),
+    transform 0.28s #{$ease-spring},
     border-color 0.28s,
     background-color 0.28s,
     box-shadow 0.28s;
@@ -106,18 +106,18 @@
     z-index: -1;
 
     background:
-      radial-gradient(circle at 50% 28%, rgba(0, 195, 227, 0.2), transparent 34%),
-      radial-gradient(circle at 50% 100%, rgba(0, 195, 227, 0.08), transparent 45%);
+      radial-gradient(circle at 50% 28%, rgba(var(--accent-rgb), 0.2), transparent 34%),
+      radial-gradient(circle at 50% 100%, rgba(var(--accent-rgb), 0.08), transparent 45%);
     opacity: 0;
     transition: opacity 0.28s ease;
   }
 
   &:hover {
     transform: translateY(-8px);
-    border-color: rgba(0, 195, 227, 0.55);
+    border-color: rgba(var(--accent-rgb), 0.55);
     box-shadow:
       0 30px 70px rgba(0, 0, 0, 0.26),
-      0 0 0 1px rgba(0, 195, 227, 0.08),
+      0 0 0 1px rgba(var(--accent-rgb), 0.08),
       inset 0 1px 0 rgba(255, 255, 255, 0.12);
 
     &::before {
@@ -127,8 +127,8 @@
     .card__icon {
       transform: translateY(-3px) scale(1.04);
       box-shadow:
-        0 16px 34px rgba(0, 195, 227, 0.32),
-        0 0 0 8px rgba(0, 195, 227, 0.08);
+        0 16px 34px rgba(var(--accent-rgb), 0.32),
+        0 0 0 8px rgba(var(--accent-rgb), 0.08);
     }
   }
 
@@ -141,10 +141,10 @@
       inset 0 1px 0 rgba(255, 255, 255, 0.08);
 
     &:hover {
-      border-color: rgba(0, 243, 255, 0.55);
+      border-color: rgba(var(--accent-rgb), 0.55);
       box-shadow:
         0 28px 70px rgba(0, 0, 0, 0.32),
-        0 0 28px rgba(0, 243, 255, 0.12),
+        0 0 28px rgba(var(--accent-rgb), 0.12),
         inset 0 1px 0 rgba(255, 255, 255, 0.12);
     }
   }
@@ -159,13 +159,13 @@
 
     color: #fff;
     background: linear-gradient(180deg, rgba(255, 255, 255, 0.18), transparent), var(--accent);
-    border-radius: 24px;
+    border-radius: $radius-xl;
     box-shadow:
-      0 14px 30px rgba(0, 195, 227, 0.26),
+      0 14px 30px rgba(var(--accent-rgb), 0.26),
       inset 0 1px 0 rgba(255, 255, 255, 0.28);
 
     transition:
-      transform 0.28s cubic-bezier(0.19, 1, 0.22, 1),
+      transform 0.28s #{$ease-spring},
       box-shadow 0.28s;
   }
 
@@ -187,14 +187,14 @@
 
     .mona-mode & {
       color: #fff;
-      text-shadow: 0 0 12px rgba(0, 243, 255, 0.2);
+      text-shadow: 0 0 12px rgba(var(--accent-rgb), 0.2);
     }
   }
 }
 
 /* Responsive */
 
-@media (max-width: 768px) {
+@media (max-width: $bp-tablet) {
   .home-header {
     margin-bottom: 24px;
     padding: 32px 0 8px;
@@ -223,12 +223,12 @@
     justify-content: flex-start;
     gap: 18px;
 
-    border-radius: 18px;
+    border-radius: $radius-lg;
 
     &__icon {
       width: 58px;
       height: 58px;
-      border-radius: 18px;
+      border-radius: $radius-lg;
     }
 
     &__icon svg {

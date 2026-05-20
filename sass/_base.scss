@@ -75,10 +75,10 @@ pre * {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(150, 150, 150, 0.3);
-  border-radius: 8px;
+  background: var(--ui-bg);
+  border-radius: $radius-sm;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(150, 150, 150, 0.6);
+  background: var(--text-muted);
 }

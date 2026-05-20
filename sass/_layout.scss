@@ -99,16 +99,16 @@
 
   color: #fff;
   background: var(--nav-bg);
-  border-radius: 60px;
+  border-radius: 60px; // bottom-nav pill — 스케일 외 특수값
   backdrop-filter: blur(15px);
 
   transition:
-    bottom 0.6s cubic-bezier(0.19, 1, 0.22, 1),
-    left 0.6s cubic-bezier(0.19, 1, 0.22, 1),
-    transform 0.6s cubic-bezier(0.19, 1, 0.22, 1),
-    width 0.6s cubic-bezier(0.19, 1, 0.22, 1),
-    padding 0.6s cubic-bezier(0.19, 1, 0.22, 1),
-    box-shadow 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+    bottom 0.6s #{$ease-spring},
+    left 0.6s #{$ease-spring},
+    transform 0.6s #{$ease-spring},
+    width 0.6s #{$ease-spring},
+    padding 0.6s #{$ease-spring},
+    box-shadow 0.6s #{$ease-spring};
 
   .mona-mode & {
     border: 1px solid rgba(100, 200, 255, 0.3);
@@ -171,7 +171,7 @@
 .search-modal {
   position: fixed;
   inset: 0;
-  z-index: 3000;
+  z-index: var(--z-modal);
 
   display: none;
 
@@ -190,8 +190,8 @@
     padding: 30px;
 
     background: var(--card-bg);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 20px;
+    border: 1px solid var(--separator);
+    border-radius: $radius-lg;
   }
 
   &__input {
@@ -201,7 +201,7 @@
     color: var(--text-main);
     background: transparent;
     border: 2px solid var(--accent);
-    border-radius: 10px;
+    border-radius: $radius-sm;
 
     font-size: 1.2rem;
   }
@@ -219,7 +219,7 @@
 
     &::-webkit-scrollbar-thumb {
       background: var(--accent);
-      border-radius: 10px;
+      border-radius: $radius-sm;
     }
   }
 }
@@ -232,9 +232,9 @@
   flex-direction: column;
   gap: 8px;
 
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  border-radius: 15px;
+  background: var(--ui-bg-subtle);
+  border: 1px solid var(--separator);
+  border-radius: $radius-lg;
 
   cursor: pointer;
   transition:
@@ -244,7 +244,7 @@
 
   &:hover {
     transform: translateY(-2px);
-    background: rgba(0, 195, 227, 0.1);
+    background: rgba(var(--accent-rgb), 0.1);
     border-color: var(--accent);
   }
 

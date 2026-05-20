@@ -1,5 +1,18 @@
+$latte: map-get($palette, "latte");
+$mocha: map-get($palette, "mocha");
+
 $bp-mobile: 640px;
 $bp-tablet: 768px;
+
+$radius-xs:   6px;
+$radius-sm:   10px;
+$radius-md:   12px;
+$radius-lg:   20px;
+$radius-xl:   24px;
+$radius-pill: 999px;
+
+$ease-spring: cubic-bezier(0.19, 1, 0.22, 1);
+$ease-bounce: cubic-bezier(0.175, 0.885, 0.32, 1.275);
 
 :root {
   --topbar-height: 60px;
@@ -8,38 +21,63 @@ $bp-tablet: 768px;
   --z-header: 1000;
   --z-nav: 1001;
   --z-dropdown: 2000;
+  --z-modal: 3000;
 
-  --bg-main: #eff1f5;
+  --bg-main: #{map-get($latte, "base")};
   --header-bg: rgba(255, 255, 255, 0.78);
   --card-bg: #ffffff;
-  --text-main: #4c4f69;
-  --accent: #209fb5;
-  --accent-red: #d20f39;
-  --nav-bg: rgba(76, 79, 105, 0.8);
+  --text-main: #{map-get($latte, "text")};
+  --accent: #{map-get($latte, "sapphire")};
+  --accent-rgb: #{red(map-get($latte, "sapphire"))}, #{green(map-get($latte, "sapphire"))}, #{blue(map-get($latte, "sapphire"))};
+  --accent-red: #{map-get($latte, "red")};
+  --nav-bg: #{rgba(map-get($latte, "text"), 0.8)};
   --body-background: var(--bg-main);
-  --code-bg: #1e1e2e;
+  --code-bg: #{map-get($mocha, "base")};
+
+  --separator: rgba(0, 0, 0, 0.12);
+  --hover-bg: #{map-get($latte, "mantle")};
+  --placeholder-bg: #{map-get($latte, "surface0")};
+  --ui-bg: #{map-get($latte, "surface0")};
+  --ui-bg-subtle: #{rgba(map-get($latte, "surface0"), 0.5)};
+  --text-muted: #{map-get($latte, "overlay1")};
 }
 
 body.dark-mode {
-  --bg-main: #1e1e2e;
-  --header-bg: rgba(24, 24, 37, 0.82);
-  --card-bg: rgba(49, 50, 68, 0.82);
-  --text-main: #cdd6f4;
-  --accent: #74c7ec;
-  --accent-red: #f38ba8;
-  --nav-bg: rgba(17, 17, 27, 0.86);;
+  --bg-main: #{map-get($mocha, "base")};
+  --header-bg: #{rgba(map-get($mocha, "mantle"), 0.82)};
+  --card-bg: #{rgba(map-get($mocha, "surface0"), 0.82)};
+  --text-main: #{map-get($mocha, "text")};
+  --accent: #{map-get($mocha, "sapphire")};
+  --accent-rgb: #{red(map-get($mocha, "sapphire"))}, #{green(map-get($mocha, "sapphire"))}, #{blue(map-get($mocha, "sapphire"))};
+  --accent-red: #{map-get($mocha, "red")};
+  --nav-bg: #{rgba(map-get($mocha, "crust"), 0.86)};
   --body-background: var(--bg-main);
-  --code-bg: #11111b;
+  --code-bg: #{map-get($mocha, "crust")};
+
+  --separator: rgba(255, 255, 255, 0.15);
+  --hover-bg: #{rgba(map-get($mocha, "surface1"), 0.9)};
+  --placeholder-bg: #{map-get($mocha, "surface1")};
+  --ui-bg: rgba(0, 0, 0, 0.2);
+  --ui-bg-subtle: rgba(0, 0, 0, 0.12);
+  --text-muted: #{map-get($mocha, "subtext0")};
 }
 
 body.mona-mode {
-  --bg-main: #0a0b99;
-  --header-bg: rgba(0, 15, 40, 0.7);
-  --card-bg: rgba(0, 15, 40, 0.7);
+  --bg-main: #{$mona-bg};
+  --header-bg: #{rgba($mona-surface, 0.7)};
+  --card-bg: #{rgba($mona-surface, 0.7)};
   --text-main: #ffffff;
-  --accent: #00f3ff;
-  --accent-red: #ff6b6b;
-  --nav-bg: rgba(0, 15, 40, 0.8);
+  --accent: #{$mona-accent};
+  --accent-rgb: #{red($mona-accent)}, #{green($mona-accent)}, #{blue($mona-accent)};
+  --accent-red: #{$mona-accent-red};
+  --nav-bg: #{rgba($mona-surface, 0.8)};
 
-  --body-background: linear-gradient(to bottom, rgba(0, 5, 20, 0.2), rgba(0, 0, 10, 0.9)), var(--bg-main);
+  --body-background: linear-gradient(to bottom, #{rgba($mona-deep, 0.2)}, #{rgba($mona-abyss, 0.9)}), var(--bg-main);
+
+  --separator: #{rgba($mona-highlight, 0.25)};
+  --hover-bg: #{rgba($mona-hover, 0.8)};
+  --placeholder-bg: #{rgba($mona-surface, 0.6)};
+  --ui-bg: rgba(0, 0, 0, 0.25);
+  --ui-bg-subtle: rgba(0, 0, 0, 0.15);
+  --text-muted: rgba(255, 255, 255, 0.55);
 }
