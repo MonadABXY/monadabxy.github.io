@@ -643,6 +643,267 @@
           padding: 16px 20px;
         }
       }
+      #glyphs-content {
+        display: none;
+        padding: 16px 20px;
+      }
+      #glyph-detail {
+        display: none;
+        position: sticky;
+        top: 0;
+        z-index: 30;
+        background: var(--bg-main);
+        border-bottom: 1px solid var(--border);
+        padding: 16px 20px;
+        margin-bottom: 12px;
+        flex-direction: row;
+        gap: 16px;
+        align-items: flex-start;
+      }
+      #glyph-detail.open {
+        display: flex;
+      }
+      #glyph-detail-preview {
+        width: 112px;
+        height: 112px;
+        flex-shrink: 0;
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        color: var(--text-main);
+      }
+      #glyph-detail-preview svg {
+        width: 100%;
+        height: 100%;
+      }
+      #glyph-detail-preview span {
+        line-height: 1;
+      }
+      #glyph-detail-body {
+        flex: 1;
+        min-width: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+      #glyph-detail-name {
+        font-size: 15px;
+        font-weight: 600;
+        font-family: "Fira Code", monospace;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      #glyph-detail-meta {
+        font-size: 11px;
+        font-family: "Fira Code", monospace;
+        color: var(--accent);
+        opacity: 0.8;
+      }
+      #glyph-detail-comps {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
+      .glyph-detail-comp-row {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 18px;
+        flex-wrap: wrap;
+      }
+      .glyph-detail-comp-sep {
+        font-size: 11px;
+        opacity: 0.4;
+      }
+      .glyph-detail-comp-feat {
+        font-size: 10px;
+        font-family: "Fira Code", monospace;
+        color: var(--accent);
+        opacity: 0.8;
+      }
+      .glyph-detail-section-label {
+        font-size: 9px;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        opacity: 0.45;
+        margin-bottom: 5px;
+      }
+      #glyph-detail-vars {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+      }
+      .glyph-detail-var {
+        width: 48px;
+        height: 48px;
+        border: 1px dashed var(--border);
+        border-radius: 8px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 2px;
+        position: relative;
+        color: var(--text-main);
+        cursor: default;
+      }
+      .glyph-detail-var svg {
+        width: 34px;
+        height: 34px;
+      }
+      .glyph-detail-var > span:not(.glyph-detail-var-feat) {
+        width: 34px;
+        height: 34px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .glyph-detail-var-feat {
+        font-size: 7px;
+        font-family: "Fira Code", monospace;
+        color: var(--accent);
+        position: absolute;
+        bottom: 2px;
+        right: 3px;
+        line-height: 1;
+      }
+      #glyph-detail-close {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-size: 18px;
+        opacity: 0.35;
+        padding: 2px 7px;
+        border-radius: 6px;
+        color: var(--text-main);
+        transition:
+          opacity 0.15s,
+          background 0.15s;
+      }
+      #glyph-detail-close:hover {
+        opacity: 1;
+        background: var(--accent-glow);
+      }
+
+      .glyph-section-hd {
+        font-size: 10px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        opacity: 0.4;
+        margin: 16px 0 8px;
+      }
+      .glyph-section-hd:first-child {
+        margin-top: 0;
+      }
+      .glyph-grid {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 4px;
+        align-items: flex-start;
+      }
+      .glyph-entry {
+        display: flex;
+        gap: 2px;
+        position: relative;
+      }
+      .glyph-cell {
+        width: 52px;
+        height: 52px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        cursor: default;
+        position: relative;
+        color: var(--text-main);
+        transition:
+          background 0.12s,
+          border-color 0.12s;
+        overflow: hidden;
+      }
+      .glyph-cell:hover {
+        background: var(--accent-glow);
+        border-color: var(--accent);
+      }
+      .glyph-badge {
+        position: absolute;
+        bottom: 2px;
+        right: 2px;
+        font-size: 7px;
+        font-family: "Fira Code", monospace;
+        color: var(--accent);
+        pointer-events: none;
+        line-height: 1;
+        z-index: 2;
+      }
+      .glyph-lbl {
+        position: absolute;
+        bottom: calc(100% + 4px);
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 9px;
+        font-family: "Fira Code", monospace;
+        white-space: nowrap;
+        background: var(--card-bg);
+        border: 1px solid var(--border);
+        border-radius: 4px;
+        padding: 2px 5px;
+        pointer-events: none;
+        opacity: 0;
+        transition: opacity 0.1s;
+        z-index: 10;
+      }
+      .glyph-entry:hover .glyph-lbl {
+        opacity: 1;
+      }
+      .glyph-more {
+        display: flex;
+        gap: 6px;
+        width: 100%;
+        margin-top: 10px;
+      }
+      .glyph-more-chunk,
+      .glyph-more-all {
+        padding: 6px 12px;
+        background: none;
+        border: 1px dashed var(--border);
+        border-radius: 8px;
+        font-size: 11px;
+        color: var(--text-main);
+        opacity: 0.5;
+        cursor: pointer;
+        transition:
+          opacity 0.15s,
+          background 0.15s,
+          border-color 0.15s;
+      }
+      .glyph-more-chunk:hover,
+      .glyph-more-all:hover {
+        opacity: 1;
+        background: var(--accent-glow);
+        border-color: var(--accent);
+      }
+      @media (max-width: 680px) {
+        #glyphs-content {
+          padding: 12px;
+        }
+        .glyph-cell {
+          width: 44px;
+          height: 44px;
+        }
+        .glyph-cell--var {
+          width: 34px;
+        }
+      }
     </style>
   </head>
   <body>
@@ -650,7 +911,7 @@
       <aside id="sidebar">
         <div class="sidebar-top">
           <button class="open-btn" id="open-btn">Open Font File</button>
-          <input type="file" id="file-input" accept=".ttf,.otf,.woff,.woff2" />
+          <input type="file" id="file-input" accept=".ttf,.otf" />
         </div>
 
         <div id="sidebar-body">
@@ -801,6 +1062,7 @@
             <div class="view-toggle">
               <button class="view-btn active" id="btn-preview">Preview</button>
               <button class="view-btn" id="btn-waterfall">Waterfall</button>
+              <button class="view-btn" id="btn-glyphs">Glyphs</button>
             </div>
           </div>
 
@@ -809,6 +1071,23 @@
               <div id="preview-text" contenteditable="plaintext-only"></div>
             </div>
             <div id="waterfall-content"></div>
+            <div id="glyph-detail">
+              <button id="glyph-detail-close">×</button>
+              <div id="glyph-detail-preview"></div>
+              <div id="glyph-detail-body">
+                <div id="glyph-detail-name"></div>
+                <div id="glyph-detail-meta"></div>
+                <div id="glyph-detail-comps-wrap">
+                  <div class="glyph-detail-section-label">Components</div>
+                  <div id="glyph-detail-comps"></div>
+                </div>
+                <div id="glyph-detail-vars-wrap">
+                  <div class="glyph-detail-section-label">Variants</div>
+                  <div id="glyph-detail-vars"></div>
+                </div>
+              </div>
+            </div>
+            <div id="glyphs-content"></div>
           </div>
         </div>
       </main>
@@ -833,6 +1112,11 @@
       let currentView = "preview";
       let currentAlign = "left";
       let currentLang = "";
+      let currentFont = null;
+      let glyphsRendered = false;
+      let currentVariants = new Map();
+      let currentGlyphToUni = new Map();
+      let currentLigatures = new Map();
 
       const dropZone = document.getElementById("drop-zone");
       const previewArea = document.getElementById("preview-area");
@@ -857,6 +1141,15 @@
       const langRow = document.getElementById("lang-row");
       const sidebar = document.getElementById("sidebar");
       const backdrop = document.getElementById("backdrop");
+      const glyphsContent = document.getElementById("glyphs-content");
+      const glyphDetail = document.getElementById("glyph-detail");
+      const glyphDetailPreview = document.getElementById("glyph-detail-preview");
+      const glyphDetailName = document.getElementById("glyph-detail-name");
+      const glyphDetailMeta = document.getElementById("glyph-detail-meta");
+      const glyphDetailCompsWrap = document.getElementById("glyph-detail-comps-wrap");
+      const glyphDetailComps = document.getElementById("glyph-detail-comps");
+      const glyphDetailVarsWrap = document.getElementById("glyph-detail-vars-wrap");
+      const glyphDetailVars = document.getElementById("glyph-detail-vars");
 
       ["dragover", "dragenter"].forEach((ev) => {
         dropZone.addEventListener(ev, (e) => {
@@ -919,14 +1212,23 @@
 
       document.getElementById("btn-preview").onclick = () => setView("preview");
       document.getElementById("btn-waterfall").onclick = () => setView("waterfall");
+      document.getElementById("btn-glyphs").onclick = () => setView("glyphs");
 
       function setView(mode) {
         currentView = mode;
-        document.getElementById("btn-preview").classList.toggle("active", mode === "preview");
-        document.getElementById("btn-waterfall").classList.toggle("active", mode === "waterfall");
+        ["preview", "waterfall", "glyphs"].forEach((m) => {
+          document.getElementById("btn-" + m).classList.toggle("active", m === mode);
+        });
         previewCont.style.display = mode === "preview" ? "" : "none";
         wfContent.style.display = mode === "waterfall" ? "flex" : "none";
+        glyphsContent.style.display = mode === "glyphs" ? "block" : "none";
+        glyphDetail.style.display = mode === "glyphs" ? "" : "none";
+        if (mode !== "glyphs") glyphDetail.classList.remove("open");
         if (mode === "waterfall") syncWaterfall();
+        if (mode === "glyphs" && currentFont && !glyphsRendered) {
+          renderGlyphs(currentFont);
+          glyphsRendered = true;
+        }
       }
 
       async function loadFont(file) {
@@ -962,6 +1264,17 @@
         currentLang = "";
         previewText.removeAttribute("lang");
         langSelect.value = "";
+        currentFont = otFont;
+        glyphsRendered = false;
+        glyphsContent.innerHTML = "";
+        currentVariants = new Map();
+        currentGlyphToUni = new Map();
+        currentLigatures = new Map();
+        glyphDetail.classList.remove("open");
+        if (currentView === "glyphs") {
+          renderGlyphs(otFont);
+          glyphsRendered = true;
+        }
 
         renderInfo(otFont, file.name);
         renderAxes(otFont);
@@ -1367,6 +1680,288 @@
           });
         featSection.style.display = tags.size ? "block" : "none";
       }
+
+      const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+
+      function buildVariantMap(font) {
+        const gsub = font.tables.gsub;
+        if (!gsub?.lookups) return { variants: new Map(), ligatures: [] };
+
+        const covGlyphs = (cov) => {
+          if (!cov) return [];
+          if (cov.glyphs) return cov.glyphs;
+          if (cov.ranges) {
+            const out = [];
+            cov.ranges.forEach(({ start, end }) => {
+              for (let g = start; g <= end; g++) out.push(g);
+            });
+            return out;
+          }
+          return [];
+        };
+
+        const lookupFeatures = new Map();
+        (gsub.features || []).forEach(({ tag, feature }) => {
+          (feature?.lookupListIndexes || []).forEach((li) => {
+            if (!lookupFeatures.has(li)) lookupFeatures.set(li, new Set());
+            lookupFeatures.get(li).add(tag);
+          });
+        });
+
+        const variants = new Map();
+        const ligatures = [];
+
+        const addVar = (baseId, varId, lIdx) => {
+          if (varId == null || baseId === varId) return;
+          const feats = lookupFeatures.get(lIdx) || new Set(["?"]);
+          if (!variants.has(baseId)) variants.set(baseId, []);
+          const list = variants.get(baseId);
+          const ex = list.find((v) => v.glyphId === varId);
+          if (ex) feats.forEach((f) => ex.feats.add(f));
+          else list.push({ glyphId: varId, feats: new Set(feats) });
+        };
+
+        gsub.lookups.forEach((lookup, lIdx) => {
+          try {
+            if (lookup.lookupType === 1) {
+              lookup.subtables.forEach((sub) => {
+                const glyphs = covGlyphs(sub.coverage);
+                if (sub.substFormat === 1) {
+                  glyphs.forEach((gId) => addVar(gId, gId + sub.deltaGlyphId, lIdx));
+                } else {
+                  glyphs.forEach((gId, i) => addVar(gId, sub.substitute?.[i], lIdx));
+                }
+              });
+            } else if (lookup.lookupType === 3) {
+              lookup.subtables.forEach((sub) => {
+                covGlyphs(sub.coverage).forEach((gId, i) => {
+                  (sub.alternateSets?.[i] || []).forEach((altId) => addVar(gId, altId, lIdx));
+                });
+              });
+            } else if (lookup.lookupType === 4) {
+              const feats = lookupFeatures.get(lIdx) || new Set(["liga"]);
+              lookup.subtables.forEach((sub) => {
+                covGlyphs(sub.coverage).forEach((gId, i) => {
+                  (sub.ligatureSets?.[i] || []).forEach(({ ligGlyph, components }) => {
+                    if (ligGlyph != null)
+                      ligatures.push({ glyphId: ligGlyph, components: [gId, ...(components || [])], feats: new Set(feats) });
+                  });
+                });
+              });
+            }
+          } catch (_) {}
+        });
+
+        return { variants, ligatures };
+      }
+
+      function glyphSVG(glyph, font, size, unicode) {
+        if (unicode != null) {
+          const em = Math.round(size * 0.72);
+          return `<span style="font-family:'${fontFaceName}';font-size:${em}px;user-select:none">${esc(String.fromCodePoint(unicode))}</span>`;
+        }
+
+        const upm = font.unitsPerEm || 1000;
+        const asc = font.ascender || upm * 0.8;
+        const totalH = asc - (font.descender || upm * -0.2);
+        const fontSize = (size * upm) / totalH;
+        const baseline = (size * asc) / totalH;
+        const aw = ((glyph.advanceWidth ?? upm) * size) / totalH;
+        const x = (size - aw) / 2;
+        try {
+          const d = glyph.getPath(x, baseline, fontSize).toPathData(1);
+          if (d) return `<svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}"><path d="${d}" fill="currentColor"/></svg>`;
+        } catch (_) {}
+
+        return `<svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}"></svg>`;
+      }
+
+      function renderGlyphs(font) {
+        glyphsContent.innerHTML = "";
+        const C = 52;
+        const PAGE = 500;
+        const glyphToUni = new Map();
+        for (let i = 0; i < font.numGlyphs; i++) {
+          const u = font.glyphs.get(i).unicodes;
+          if (u?.length) glyphToUni.set(i, u[0]);
+        }
+
+        const { variants, ligatures } = buildVariantMap(font);
+
+        const secondary = new Set();
+        for (const vars of variants.values()) vars.forEach((v) => secondary.add(v.glyphId));
+        const ligIds = new Set(ligatures.map((l) => l.glyphId));
+
+        const encoded = [...glyphToUni.entries()].filter(([id]) => !secondary.has(id)).sort((a, b) => a[1] - b[1]);
+
+        const unencoded = [];
+        for (let i = 0; i < font.numGlyphs; i++) {
+          if (!glyphToUni.has(i) && !secondary.has(i) && !ligIds.has(i)) unencoded.push(i);
+        }
+
+        currentVariants = variants;
+        currentGlyphToUni = glyphToUni;
+        currentLigatures = new Map(ligatures.map((l) => [l.glyphId, l]));
+
+        function makeEntry(g, lbl, title, vars, unicode) {
+          const varCount = (vars || []).length;
+          const badge = varCount ? `<span class="glyph-badge">+${varCount}</span>` : "";
+          const svg = glyphSVG(g, font, C, unicode);
+          const uniAttr = unicode != null ? ` data-uni="${unicode}"` : "";
+          const cell = `<div class="glyph-cell" data-gid="${g.index}"${uniAttr}>${svg}</div>`;
+          return `<div class="glyph-entry">${cell}${badge}<div class="glyph-lbl">${esc(lbl)}</div></div>`;
+        }
+
+        function renderSection(label, entries, renderFn) {
+          if (!entries.length) return;
+          const hd = document.createElement("div");
+          hd.className = "glyph-section-hd";
+          hd.textContent = `${label}  ·  ${entries.length}`;
+          glyphsContent.appendChild(hd);
+          const grid = document.createElement("div");
+          grid.className = "glyph-grid";
+          glyphsContent.appendChild(grid);
+
+          let shown = 0;
+          let moreBtn = null;
+          function loadMore(all) {
+            const chunk = entries.slice(shown, all ? entries.length : shown + PAGE);
+            grid.insertAdjacentHTML("beforeend", chunk.map(renderFn).join(""));
+            shown += chunk.length;
+            if (moreBtn) {
+              moreBtn.remove();
+              moreBtn = null;
+            }
+            if (shown < entries.length) {
+              const rem = entries.length - shown;
+              moreBtn = document.createElement("div");
+              moreBtn.className = "glyph-more";
+              moreBtn.innerHTML =
+                `<button class="glyph-more-chunk">Load ${Math.min(rem, PAGE)} more</button>` +
+                `<button class="glyph-more-all">Load all  (${rem})</button>`;
+              moreBtn.querySelector(".glyph-more-chunk").onclick = () => loadMore(false);
+              moreBtn.querySelector(".glyph-more-all").onclick = () => loadMore(true);
+              glyphsContent.insertBefore(moreBtn, grid.nextSibling);
+            }
+          }
+          loadMore(false);
+        }
+
+        renderSection("Encoded", encoded, ([gId, uni]) => {
+          const g = font.glyphs.get(gId);
+          const hex = "U+" + uni.toString(16).toUpperCase().padStart(4, "0");
+          return makeEntry(g, hex, `${g.name || hex}  ${hex}  #${gId}`, variants.get(gId), uni);
+        });
+
+        renderSection("Ligatures", ligatures, ({ glyphId, components, feats }) => {
+          const g = font.glyphs.get(glyphId);
+          const fa = [...feats];
+          const label = components
+            .map((id) => {
+              const u = glyphToUni.get(id);
+              return u != null ? String.fromCodePoint(u) : "#" + id;
+            })
+            .join("");
+          const title = `${g.name || "#" + glyphId}  [${fa.join(", ")}]  #${glyphId}`;
+          const allHaveUnicode = components.every((id) => glyphToUni.has(id));
+          const em = Math.round(C * 0.72);
+          const inner = allHaveUnicode
+            ? `<span style="font-family:'${fontFaceName}';font-size:${em}px;user-select:none">${esc(label)}</span>`
+            : glyphSVG(g, font, C);
+          const cell = `<div class="glyph-cell" data-gid="${glyphId}">${inner}</div>`;
+          return `<div class="glyph-entry">${cell}<div class="glyph-lbl">${esc(label)}</div></div>`;
+        });
+
+        renderSection("Unencoded", unencoded, (gId) => {
+          const g = font.glyphs.get(gId);
+          const name = g.name || "#" + gId;
+          return makeEntry(g, name, `${name}  #${gId}`, variants.get(gId));
+        });
+      }
+
+      function showGlyphDetail(glyphId) {
+        if (!currentFont) return;
+        const g = currentFont.glyphs.get(glyphId);
+        if (!g) return;
+        const unicode = currentGlyphToUni.get(glyphId) ?? null;
+        const vars = currentVariants.get(glyphId) || [];
+
+        const PREV = 112;
+        const lig0 = currentLigatures.get(glyphId);
+        const ligText =
+          lig0 && lig0.components.every((id) => currentGlyphToUni.has(id))
+            ? lig0.components.map((id) => String.fromCodePoint(currentGlyphToUni.get(id))).join("")
+            : null;
+        glyphDetailPreview.innerHTML = ligText
+          ? `<span style="font-family:'${fontFaceName}';font-size:${Math.round(PREV * 0.72)}px;user-select:none">${esc(ligText)}</span>`
+          : glyphSVG(g, currentFont, PREV, unicode);
+
+        glyphDetailName.textContent = g.name || `#${glyphId}`;
+
+        const meta = [];
+        if (unicode != null) meta.push("U+" + unicode.toString(16).toUpperCase().padStart(4, "0"));
+        meta.push(`index ${glyphId}`);
+        meta.push(`AW ${g.advanceWidth ?? "–"}`);
+        glyphDetailMeta.textContent = meta.join("  ·  ");
+
+        const lig = currentLigatures.get(glyphId);
+        if (lig) {
+          const parts = lig.components.map((id) => {
+            const u = currentGlyphToUni.get(id);
+            return u != null
+              ? `<span style="font-family:'${fontFaceName}'">${esc(String.fromCodePoint(u))}</span>`
+              : `<span style="opacity:0.5">#${id}</span>`;
+          });
+          const allUni = lig.components.every((id) => currentGlyphToUni.has(id));
+          const composed = lig.components
+            .map((id) => {
+              const u = currentGlyphToUni.get(id);
+              return u != null ? String.fromCodePoint(u) : "";
+            })
+            .join("");
+          const arrow = allUni
+            ? `<span class="glyph-detail-comp-sep">→</span><span style="font-family:'${fontFaceName}'">${esc(composed)}</span>`
+            : "";
+          glyphDetailComps.innerHTML =
+            `<div class="glyph-detail-comp-row">${parts.join('<span class="glyph-detail-comp-sep">+</span>')}${arrow}</div>` +
+            `<div class="glyph-detail-comp-feat">${esc([...lig.feats].join(", "))}</div>`;
+          glyphDetailCompsWrap.style.display = "";
+        } else {
+          glyphDetailCompsWrap.style.display = "none";
+        }
+
+        if (vars.length) {
+          glyphDetailVars.innerHTML = vars
+            .map(({ glyphId: vid, feats }) => {
+              const vg = currentFont.glyphs.get(vid);
+              const fa = [...feats];
+              const fl = fa[0] + (fa.length > 1 ? `+${fa.length - 1}` : "");
+              const vuni = currentGlyphToUni.get(vid) ?? null;
+              return `<div class="glyph-detail-var" title="${esc(vg.name || "#" + vid)}  [${esc(fa.join(", "))}]">
+              ${glyphSVG(vg, currentFont, 34, vuni)}
+              <span class="glyph-detail-var-feat">${esc(fl)}</span>
+            </div>`;
+            })
+            .join("");
+          glyphDetailVarsWrap.style.display = "";
+        } else {
+          glyphDetailVarsWrap.style.display = "none";
+        }
+
+        glyphDetail.classList.add("open");
+      }
+
+      glyphsContent.addEventListener("click", (e) => {
+        const cell = e.target.closest(".glyph-cell");
+        if (!cell) return;
+        const gid = parseInt(cell.dataset.gid);
+        if (!isNaN(gid)) showGlyphDetail(gid);
+      });
+
+      document.getElementById("glyph-detail-close").onclick = () => glyphDetail.classList.remove("open");
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") glyphDetail.classList.remove("open");
+      });
 
       function isMobile() {
         return window.innerWidth <= 680;
