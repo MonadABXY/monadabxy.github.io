@@ -6,7 +6,7 @@ template = "wasm_app.html"
 
 [extra]
 wasm_src = "/apps/pixel-font-editor/app.html"
-thumbnail = "icon.png"
+thumbnail = "icon.ico"
 thumbnail_fit = "contain"
 open_in_new_tab = true
 +++
