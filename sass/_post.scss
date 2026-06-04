@@ -27,13 +27,16 @@
 }
 
 .post-card {
+  display: block;
   overflow: hidden;
 
   background: var(--card-bg);
   border: 4px solid transparent;
   border-radius: $radius-lg;
 
+  color: inherit;
   cursor: pointer;
+  text-decoration: none;
   transition:
     transform 0.2s,
     border-color 0.2s;
@@ -44,11 +47,28 @@
   }
 
   &__img {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
     height: 160px;
 
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
+    background: var(--ui-bg-subtle);
+
+    img {
+      width: 100%;
+      height: 100%;
+
+      object-fit: cover;
+    }
+
+    &--contain {
+      padding: 28px;
+
+      img {
+        object-fit: contain;
+      }
+    }
 
     &--empty {
       background: var(--placeholder-bg);
