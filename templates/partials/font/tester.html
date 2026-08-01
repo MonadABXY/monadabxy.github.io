@@ -14,6 +14,26 @@
         <input type="range" id="input-size" min="10" max="100" value="24" />
       </div>
 
+      {% if page.extra.has_mono_toggle is defined and page.extra.has_mono_toggle %}
+      <div class="control-item">
+        <label>스타일</label>
+        <div class="toggle-buttons" id="font-width-buttons">
+          <button class="toggle-btn active" data-width="proportional">가변폭</button>
+          <button class="toggle-btn" data-width="mono">고정폭</button>
+        </div>
+      </div>
+      {% endif %}
+
+      {% if page.extra.has_weight_toggle is defined and page.extra.has_weight_toggle %}
+      <div class="control-item">
+        <label>굵기</label>
+        <div class="toggle-buttons" id="font-weight-buttons">
+          <button class="toggle-btn active" data-weight="400">기본</button>
+          <button class="toggle-btn" data-weight="700">볼드</button>
+        </div>
+      </div>
+      {% endif %}
+
       {% if page.extra.is_mona is defined and page.extra.is_mona %}
       <div class="control-item">
         <label>폰트 스타일</label>

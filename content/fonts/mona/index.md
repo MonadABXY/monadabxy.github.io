@@ -9,9 +9,14 @@ font_family = "Mona12"
 font_weight = 400
 css_url = "https://cdn.jsdelivr.net/gh/MonadABXY/mona-font/web/mona.css"
 css_url_2 = "https://cdn.jsdelivr.net/gh/MonadABXY/mona-font/web/monas.css"
-dl_url = "https://github.com/MonadABXY/mona-font/releases/latest"
 github_url = "https://github.com/MonadABXY/mona-font"
 feedback_url = "https://forms.gle/tVEPMUdHvE9P1Lvr6"
+
+downloads = [
+  { label = "TTF", url = "https://github.com/MonadABXY/mona-font/releases/latest/download/MonaFont-ttf.zip", filename = "MonaFont-ttf.zip" },
+  { label = "OTF", url = "https://github.com/MonadABXY/mona-font/releases/latest/download/MonaFont-otf.zip", filename = "MonaFont-otf.zip" },
+  { label = "WOFF2", url = "https://github.com/MonadABXY/mona-font/releases/latest/download/MonaFont-woff2.zip", filename = "MonaFont-woff2.zip" },
+]
 
 variants = [
   { name = "모나10", family = "Mona10", weight = 400 },

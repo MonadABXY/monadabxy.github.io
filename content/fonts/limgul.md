@@ -5,10 +5,19 @@ date = 2025-12-07
 
 [extra]
 is_mona = false
+has_weight_toggle = true
+has_mono_toggle = true
 font_family = "Limgul12"
 css_url = "https://cdn.jsdelivr.net/gh/MonadABXY/limgul-font@main/limgul.css"
-dl_url = "https://github.com/MonadABXY/limgul-font/releases/latest/download/limgul-font.zip"
 github_url = "https://github.com/MonadABXY/limgul-font"
+
+downloads = [
+  { label = "TTF", url = "https://github.com/MonadABXY/limgul-font/releases/latest/download/Limgul-ttf.zip", filename = "Limgul-ttf.zip" },
+  { label = "OTF", url = "https://github.com/MonadABXY/limgul-font/releases/latest/download/Limgul-otf.zip", filename = "Limgul-otf.zip" },
+  { label = "TTC", url = "https://github.com/MonadABXY/limgul-font/releases/latest/download/Limgul-ttc.zip", filename = "Limgul-ttc.zip" },
+  { label = "OTC", url = "https://github.com/MonadABXY/limgul-font/releases/latest/download/Limgul-otc.zip", filename = "Limgul-otc.zip" },
+  { label = "WOFF2", url = "https://github.com/MonadABXY/limgul-font/releases/latest/download/Limgul-woff2.zip", filename = "Limgul-woff2.zip" },
+]
 
 variants = [
   { name = "림굴11", family = "Limgul11", weight = 400 },

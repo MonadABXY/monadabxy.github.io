@@ -3,8 +3,17 @@
   <p>{{ page.description }}</p>
 
   <div class="font-actions">
-    {% if page.extra.dl_url is defined %}
-    <a href="{{ page.extra.dl_url }}" class="btn-main" target="_blank">⬇ 폰트 다운로드</a>
+    {% if page.extra.downloads is defined %}
+    <details class="download-menu">
+      <summary class="btn-main">⬇ 폰트 다운로드</summary>
+      <div class="download-menu__list">
+        {% for item in page.extra.downloads %}
+        <a href="{{ item.url }}" class="download-menu__item" download="{{ item.filename | default(value='') }}">{{ item.label }}</a>
+        {% endfor %}
+      </div>
+    </details>
+    {% elif page.extra.dl_url is defined %}
+    <a href="{{ page.extra.dl_url }}" class="btn-main" download>⬇ 폰트 다운로드</a>
     {% endif %}
     
     {% if page.extra.github_url is defined %}

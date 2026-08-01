@@ -8,6 +8,8 @@ const fontSelect = document.getElementById("input-font-family");
 const mainTitle = document.getElementById("main-font-title");
 const emojiButtons = document.getElementById("emoji-mode-buttons");
 const fontStyleButtons = document.getElementById("font-style-buttons");
+const fontWidthButtons = document.getElementById("font-width-buttons");
+const fontWeightButtons = document.getElementById("font-weight-buttons");
 
 const glyphToggle = document.getElementById("glyph-browser-toggle");
 const glyphBrowserContent = document.getElementById("glyph-browser-content");
@@ -20,9 +22,10 @@ const glyphPanel = document.getElementById("glyph-panel");
 const emojiPanel = document.getElementById("emoji-panel");
 
 let currentFontFamily = initialFontFamily;
-let currentWeight = fontSelect?.selectedOptions?.[0]?.dataset.weight || 400;
+let currentWeight = getActiveWeight();
 let currentEmojiMode = "color";
 let currentFontStyle = "standard";
+let currentWidthStyle = getActiveWidthStyle();
 let isBrowseLoaded = false;
 let glyphCodepoints = [];
 let emojiData = null;
@@ -108,12 +111,41 @@ const GLYPH_GROUPS = {
   },
 };
 
+function getSelectedVariantWeight() {
+  return fontSelect?.selectedOptions?.[0]?.dataset.weight || 400;
+}
+
+function getActiveWeight() {
+  const activeWeightButton = fontWeightButtons?.querySelector(".toggle-btn.active");
+  return activeWeightButton?.dataset.weight || getSelectedVariantWeight();
+}
+
+function getActiveWidthStyle() {
+  const activeWidthButton = fontWidthButtons?.querySelector(".toggle-btn.active");
+  return activeWidthButton?.dataset.width || "proportional";
+}
+
+function toMonoFamily(family) {
+  if (/Mono\d+$/.test(family)) return family;
+  return family.replace(/(\d+)$/, "Mono$1");
+}
+
+function toProportionalFamily(family) {
+  return family.replace(/Mono(?=\d+$)/, "");
+}
+
 function getGlyphFontFamily() {
   return currentFontFamily;
 }
 
 function getDisplayFontFamily() {
-  if (!isMonaFont) return currentFontFamily;
+  if (!isMonaFont) {
+    if (!fontWidthButtons) return currentFontFamily;
+
+    return currentWidthStyle === "mono"
+      ? toMonoFamily(currentFontFamily)
+      : toProportionalFamily(currentFontFamily);
+  }
 
   if (currentFontStyle === "straight" && currentFontFamily.startsWith("Mona")) {
     return currentFontFamily.replace(/^Mona/, "MonaS");
@@ -123,7 +155,13 @@ function getDisplayFontFamily() {
 }
 
 function getDisplayVariantName(name) {
-  if (!isMonaFont) return name;
+  if (!isMonaFont) {
+    if (!fontWidthButtons || currentWidthStyle !== "mono") return name;
+    if (/모노\d+$/.test(name) || /Mono\d+$/.test(name)) return name;
+
+    return name.replace(/(\d+)$/, " 모노$1");
+  }
+
   if (currentFontStyle !== "straight") return name;
 
   return name.replace(/^모나/, "모나S").replace(/^Mona/, "MonaS");
@@ -142,13 +180,16 @@ function updateVariantLabels() {
     }
 
     const displayName = getDisplayVariantName(option.dataset.originalName);
-    const displayFamily =
-      isMonaFont && currentFontStyle === "straight"
-        ? option.dataset.originalFamily.replace(/^Mona/, "MonaS")
-        : option.dataset.originalFamily;
+    let displayFamily = option.dataset.originalFamily;
+
+    if (isMonaFont && currentFontStyle === "straight") {
+      displayFamily = displayFamily.replace(/^Mona/, "MonaS");
+    } else if (!isMonaFont && fontWidthButtons) {
+      displayFamily = currentWidthStyle === "mono" ? toMonoFamily(displayFamily) : toProportionalFamily(displayFamily);
+    }
 
     option.textContent = displayName;
-    option.style.fontFamily = `'${displayFamily}', sans-serif`;
+    option.style.fontFamily = `'${displayFamily}', ${currentWidthStyle === "mono" ? "monospace" : "sans-serif"}`;
     option.style.fontWeight = option.dataset.weight || "400";
   });
 }
@@ -160,7 +201,7 @@ function getGlyphFileName() {
 
 function getFontStack() {
   const displayFontFamily = getDisplayFontFamily();
-  let finalStack = `'${displayFontFamily}', sans-serif`;
+  let finalStack = `'${displayFontFamily}', ${currentWidthStyle === "mono" ? "monospace" : "sans-serif"}`;
 
   if (isMonaFont) {
     let numFont = '"Num12"';
@@ -535,13 +576,49 @@ if (sizeInput) {
 
 if (fontSelect) {
   fontSelect.addEventListener("change", async (e) => {
-    const selectedOption = e.target.options[e.target.selectedIndex];
-
     currentFontFamily = e.target.value;
-    currentWeight = selectedOption.dataset.weight || 400;
+    currentWeight = getActiveWeight();
 
     updateFontStack();
     await refreshBrowseData();
+  });
+}
+
+if (fontWeightButtons) {
+  fontWeightButtons.addEventListener("click", async (e) => {
+    const btn = e.target.closest(".toggle-btn");
+    if (!btn) return;
+
+    fontWeightButtons.querySelectorAll(".toggle-btn").forEach((button) => {
+      button.classList.remove("active");
+    });
+
+    btn.classList.add("active");
+    currentWeight = getActiveWeight();
+
+    updateFontStack();
+    await refreshBrowseData();
+  });
+}
+
+if (fontWidthButtons) {
+  fontWidthButtons.addEventListener("click", async (e) => {
+    const btn = e.target.closest(".toggle-btn");
+    if (!btn) return;
+
+    fontWidthButtons.querySelectorAll(".toggle-btn").forEach((button) => {
+      button.classList.remove("active");
+    });
+
+    btn.classList.add("active");
+    currentWidthStyle = getActiveWidthStyle();
+
+    updateFontStack();
+
+    if (isBrowseLoaded) {
+      renderGlyphGrid();
+      renderEmoji();
+    }
   });
 }
 

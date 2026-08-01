@@ -5,10 +5,19 @@ date = 2025-12-07
 
 [extra]
 is_mona = false
+has_weight_toggle = true
+has_mono_toggle = true
 font_family = "Suhgung12"
 css_url = "https://cdn.jsdelivr.net/gh/MonadABXY/suhgung-font@main/suhgung.css"
-dl_url = "https://github.com/MonadABXY/suhgung-font/releases/latest/download/suhgung-font.zip"
 github_url = "https://github.com/MonadABXY/suhgung-font"
+
+downloads = [
+  { label = "TTF", url = "https://github.com/MonadABXY/suhgung-font/releases/latest/download/Suhgung-ttf.zip", filename = "Suhgung-ttf.zip" },
+  { label = "OTF", url = "https://github.com/MonadABXY/suhgung-font/releases/latest/download/Suhgung-otf.zip", filename = "Suhgung-otf.zip" },
+  { label = "TTC", url = "https://github.com/MonadABXY/suhgung-font/releases/latest/download/Suhgung-ttc.zip", filename = "Suhgung-ttc.zip" },
+  { label = "OTC", url = "https://github.com/MonadABXY/suhgung-font/releases/latest/download/Suhgung-otc.zip", filename = "Suhgung-otc.zip" },
+  { label = "WOFF2", url = "https://github.com/MonadABXY/suhgung-font/releases/latest/download/Suhgung-woff2.zip", filename = "Suhgung-woff2.zip" },
+]
 
 variants = [
   { name = "서궁11", family = "Suhgung11", weight = 400 },

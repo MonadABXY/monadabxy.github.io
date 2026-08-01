@@ -5,7 +5,7 @@ description = "개발 중으로 불안정할 수 있습니다"
 template = "wasm_app.html"
 
 [extra]
-wasm_src = "/apps/pixel-font-editor/app.html"
+wasm_src = "https://yijehyung.github.io/pixel-font-editor/"
 thumbnail = "icon.ico"
 thumbnail_fit = "contain"
 open_in_new_tab = true

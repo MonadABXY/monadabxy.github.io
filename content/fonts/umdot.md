@@ -5,10 +5,19 @@ date = 2025-12-07
 
 [extra]
 is_mona = false
+has_weight_toggle = true
+has_mono_toggle = true
 font_family = "Umdot12"
 css_url = "https://cdn.jsdelivr.net/gh/MonadABXY/umdot-font@main/umdot.css"
-dl_url = "https://github.com/MonadABXY/umdot-font/releases/latest/download/umdot-font.zip"
 github_url = "https://github.com/MonadABXY/umdot-font"
+
+downloads = [
+  { label = "TTF", url = "https://github.com/MonadABXY/umdot-font/releases/latest/download/Umdot-ttf.zip", filename = "Umdot-ttf.zip" },
+  { label = "OTF", url = "https://github.com/MonadABXY/umdot-font/releases/latest/download/Umdot-otf.zip", filename = "Umdot-otf.zip" },
+  { label = "TTC", url = "https://github.com/MonadABXY/umdot-font/releases/latest/download/Umdot-ttc.zip", filename = "Umdot-ttc.zip" },
+  { label = "OTC", url = "https://github.com/MonadABXY/umdot-font/releases/latest/download/Umdot-otc.zip", filename = "Umdot-otc.zip" },
+  { label = "WOFF2", url = "https://github.com/MonadABXY/umdot-font/releases/latest/download/Umdot-woff2.zip", filename = "Umdot-woff2.zip" },
+]
 
 variants = [
   { name = "움돋11", family = "Umdot11", weight = 400 },

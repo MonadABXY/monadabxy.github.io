@@ -5,10 +5,19 @@ date = 2025-12-07
 
 [extra]
 is_mona = false
+has_weight_toggle = true
+has_mono_toggle = true
 font_family = "Tangba12"
 css_url = "https://cdn.jsdelivr.net/gh/MonadABXY/tangba-font@main/tangba.css"
-dl_url = "https://github.com/MonadABXY/tangba-font/releases/latest/download/tangba-font.zip"
 github_url = "https://github.com/MonadABXY/tangba-font"
+
+downloads = [
+  { label = "TTF", url = "https://github.com/MonadABXY/tangba-font/releases/latest/download/Tangba-ttf.zip", filename = "Tangba-ttf.zip" },
+  { label = "OTF", url = "https://github.com/MonadABXY/tangba-font/releases/latest/download/Tangba-otf.zip", filename = "Tangba-otf.zip" },
+  { label = "TTC", url = "https://github.com/MonadABXY/tangba-font/releases/latest/download/Tangba-ttc.zip", filename = "Tangba-ttc.zip" },
+  { label = "OTC", url = "https://github.com/MonadABXY/tangba-font/releases/latest/download/Tangba-otc.zip", filename = "Tangba-otc.zip" },
+  { label = "WOFF2", url = "https://github.com/MonadABXY/tangba-font/releases/latest/download/Tangba-woff2.zip", filename = "Tangba-woff2.zip" },
+]
 
 variants = [
   { name = "탕바11", family = "Tangba11", weight = 400 },
