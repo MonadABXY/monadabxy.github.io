@@ -1,0 +1,364 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="846" height="330" viewBox="0 0 846 330" role="img" aria-labelledby="title desc">
+  <title id="title">그림자 깎기</title>
+  <desc id="desc">파란 복사 픽셀과 빨간 그림자를 함께 보여준 뒤, 파란 픽셀이 검은색으로 확정되고, 빨간 표시가 점멸한 후 사라지면 그림자 위치가 제거된 상태로 남는다.</desc>
+  <style>
+    .bg{fill:#fff}
+    .frame{fill:#fff;stroke:#d8dee4;stroke-width:1}
+    .grid{stroke:#eef1f4;stroke-width:1}
+    .ink{fill:#1f2328}
+    .copy{fill:#2563eb}
+    .settled{fill:#1f2328}
+    .shadow{fill:#dc2626}
+    .erase{fill:#fff}
+    .copySelect{animation:copySelect 14s ease-in-out infinite}
+    .copyMove{transform-box:fill-box;transform-origin:0 0;animation:copyMove 14s ease-in-out infinite}
+    .copySettle{animation:copySettle 14s ease-in-out infinite}
+    .shadowLayer{animation:shadowShow 14s ease-in-out infinite}
+    .shadowErase{animation:shadowErase 14s ease-in-out infinite}
+    .label{font:18px system-ui,sans-serif;fill:#1f2328}
+    .small{font:13px system-ui,sans-serif;fill:#57606a}
+    .arrow{stroke:#6b7280;stroke-width:2;fill:none;marker-end:url(#arrow)}
+    @keyframes copySelect{0%,8%{opacity:0}12%,22%{opacity:.88}30%,100%{opacity:0}}
+    @keyframes copyMove{0%,28%{opacity:0;transform:translate(0,0)}34%{opacity:.88;transform:translate(0,0)}44%,70%{opacity:.88;transform:translate(14px,0)}76%,100%{opacity:0;transform:translate(14px,0)}}
+    @keyframes shadowShow{0%,50%{opacity:0}52%,64%{opacity:.78}68%,74%{opacity:0}76%,78%{opacity:.95}80%{opacity:0}82%,84%{opacity:.95}86%{opacity:0}88%,90%{opacity:.95}92%,100%{opacity:0}}
+    @keyframes copySettle{0%,72%{opacity:0}80%,100%{opacity:1}}
+    @keyframes shadowErase{0%,91%{opacity:0}93%,100%{opacity:1}}
+  </style>
+  <defs><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#6b7280"/></marker></defs>
+  <rect class="bg" width="846" height="330"/>
+  <text class="label" x="42" y="36">그림자 깎기</text>
+  
+  <g transform="translate(42 94)">
+    <text class="small" x="0" y="-10">원본</text>
+    <rect class="frame" x="0" y="0" width="210" height="182"/>
+    <path class="grid" d="M0 0V182M14 0V182M28 0V182M42 0V182M56 0V182M70 0V182M84 0V182M98 0V182M112 0V182M126 0V182M140 0V182M154 0V182M168 0V182M182 0V182M196 0V182M210 0V182M0 0H210M0 14H210M0 28H210M0 42H210M0 56H210M0 70H210M0 84H210M0 98H210M0 112H210M0 126H210M0 140H210M0 154H210M0 168H210M0 182H210"/>
+    <rect class="ink" x="14" y="70" width="14" height="14"/>
+      <rect class="ink" x="14" y="56" width="14" height="14"/>
+      <rect class="ink" x="14" y="42" width="14" height="14"/>
+      <rect class="ink" x="14" y="28" width="14" height="14"/>
+      <rect class="ink" x="28" y="154" width="14" height="14"/>
+      <rect class="ink" x="28" y="84" width="14" height="14"/>
+      <rect class="ink" x="28" y="14" width="14" height="14"/>
+      <rect class="ink" x="42" y="154" width="14" height="14"/>
+      <rect class="ink" x="42" y="84" width="14" height="14"/>
+      <rect class="ink" x="42" y="14" width="14" height="14"/>
+      <rect class="ink" x="56" y="140" width="14" height="14"/>
+      <rect class="ink" x="56" y="84" width="14" height="14"/>
+      <rect class="ink" x="56" y="14" width="14" height="14"/>
+      <rect class="ink" x="70" y="140" width="14" height="14"/>
+      <rect class="ink" x="70" y="70" width="14" height="14"/>
+      <rect class="ink" x="70" y="56" width="14" height="14"/>
+      <rect class="ink" x="70" y="42" width="14" height="14"/>
+      <rect class="ink" x="70" y="28" width="14" height="14"/>
+      <rect class="ink" x="84" y="126" width="14" height="14"/>
+      <rect class="ink" x="84" y="112" width="14" height="14"/>
+      <rect class="ink" x="84" y="42" width="14" height="14"/>
+      <rect class="ink" x="98" y="140" width="14" height="14"/>
+      <rect class="ink" x="98" y="42" width="14" height="14"/>
+      <rect class="ink" x="112" y="140" width="14" height="14"/>
+      <rect class="ink" x="112" y="98" width="14" height="14"/>
+      <rect class="ink" x="112" y="84" width="14" height="14"/>
+      <rect class="ink" x="112" y="70" width="14" height="14"/>
+      <rect class="ink" x="112" y="56" width="14" height="14"/>
+      <rect class="ink" x="112" y="42" width="14" height="14"/>
+      <rect class="ink" x="112" y="28" width="14" height="14"/>
+      <rect class="ink" x="112" y="14" width="14" height="14"/>
+      <rect class="ink" x="126" y="154" width="14" height="14"/>
+      <rect class="ink" x="140" y="154" width="14" height="14"/>
+      <rect class="ink" x="140" y="98" width="14" height="14"/>
+      <rect class="ink" x="140" y="84" width="14" height="14"/>
+      <rect class="ink" x="140" y="70" width="14" height="14"/>
+      <rect class="ink" x="140" y="56" width="14" height="14"/>
+      <rect class="ink" x="140" y="42" width="14" height="14"/>
+      <rect class="ink" x="140" y="28" width="14" height="14"/>
+      <rect class="ink" x="140" y="14" width="14" height="14"/>
+  </g>
+  <path class="arrow" d="M272 185.0H296"/>
+  
+  <g transform="translate(318 94)">
+    <text class="small" x="0" y="-10">복사 후 그림자 제거</text>
+    <rect class="frame" x="0" y="0" width="210" height="182"/>
+    <path class="grid" d="M0 0V182M14 0V182M28 0V182M42 0V182M56 0V182M70 0V182M84 0V182M98 0V182M112 0V182M126 0V182M140 0V182M154 0V182M168 0V182M182 0V182M196 0V182M210 0V182M0 0H210M0 14H210M0 28H210M0 42H210M0 56H210M0 70H210M0 84H210M0 98H210M0 112H210M0 126H210M0 140H210M0 154H210M0 168H210M0 182H210"/>
+    
+      <rect class="ink" x="14" y="70" width="14" height="14"/>
+      <rect class="ink" x="14" y="56" width="14" height="14"/>
+      <rect class="ink" x="14" y="42" width="14" height="14"/>
+      <rect class="ink" x="14" y="28" width="14" height="14"/>
+      <rect class="ink" x="28" y="154" width="14" height="14"/>
+      <rect class="ink" x="28" y="84" width="14" height="14"/>
+      <rect class="ink" x="28" y="14" width="14" height="14"/>
+      <rect class="ink" x="42" y="154" width="14" height="14"/>
+      <rect class="ink" x="42" y="84" width="14" height="14"/>
+      <rect class="ink" x="42" y="14" width="14" height="14"/>
+      <rect class="ink" x="56" y="140" width="14" height="14"/>
+      <rect class="ink" x="56" y="84" width="14" height="14"/>
+      <rect class="ink" x="56" y="14" width="14" height="14"/>
+      <rect class="ink" x="70" y="140" width="14" height="14"/>
+      <rect class="ink" x="70" y="70" width="14" height="14"/>
+      <rect class="ink" x="70" y="56" width="14" height="14"/>
+      <rect class="ink" x="70" y="42" width="14" height="14"/>
+      <rect class="ink" x="70" y="28" width="14" height="14"/>
+      <rect class="ink" x="84" y="126" width="14" height="14"/>
+      <rect class="ink" x="84" y="112" width="14" height="14"/>
+      <rect class="ink" x="84" y="42" width="14" height="14"/>
+      <rect class="ink" x="98" y="140" width="14" height="14"/>
+      <rect class="ink" x="98" y="42" width="14" height="14"/>
+      <rect class="ink" x="112" y="140" width="14" height="14"/>
+      <rect class="ink" x="112" y="98" width="14" height="14"/>
+      <rect class="ink" x="112" y="84" width="14" height="14"/>
+      <rect class="ink" x="112" y="70" width="14" height="14"/>
+      <rect class="ink" x="112" y="56" width="14" height="14"/>
+      <rect class="ink" x="112" y="42" width="14" height="14"/>
+      <rect class="ink" x="112" y="28" width="14" height="14"/>
+      <rect class="ink" x="112" y="14" width="14" height="14"/>
+      <rect class="ink" x="126" y="154" width="14" height="14"/>
+      <rect class="ink" x="140" y="154" width="14" height="14"/>
+      <rect class="ink" x="140" y="98" width="14" height="14"/>
+      <rect class="ink" x="140" y="84" width="14" height="14"/>
+      <rect class="ink" x="140" y="70" width="14" height="14"/>
+      <rect class="ink" x="140" y="56" width="14" height="14"/>
+      <rect class="ink" x="140" y="42" width="14" height="14"/>
+      <rect class="ink" x="140" y="28" width="14" height="14"/>
+      <rect class="ink" x="140" y="14" width="14" height="14"/>
+      <g class="copySelect"><rect class="copy" x="14" y="70" width="14" height="14"/>
+      <rect class="copy" x="14" y="56" width="14" height="14"/>
+      <rect class="copy" x="14" y="42" width="14" height="14"/>
+      <rect class="copy" x="14" y="28" width="14" height="14"/>
+      <rect class="copy" x="28" y="154" width="14" height="14"/>
+      <rect class="copy" x="28" y="84" width="14" height="14"/>
+      <rect class="copy" x="28" y="14" width="14" height="14"/>
+      <rect class="copy" x="42" y="154" width="14" height="14"/>
+      <rect class="copy" x="42" y="84" width="14" height="14"/>
+      <rect class="copy" x="42" y="14" width="14" height="14"/>
+      <rect class="copy" x="56" y="140" width="14" height="14"/>
+      <rect class="copy" x="56" y="84" width="14" height="14"/>
+      <rect class="copy" x="56" y="14" width="14" height="14"/>
+      <rect class="copy" x="70" y="140" width="14" height="14"/>
+      <rect class="copy" x="70" y="70" width="14" height="14"/>
+      <rect class="copy" x="70" y="56" width="14" height="14"/>
+      <rect class="copy" x="70" y="42" width="14" height="14"/>
+      <rect class="copy" x="70" y="28" width="14" height="14"/>
+      <rect class="copy" x="84" y="126" width="14" height="14"/>
+      <rect class="copy" x="84" y="112" width="14" height="14"/>
+      <rect class="copy" x="84" y="42" width="14" height="14"/>
+      <rect class="copy" x="98" y="140" width="14" height="14"/>
+      <rect class="copy" x="98" y="42" width="14" height="14"/>
+      <rect class="copy" x="112" y="140" width="14" height="14"/>
+      <rect class="copy" x="112" y="98" width="14" height="14"/>
+      <rect class="copy" x="112" y="84" width="14" height="14"/>
+      <rect class="copy" x="112" y="70" width="14" height="14"/>
+      <rect class="copy" x="112" y="56" width="14" height="14"/>
+      <rect class="copy" x="112" y="42" width="14" height="14"/>
+      <rect class="copy" x="112" y="28" width="14" height="14"/>
+      <rect class="copy" x="112" y="14" width="14" height="14"/>
+      <rect class="copy" x="126" y="154" width="14" height="14"/>
+      <rect class="copy" x="140" y="154" width="14" height="14"/>
+      <rect class="copy" x="140" y="98" width="14" height="14"/>
+      <rect class="copy" x="140" y="84" width="14" height="14"/>
+      <rect class="copy" x="140" y="70" width="14" height="14"/>
+      <rect class="copy" x="140" y="56" width="14" height="14"/>
+      <rect class="copy" x="140" y="42" width="14" height="14"/>
+      <rect class="copy" x="140" y="28" width="14" height="14"/>
+      <rect class="copy" x="140" y="14" width="14" height="14"/></g>
+      <g class="copyMove"><rect class="copy" x="14" y="70" width="14" height="14"/>
+      <rect class="copy" x="14" y="56" width="14" height="14"/>
+      <rect class="copy" x="14" y="42" width="14" height="14"/>
+      <rect class="copy" x="14" y="28" width="14" height="14"/>
+      <rect class="copy" x="28" y="154" width="14" height="14"/>
+      <rect class="copy" x="28" y="84" width="14" height="14"/>
+      <rect class="copy" x="28" y="14" width="14" height="14"/>
+      <rect class="copy" x="42" y="154" width="14" height="14"/>
+      <rect class="copy" x="42" y="84" width="14" height="14"/>
+      <rect class="copy" x="42" y="14" width="14" height="14"/>
+      <rect class="copy" x="56" y="140" width="14" height="14"/>
+      <rect class="copy" x="56" y="84" width="14" height="14"/>
+      <rect class="copy" x="56" y="14" width="14" height="14"/>
+      <rect class="copy" x="70" y="140" width="14" height="14"/>
+      <rect class="copy" x="70" y="70" width="14" height="14"/>
+      <rect class="copy" x="70" y="56" width="14" height="14"/>
+      <rect class="copy" x="70" y="42" width="14" height="14"/>
+      <rect class="copy" x="70" y="28" width="14" height="14"/>
+      <rect class="copy" x="84" y="126" width="14" height="14"/>
+      <rect class="copy" x="84" y="112" width="14" height="14"/>
+      <rect class="copy" x="84" y="42" width="14" height="14"/>
+      <rect class="copy" x="98" y="140" width="14" height="14"/>
+      <rect class="copy" x="98" y="42" width="14" height="14"/>
+      <rect class="copy" x="112" y="140" width="14" height="14"/>
+      <rect class="copy" x="112" y="98" width="14" height="14"/>
+      <rect class="copy" x="112" y="84" width="14" height="14"/>
+      <rect class="copy" x="112" y="70" width="14" height="14"/>
+      <rect class="copy" x="112" y="56" width="14" height="14"/>
+      <rect class="copy" x="112" y="42" width="14" height="14"/>
+      <rect class="copy" x="112" y="28" width="14" height="14"/>
+      <rect class="copy" x="112" y="14" width="14" height="14"/>
+      <rect class="copy" x="126" y="154" width="14" height="14"/>
+      <rect class="copy" x="140" y="154" width="14" height="14"/>
+      <rect class="copy" x="140" y="98" width="14" height="14"/>
+      <rect class="copy" x="140" y="84" width="14" height="14"/>
+      <rect class="copy" x="140" y="70" width="14" height="14"/>
+      <rect class="copy" x="140" y="56" width="14" height="14"/>
+      <rect class="copy" x="140" y="42" width="14" height="14"/>
+      <rect class="copy" x="140" y="28" width="14" height="14"/>
+      <rect class="copy" x="140" y="14" width="14" height="14"/></g>
+      <g class="shadowLayer"><rect class="shadow" x="42" y="70" width="14" height="14"/>
+      <rect class="shadow" x="42" y="56" width="14" height="14"/>
+      <rect class="shadow" x="42" y="42" width="14" height="14"/>
+      <rect class="shadow" x="42" y="28" width="14" height="14"/>
+      <rect class="shadow" x="70" y="154" width="14" height="14"/>
+      <rect class="shadow" x="84" y="84" width="14" height="14"/>
+      <rect class="shadow" x="84" y="14" width="14" height="14"/>
+      <rect class="shadow" x="98" y="140" width="14" height="14"/>
+      <rect class="shadow" x="98" y="70" width="14" height="14"/>
+      <rect class="shadow" x="98" y="56" width="14" height="14"/>
+      <rect class="shadow" x="98" y="28" width="14" height="14"/>
+      <rect class="shadow" x="112" y="126" width="14" height="14"/>
+      <rect class="shadow" x="112" y="112" width="14" height="14"/>
+      <rect class="shadow" x="140" y="140" width="14" height="14"/>
+      <rect class="shadow" x="140" y="98" width="14" height="14"/>
+      <rect class="shadow" x="140" y="84" width="14" height="14"/>
+      <rect class="shadow" x="140" y="70" width="14" height="14"/>
+      <rect class="shadow" x="140" y="56" width="14" height="14"/>
+      <rect class="shadow" x="140" y="42" width="14" height="14"/>
+      <rect class="shadow" x="140" y="28" width="14" height="14"/>
+      <rect class="shadow" x="140" y="14" width="14" height="14"/>
+      <rect class="shadow" x="168" y="154" width="14" height="14"/>
+      <rect class="shadow" x="168" y="98" width="14" height="14"/>
+      <rect class="shadow" x="168" y="84" width="14" height="14"/>
+      <rect class="shadow" x="168" y="70" width="14" height="14"/>
+      <rect class="shadow" x="168" y="56" width="14" height="14"/>
+      <rect class="shadow" x="168" y="42" width="14" height="14"/>
+      <rect class="shadow" x="168" y="28" width="14" height="14"/>
+      <rect class="shadow" x="168" y="14" width="14" height="14"/></g>
+      <g class="copySettle"><rect class="settled" x="28" y="70" width="14" height="14"/>
+      <rect class="settled" x="28" y="56" width="14" height="14"/>
+      <rect class="settled" x="28" y="42" width="14" height="14"/>
+      <rect class="settled" x="28" y="28" width="14" height="14"/>
+      <rect class="settled" x="56" y="154" width="14" height="14"/>
+      <rect class="settled" x="70" y="84" width="14" height="14"/>
+      <rect class="settled" x="70" y="14" width="14" height="14"/>
+      <rect class="settled" x="84" y="140" width="14" height="14"/>
+      <rect class="settled" x="84" y="70" width="14" height="14"/>
+      <rect class="settled" x="84" y="56" width="14" height="14"/>
+      <rect class="settled" x="84" y="28" width="14" height="14"/>
+      <rect class="settled" x="98" y="126" width="14" height="14"/>
+      <rect class="settled" x="98" y="112" width="14" height="14"/>
+      <rect class="settled" x="126" y="140" width="14" height="14"/>
+      <rect class="settled" x="126" y="98" width="14" height="14"/>
+      <rect class="settled" x="126" y="84" width="14" height="14"/>
+      <rect class="settled" x="126" y="70" width="14" height="14"/>
+      <rect class="settled" x="126" y="56" width="14" height="14"/>
+      <rect class="settled" x="126" y="42" width="14" height="14"/>
+      <rect class="settled" x="126" y="28" width="14" height="14"/>
+      <rect class="settled" x="126" y="14" width="14" height="14"/>
+      <rect class="settled" x="154" y="154" width="14" height="14"/>
+      <rect class="settled" x="154" y="98" width="14" height="14"/>
+      <rect class="settled" x="154" y="84" width="14" height="14"/>
+      <rect class="settled" x="154" y="70" width="14" height="14"/>
+      <rect class="settled" x="154" y="56" width="14" height="14"/>
+      <rect class="settled" x="154" y="42" width="14" height="14"/>
+      <rect class="settled" x="154" y="28" width="14" height="14"/>
+      <rect class="settled" x="154" y="14" width="14" height="14"/></g>
+      <g class="shadowErase"><rect class="erase" x="42" y="70" width="14" height="14"/>
+      <rect class="erase" x="42" y="56" width="14" height="14"/>
+      <rect class="erase" x="42" y="42" width="14" height="14"/>
+      <rect class="erase" x="42" y="28" width="14" height="14"/>
+      <rect class="erase" x="70" y="154" width="14" height="14"/>
+      <rect class="erase" x="84" y="84" width="14" height="14"/>
+      <rect class="erase" x="84" y="14" width="14" height="14"/>
+      <rect class="erase" x="98" y="140" width="14" height="14"/>
+      <rect class="erase" x="98" y="70" width="14" height="14"/>
+      <rect class="erase" x="98" y="56" width="14" height="14"/>
+      <rect class="erase" x="98" y="28" width="14" height="14"/>
+      <rect class="erase" x="112" y="126" width="14" height="14"/>
+      <rect class="erase" x="112" y="112" width="14" height="14"/>
+      <rect class="erase" x="140" y="140" width="14" height="14"/>
+      <rect class="erase" x="140" y="98" width="14" height="14"/>
+      <rect class="erase" x="140" y="84" width="14" height="14"/>
+      <rect class="erase" x="140" y="70" width="14" height="14"/>
+      <rect class="erase" x="140" y="56" width="14" height="14"/>
+      <rect class="erase" x="140" y="42" width="14" height="14"/>
+      <rect class="erase" x="140" y="28" width="14" height="14"/>
+      <rect class="erase" x="140" y="14" width="14" height="14"/>
+      <rect class="erase" x="168" y="154" width="14" height="14"/>
+      <rect class="erase" x="168" y="98" width="14" height="14"/>
+      <rect class="erase" x="168" y="84" width="14" height="14"/>
+      <rect class="erase" x="168" y="70" width="14" height="14"/>
+      <rect class="erase" x="168" y="56" width="14" height="14"/>
+      <rect class="erase" x="168" y="42" width="14" height="14"/>
+      <rect class="erase" x="168" y="28" width="14" height="14"/>
+      <rect class="erase" x="168" y="14" width="14" height="14"/></g>
+
+  </g>
+  <path class="arrow" d="M548 185.0H572"/>
+  
+  <g transform="translate(594 94)">
+    <text class="small" x="0" y="-10">결과</text>
+    <rect class="frame" x="0" y="0" width="210" height="182"/>
+    <path class="grid" d="M0 0V182M14 0V182M28 0V182M42 0V182M56 0V182M70 0V182M84 0V182M98 0V182M112 0V182M126 0V182M140 0V182M154 0V182M168 0V182M182 0V182M196 0V182M210 0V182M0 0H210M0 14H210M0 28H210M0 42H210M0 56H210M0 70H210M0 84H210M0 98H210M0 112H210M0 126H210M0 140H210M0 154H210M0 168H210M0 182H210"/>
+    <rect class="ink" x="14" y="70" width="14" height="14"/>
+      <rect class="ink" x="14" y="56" width="14" height="14"/>
+      <rect class="ink" x="14" y="42" width="14" height="14"/>
+      <rect class="ink" x="14" y="28" width="14" height="14"/>
+      <rect class="ink" x="28" y="154" width="14" height="14"/>
+      <rect class="ink" x="28" y="84" width="14" height="14"/>
+      <rect class="ink" x="28" y="70" width="14" height="14"/>
+      <rect class="ink" x="28" y="56" width="14" height="14"/>
+      <rect class="ink" x="28" y="42" width="14" height="14"/>
+      <rect class="ink" x="28" y="28" width="14" height="14"/>
+      <rect class="ink" x="28" y="14" width="14" height="14"/>
+      <rect class="ink" x="42" y="154" width="14" height="14"/>
+      <rect class="ink" x="42" y="84" width="14" height="14"/>
+      <rect class="ink" x="42" y="14" width="14" height="14"/>
+      <rect class="ink" x="56" y="154" width="14" height="14"/>
+      <rect class="ink" x="56" y="140" width="14" height="14"/>
+      <rect class="ink" x="56" y="84" width="14" height="14"/>
+      <rect class="ink" x="56" y="14" width="14" height="14"/>
+      <rect class="ink" x="70" y="140" width="14" height="14"/>
+      <rect class="ink" x="70" y="84" width="14" height="14"/>
+      <rect class="ink" x="70" y="70" width="14" height="14"/>
+      <rect class="ink" x="70" y="56" width="14" height="14"/>
+      <rect class="ink" x="70" y="42" width="14" height="14"/>
+      <rect class="ink" x="70" y="28" width="14" height="14"/>
+      <rect class="ink" x="70" y="14" width="14" height="14"/>
+      <rect class="ink" x="84" y="140" width="14" height="14"/>
+      <rect class="ink" x="84" y="126" width="14" height="14"/>
+      <rect class="ink" x="84" y="112" width="14" height="14"/>
+      <rect class="ink" x="84" y="70" width="14" height="14"/>
+      <rect class="ink" x="84" y="56" width="14" height="14"/>
+      <rect class="ink" x="84" y="42" width="14" height="14"/>
+      <rect class="ink" x="84" y="28" width="14" height="14"/>
+      <rect class="ink" x="98" y="126" width="14" height="14"/>
+      <rect class="ink" x="98" y="112" width="14" height="14"/>
+      <rect class="ink" x="98" y="42" width="14" height="14"/>
+      <rect class="ink" x="112" y="140" width="14" height="14"/>
+      <rect class="ink" x="112" y="98" width="14" height="14"/>
+      <rect class="ink" x="112" y="84" width="14" height="14"/>
+      <rect class="ink" x="112" y="70" width="14" height="14"/>
+      <rect class="ink" x="112" y="56" width="14" height="14"/>
+      <rect class="ink" x="112" y="42" width="14" height="14"/>
+      <rect class="ink" x="112" y="28" width="14" height="14"/>
+      <rect class="ink" x="112" y="14" width="14" height="14"/>
+      <rect class="ink" x="126" y="154" width="14" height="14"/>
+      <rect class="ink" x="126" y="140" width="14" height="14"/>
+      <rect class="ink" x="126" y="98" width="14" height="14"/>
+      <rect class="ink" x="126" y="84" width="14" height="14"/>
+      <rect class="ink" x="126" y="70" width="14" height="14"/>
+      <rect class="ink" x="126" y="56" width="14" height="14"/>
+      <rect class="ink" x="126" y="42" width="14" height="14"/>
+      <rect class="ink" x="126" y="28" width="14" height="14"/>
+      <rect class="ink" x="126" y="14" width="14" height="14"/>
+      <rect class="ink" x="140" y="154" width="14" height="14"/>
+      <rect class="ink" x="154" y="154" width="14" height="14"/>
+      <rect class="ink" x="154" y="98" width="14" height="14"/>
+      <rect class="ink" x="154" y="84" width="14" height="14"/>
+      <rect class="ink" x="154" y="70" width="14" height="14"/>
+      <rect class="ink" x="154" y="56" width="14" height="14"/>
+      <rect class="ink" x="154" y="42" width="14" height="14"/>
+      <rect class="ink" x="154" y="28" width="14" height="14"/>
+      <rect class="ink" x="154" y="14" width="14" height="14"/>
+  </g>
+</svg>
+
+
+
+
