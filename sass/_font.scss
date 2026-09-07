@@ -374,7 +374,34 @@
   }
 }
 
-/* 5. Related fonts */
+/* 5. Survey */
+
+.font-survey {
+  margin-bottom: 50px;
+}
+
+.font-survey__title {
+  margin-top: 0;
+}
+
+.font-survey__frame {
+  display: block;
+  width: 100%;
+  min-height: 930px;
+  margin: 0;
+
+  background: var(--card-bg);
+  border: 0;
+  border-radius: $radius-md;
+}
+
+@media (max-width: $bp-mobile) {
+  .font-survey__frame {
+    min-height: 980px;
+  }
+}
+
+/* 6. Related fonts */
 
 .font-more {
   margin: 3.5rem 0 2rem;
@@ -446,7 +473,7 @@
   }
 }
 
-/* 6. Font inheritance helpers */
+/* 7. Font inheritance helpers */
 
 .container--font {
   p,
@@ -464,7 +491,7 @@
   }
 }
 
-/* 7. Glyph browser */
+/* 8. Glyph browser */
 
 .glyph-browser {
   margin-bottom: 50px;

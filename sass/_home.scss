@@ -33,6 +33,17 @@
       letter-spacing: 0.08rem;
     }
   }
+
+  &__desc {
+    max-width: 28rem;
+    margin: 16px auto 0;
+
+    color: var(--text-main);
+    font-size: 1rem;
+    line-height: 1.7;
+    opacity: 0.72;
+    word-break: keep-all;
+  }
 }
 
 /* Logo */
@@ -202,6 +213,11 @@
     h1 {
       font-size: 2rem;
       letter-spacing: 0.08rem;
+    }
+
+    &__desc {
+      margin-top: 12px;
+      font-size: 0.95rem;
     }
   }
 

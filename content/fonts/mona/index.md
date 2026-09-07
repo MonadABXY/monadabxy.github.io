@@ -11,6 +11,7 @@ css_url = "https://cdn.jsdelivr.net/gh/MonadABXY/mona-font/web/mona.css"
 css_url_2 = "https://cdn.jsdelivr.net/gh/MonadABXY/mona-font/web/monas.css"
 github_url = "https://github.com/MonadABXY/mona-font"
 feedback_url = "https://forms.gle/tVEPMUdHvE9P1Lvr6"
+survey_embed_url = "https://docs.google.com/forms/d/e/1FAIpQLScjeNRX7y4ksPj01L8ZFyfiiJi0UywUZESrpeXxoWCuWzftsw/viewform?embedded=true"
 
 downloads = [
   { label = "TTF", url = "https://github.com/MonadABXY/mona-font/releases/latest/download/MonaFont-ttf.zip", filename = "MonaFont-ttf.zip" },

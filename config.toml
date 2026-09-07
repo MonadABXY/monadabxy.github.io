@@ -1,5 +1,7 @@
 # The URL the site will be built for
 base_url = "https://monadabxy.com"
+title = "Monad ABXY"
+description = "픽셀 폰트를 취미로 만들고 있습니다."
 
 default_language = "ko"
 

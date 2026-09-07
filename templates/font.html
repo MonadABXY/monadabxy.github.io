@@ -11,6 +11,20 @@
     {% include "partials/font/header.html" %}
     {% include "partials/font/tester.html" %}
     {% include "partials/font/glyph_browser.html" %}
+    {% if page.extra.survey_embed_url is defined %}
+    <section class="info-card font-survey">
+      <h2 class="font-survey__title">설문 참여하기</h2>
+      <iframe
+        class="font-survey__frame"
+        src="{{ page.extra.survey_embed_url }}"
+        width="640"
+        height="930"
+        frameborder="0"
+        marginheight="0"
+        marginwidth="0"
+      >로드 중...</iframe>
+    </section>
+    {% endif %}
     {% include "partials/font/info_cards.html" %}
     {% include "partials/font/related_fonts.html" %}
   </div>

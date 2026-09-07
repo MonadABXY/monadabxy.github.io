@@ -10,7 +10,21 @@
     {% elif section is defined and section.description %}
     <meta name="description" content="{{ section.description }}" />
     <meta property="og:description" content="{{ section.description }}" />
+    {% elif config.description %}
+    <meta name="description" content="{{ config.description }}" />
+    <meta property="og:description" content="{{ config.description }}" />
     {% endif %}
+    {% if page is defined %}
+    <meta property="og:title" content="{{ page.title }}" />
+    <meta property="og:url" content="{{ page.permalink | safe }}" />
+    {% elif section is defined %}
+    <meta property="og:title" content="{{ section.title }}" />
+    <meta property="og:url" content="{{ section.permalink | safe }}" />
+    {% else %}
+    <meta property="og:title" content="{{ config.title }}" />
+    <meta property="og:url" content="{{ config.base_url | safe }}" />
+    {% endif %}
+    <meta property="og:site_name" content="{{ config.title }}" />
 
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
     <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png" />
