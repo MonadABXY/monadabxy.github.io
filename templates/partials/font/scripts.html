@@ -1,7 +1,8 @@
 <script>
   const glyphDataPath = '{{ page.extra.glyph_data_path | default(value="") | safe }}';
+  const glyphDataFile = '{{ page.extra.glyph_data_file | default(value="") | safe }}';
   const emojiDataPath = '{{ page.extra.emoji_data_path | default(value="") | safe }}';
   const initialFontFamily = '{{ page.extra.font_family | default(value="sans-serif") }}';
   const isMonaFont = "{{ page.extra.is_mona | default(value=false) }}" === "true";
 </script>
-<script src="/js/font-viewer.js"></script>
+<script src="/js/font-viewer.js?v=shared-ranges-v2"></script>

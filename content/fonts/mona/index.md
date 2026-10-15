@@ -38,16 +38,17 @@ The quick brown fox jumps over the lazy dog.
 """
 
 related_fonts = [
+  { name = "M갈무리", family = "MGalmuri12", url = "/fonts/mgalmuri/" },
   { name = "림굴", en = "Limgul", family = "Limgul12", url = "/fonts/limgul/" },
   { name = "움돋", en = "Umdot", family = "Umdot12", url = "/fonts/umdot/" },
   { name = "탕바", en = "Tangba", family = "Tangba12", url = "/fonts/tangba/" },
-  { name = "서궁", en = "Suhgung", family = "Suhgung12", url = "/fonts/suhgung/" },
 ]
 
 ofl_url = "https://github.com/MonadABXY/mona-font/blob/main/OFL.txt"
 ofl_ko_url = "https://github.com/MonadABXY/mona-font/blob/main/OFL-KO.txt"
 
 glyph_data_path = "/fonts/mona/glyphs"
+glyph_data_file = "index.json"
 emoji_data_path = "/fonts/mona/emoji.json"
 +++
 

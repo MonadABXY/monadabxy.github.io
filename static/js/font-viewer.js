@@ -1,5 +1,5 @@
 // Reads globals injected by the template:
-//   glyphDataPath, emojiDataPath, initialFontFamily, isMonaFont
+//   glyphDataPath, glyphDataFile, emojiDataPath, initialFontFamily, isMonaFont
 
 const tester = document.getElementById("font-textarea");
 const sizeInput = document.getElementById("input-size");
@@ -28,6 +28,9 @@ let currentFontStyle = "standard";
 let currentWidthStyle = getActiveWidthStyle();
 let isBrowseLoaded = false;
 let glyphCodepoints = [];
+const glyphDataRequests = new Map();
+const glyphVariantCache = new Map();
+let glyphLoadSequence = 0;
 let emojiData = null;
 let glyphFilterValue = "A";
 
@@ -135,16 +138,26 @@ function toProportionalFamily(family) {
 }
 
 function getGlyphFontFamily() {
-  return currentFontFamily;
+  return isMonaFont ? currentFontFamily : getDisplayFontFamily();
+}
+
+function getStyledFontFamily(family) {
+  const style = fontStyleButtons?.querySelector(".toggle-btn.active[data-family-prefix]");
+  const basePrefix = style?.dataset.baseFamilyPrefix;
+  if (basePrefix && family.startsWith(basePrefix)) {
+    return style.dataset.familyPrefix + family.slice(basePrefix.length);
+  }
+  return family;
 }
 
 function getDisplayFontFamily() {
   if (!isMonaFont) {
-    if (!fontWidthButtons) return currentFontFamily;
+    const family = getStyledFontFamily(currentFontFamily);
+    if (!fontWidthButtons) return family;
 
     return currentWidthStyle === "mono"
-      ? toMonoFamily(currentFontFamily)
-      : toProportionalFamily(currentFontFamily);
+      ? toMonoFamily(family)
+      : toProportionalFamily(family);
   }
 
   if (currentFontStyle === "straight" && currentFontFamily.startsWith("Mona")) {
@@ -155,6 +168,11 @@ function getDisplayFontFamily() {
 }
 
 function getDisplayVariantName(name) {
+  const style = fontStyleButtons?.querySelector(".toggle-btn.active[data-name-prefix]");
+  const basePrefix = style?.dataset.baseNamePrefix;
+  if (basePrefix && name.startsWith(basePrefix)) {
+    name = style.dataset.namePrefix + name.slice(basePrefix.length);
+  }
   if (!isMonaFont) {
     if (!fontWidthButtons || currentWidthStyle !== "mono") return name;
     if (/모노\d+$/.test(name) || /Mono\d+$/.test(name)) return name;
@@ -180,7 +198,7 @@ function updateVariantLabels() {
     }
 
     const displayName = getDisplayVariantName(option.dataset.originalName);
-    let displayFamily = option.dataset.originalFamily;
+    let displayFamily = getStyledFontFamily(option.dataset.originalFamily);
 
     if (isMonaFont && currentFontStyle === "straight") {
       displayFamily = displayFamily.replace(/^Mona/, "MonaS");
@@ -197,6 +215,10 @@ function updateVariantLabels() {
 function getGlyphFileName() {
   const suffix = String(currentWeight) === "700" ? "-Bold" : "";
   return `${getGlyphFontFamily()}${suffix}.json`;
+}
+
+function getGlyphDataFileName() {
+  return typeof glyphDataFile === "string" && glyphDataFile ? glyphDataFile : getGlyphFileName();
 }
 
 function getFontStack() {
@@ -254,16 +276,60 @@ function toTextEmoji(str) {
   return textEmoji + VS15;
 }
 
+function expandGlyphRanges(ranges) {
+  if (!Array.isArray(ranges)) throw new Error("Invalid glyph ranges");
+  const codepoints = [];
+  let previous = -1;
+  for (const range of ranges) {
+    if (!Array.isArray(range) || range.length !== 2) throw new Error("Invalid glyph range");
+    const [start, end] = range;
+    if (!Number.isInteger(start) || !Number.isInteger(end) || start <= previous ||
+        end < start || end > 0x10ffff || (start <= 0xdfff && end >= 0xd800)) {
+      throw new Error("Invalid Unicode range");
+    }
+    for (let cp = start; cp <= end; cp++) codepoints.push(cp);
+    previous = end;
+  }
+  return codepoints;
+}
+
+function decodeGlyphCodepoints(data, variant) {
+  if (Array.isArray(data.codepoints)) return [...data.codepoints].sort((a, b) => a - b);
+  if (data.format !== "shared-ranges-v1" || !Array.isArray(data.variants?.[variant])) {
+    throw new Error(`Unsupported glyph data or missing variant: ${variant}`);
+  }
+  return [...expandGlyphRanges(data.common_ranges), ...expandGlyphRanges(data.variants[variant])]
+    .sort((a, b) => a - b);
+}
+
+async function fetchGlyphData(url) {
+  if (!glyphDataRequests.has(url)) {
+    const request = fetch(url, { cache: "no-cache" }).then(async res => {
+      if (!res.ok) throw new Error(`glyph data not found: ${url}`);
+      return res.json();
+    }).catch(error => {
+      glyphDataRequests.delete(url);
+      throw error;
+    });
+    glyphDataRequests.set(url, request);
+  }
+  return glyphDataRequests.get(url);
+}
+
 async function loadGlyphsForFont() {
   if (!glyphDataPath) throw new Error("glyph_data_path is not defined");
-
-  const fileName = getGlyphFileName();
-  const res = await fetch(`${glyphDataPath}/${fileName}`, { cache: "no-cache" });
-
-  if (!res.ok) throw new Error(`glyph data not found: ${fileName}`);
-
-  const data = await res.json();
-  glyphCodepoints = data.codepoints.sort((a, b) => a - b);
+  const sequence = ++glyphLoadSequence;
+  const family = getGlyphFileName().replace(/\.json$/, "");
+  const url = `${glyphDataPath}/${getGlyphDataFileName()}`;
+  try {
+    const data = await fetchGlyphData(url);
+    const variant = data.aliases?.[family] ?? family;
+    const key = `${url}#${variant}`;
+    if (!glyphVariantCache.has(key)) glyphVariantCache.set(key, decodeGlyphCodepoints(data, variant));
+    if (sequence === glyphLoadSequence) glyphCodepoints = glyphVariantCache.get(key);
+  } catch (error) {
+    if (sequence === glyphLoadSequence) throw error;
+  }
 }
 
 async function loadEmojiData() {
@@ -542,7 +608,7 @@ async function loadBrowseData() {
       renderGlyphGrid();
     } catch (error) {
       if (glyphContent) {
-        glyphContent.innerHTML = `<div class="glyph-empty">glyph 데이터를 불러오지 못했습니다: ${getGlyphFileName()}</div>`;
+        glyphContent.innerHTML = `<div class="glyph-empty">glyph 데이터를 불러오지 못했습니다: ${getGlyphDataFileName()}</div>`;
       }
     }
   }
@@ -559,7 +625,7 @@ async function refreshBrowseData() {
       renderGlyphGrid();
     } catch (error) {
       if (glyphContent) {
-        glyphContent.innerHTML = `<div class="glyph-empty">glyph 데이터를 불러오지 못했습니다: ${getGlyphFileName()}</div>`;
+        glyphContent.innerHTML = `<div class="glyph-empty">glyph 데이터를 불러오지 못했습니다: ${getGlyphDataFileName()}</div>`;
       }
     }
   }
@@ -614,11 +680,7 @@ if (fontWidthButtons) {
     currentWidthStyle = getActiveWidthStyle();
 
     updateFontStack();
-
-    if (isBrowseLoaded) {
-      renderGlyphGrid();
-      renderEmoji();
-    }
+    await refreshBrowseData();
   });
 }
 
@@ -629,16 +691,17 @@ if (fontStyleButtons) {
 
     fontStyleButtons.querySelectorAll(".toggle-btn").forEach((button) => {
       button.classList.remove("active");
+      button.setAttribute("aria-pressed", "false");
     });
 
     btn.classList.add("active");
+    btn.setAttribute("aria-pressed", "true");
     currentFontStyle = btn.dataset.style || "standard";
 
     updateFontStack();
 
     if (isBrowseLoaded) {
-      renderGlyphGrid();
-      renderEmoji();
+      await refreshBrowseData();
     }
   });
 }
@@ -698,9 +761,9 @@ if (glyphToggle && glyphBrowserContent) {
 
     if (willOpen) {
       await loadBrowseData();
-      glyphToggle.textContent = "글리프 및 이모지 목록 접기 ▲";
+      glyphToggle.textContent = emojiDataPath ? "글리프 및 이모지 목록 접기 ▲" : "문자 목록 접기 ▲";
     } else {
-      glyphToggle.textContent = "글리프 및 이모지 목록 펼치기 ▼";
+      glyphToggle.textContent = emojiDataPath ? "글리프 및 이모지 목록 펼치기 ▼" : "문자 목록 펼치기 ▼";
     }
   });
 }

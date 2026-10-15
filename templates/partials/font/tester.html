@@ -11,7 +11,7 @@
 
       <div class="control-item">
         <label>미리보기 크기 <span id="val-size">24px</span></label>
-        <input type="range" id="input-size" min="10" max="100" value="24" />
+        <input type="range" id="input-size" min="{{ page.extra.preview_min_size | default(value=10) }}" max="100" value="24" />
       </div>
 
       {% if page.extra.has_mono_toggle is defined and page.extra.has_mono_toggle %}
@@ -34,7 +34,22 @@
       </div>
       {% endif %}
 
-      {% if page.extra.is_mona is defined and page.extra.is_mona %}
+      {% if page.extra.font_styles is defined %}
+      <div class="control-item">
+        <label>폰트 스타일</label>
+        <div class="toggle-buttons" id="font-style-buttons" role="group" aria-label="폰트 스타일">
+          {% for style in page.extra.font_styles %}
+          <button class="toggle-btn{% if loop.first %} active{% endif %}"
+            data-style="{{ style.id }}"
+            data-family-prefix="{{ style.family_prefix }}"
+            data-base-family-prefix="{{ page.extra.font_style_base_family_prefix }}"
+            data-name-prefix="{{ style.name_prefix }}"
+            data-base-name-prefix="{{ page.extra.font_style_base_name_prefix }}"
+            aria-pressed="{% if loop.first %}true{% else %}false{% endif %}">{{ style.label }}</button>
+          {% endfor %}
+        </div>
+      </div>
+      {% elif page.extra.is_mona is defined and page.extra.is_mona %}
       <div class="control-item">
         <label>폰트 스타일</label>
         <div class="toggle-buttons" id="font-style-buttons">
@@ -42,7 +57,9 @@
           <button class="toggle-btn" data-style="straight">MonaS</button>
         </div>
       </div>
+      {% endif %}
 
+      {% if page.extra.is_mona is defined and page.extra.is_mona %}
       <div class="control-item">
         <label>이모지 스타일</label>
         <div class="toggle-buttons" id="emoji-mode-buttons">

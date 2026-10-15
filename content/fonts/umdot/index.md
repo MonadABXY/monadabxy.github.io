@@ -8,6 +8,8 @@ is_mona = false
 has_weight_toggle = true
 has_mono_toggle = true
 font_family = "Umdot12"
+glyph_data_path = "/fonts/umdot/glyphs"
+glyph_data_file = "index.json"
 css_url = "https://cdn.jsdelivr.net/gh/MonadABXY/umdot-font@main/umdot.css"
 github_url = "https://github.com/MonadABXY/umdot-font"
 

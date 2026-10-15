@@ -8,6 +8,8 @@ is_mona = false
 has_weight_toggle = true
 has_mono_toggle = true
 font_family = "Limgul12"
+glyph_data_path = "/fonts/limgul/glyphs"
+glyph_data_file = "index.json"
 css_url = "https://cdn.jsdelivr.net/gh/MonadABXY/limgul-font@main/limgul.css"
 github_url = "https://github.com/MonadABXY/limgul-font"
 

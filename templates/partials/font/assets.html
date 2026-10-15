@@ -6,6 +6,33 @@
 <link rel="stylesheet" href="{{ page.extra.css_url_2 }}" />
 {% endif %}
 
+{% if page.extra.font_styles is defined %}
+<style>
+  @media (max-width: 600px) {
+    .font-header h1 {
+      font-size: 2.25rem;
+      line-height: 1.35;
+    }
+  }
+  .tester-ui .control-item:has(#font-style-buttons) {
+    min-width: 250px;
+  }
+  #font-style-buttons .toggle-btn {
+    font-size: 14px;
+    padding: 10px 4px;
+    white-space: nowrap;
+  }
+  @media (max-width: 360px) {
+    .tester-ui .control-item:has(#font-style-buttons) {
+      min-width: 0;
+    }
+    #font-style-buttons {
+      flex-direction: column;
+    }
+  }
+</style>
+{% endif %}
+
 {% if page.extra.is_mona is defined and page.extra.is_mona %}
 <style>
   @font-face {

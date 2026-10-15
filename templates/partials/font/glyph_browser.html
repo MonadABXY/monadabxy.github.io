@@ -1,6 +1,6 @@
 {% if page.extra.glyph_data_path is defined or page.extra.emoji_data_path is defined %}
 <section class="glyph-browser">
-  <button id="glyph-browser-toggle" class="glyph-browser__toggle" type="button">글리프 및 이모지 목록 펼치기 ▼</button>
+  <button id="glyph-browser-toggle" class="glyph-browser__toggle" type="button">{% if page.extra.emoji_data_path is defined %}글리프 및 이모지 목록{% else %}문자 목록{% endif %} 펼치기 ▼</button>
 
   <div id="glyph-browser-content" class="glyph-browser__content" hidden>
     <div class="glyph-browser__tabs">
