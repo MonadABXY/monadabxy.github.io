@@ -6,7 +6,7 @@ draft = false
 
 [extra]
 is_mona = false
-has_weight_toggle = false
+has_weight_toggle = true
 font_family = "MGalmuri12"
 font_weight = 400
 preview_min_size = 8
